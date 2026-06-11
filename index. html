@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Iron Fitness | لوحة تحكم المدير</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff3b3b;
+            --primary-dark: #cc2e2e;
+            --primary-light: #ff6b6b;
+            --secondary: #1a1a2e;
+            --dark: #0a0a0a;
+            --dark-card: #111827;
+            --gray: #1f2937;
+            --light-gray: #374151;
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #0a0a0a 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ========== Layout ========== */
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ========== Sidebar ========== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, #0f0f1a 0%, #0a0a0f 100%);
+            border-left: 1px solid rgba(255, 59, 59, 0.3);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 59, 59, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--primary), #ff9f4a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .sidebar-header p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .sidebar-nav {
+            padding: 0 15px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            margin: 5px 0;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            width: 24px;
+            font-size: 18px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 59, 59, 0.15);
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(255, 59, 59, 0.25), transparent);
+            color: var(--primary);
+            border-right: 3px solid var(--primary);
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 11px;
+            margin-right: auto;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 59, 59, 0.2);
+        }
+
+        .admin-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 59, 59, 0.1);
+            border-radius: 12px;
+        }
+
+        .admin-card i {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .admin-card p {
+            font-weight: bold;
+        }
+
+        .admin-card small {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ========== Main Content ========== */
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .main-header {
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0 25px;
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 59, 59, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--primary), #ff9f4a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-refresh {
+            background: var(--gray);
+            border: none;
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-refresh:hover {
+            background: var(--primary);
+            transform: rotate(180deg);
+        }
+
+        .date-time {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ========== Pages ========== */
+        .page {
+            display: none;
+            padding: 25px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, var(--dark-card), #0f1117);
+            border-radius: 20px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 59, 59, 0.2);
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 59, 59, 0.2);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 59, 59, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .stat-info h3 {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 59, 59, 0.2);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        /* Recent Section */
+        .recent-section {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .recent-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .recent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: var(--gray);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .recent-item:hover {
+            background: var(--light-gray);
+            transform: translateX(-5px);
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 59, 59, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--gray);
+            color: var(--text);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Filters */
+        .filters-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input, .filter-select {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: var(--text);
+            min-width: 200px;
+        }
+
+        .search-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Data Table */
+        .data-table {
+            background: var(--dark-card);
+            border-radius: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        th {
+            background: rgba(255, 59, 59, 0.1);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: rgba(255, 59, 59, 0.05);
+        }
+
+        .status-active {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .status-expired {
+            color: var(--danger);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn, .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 8px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .edit-btn { color: var(--warning); }
+        .delete-btn { color: var(--danger); }
+
+        .edit-btn:hover, .delete-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--dark-card);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            animation: slideIn 0.3s ease;
+            border: 1px solid var(--primary);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header .close {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-header .close:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            color: var(--text);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background: var(--dark-card);
+            border-right: 4px solid var(--success);
+            padding: 12px 20px;
+            border-radius: 10px;
+            z-index: 1100;
+            animation: slideRight 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-right: 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .filters-bar {
+                flex-direction: column;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+
+        .trainer-img-small {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gray);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-dumbbell"></i> IRON <span style="color:white">FITNESS</span></h2>
+            <p>لوحة تحكم المدير</p>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-item active" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>لوحة التحكم</span>
+            </div>
+            <div class="nav-item" data-page="subscriptions">
+                <i class="fas fa-clipboard-list"></i>
+                <span>الاشتراكات</span>
+                <span class="badge" id="subscriptionsCount">0</span>
+            </div>
+            <div class="nav-item" data-page="trainers">
+                <i class="fas fa-users"></i>
+                <span>المدربين</span>
+                <span class="badge" id="trainersCount">0</span>
+            </div>
+            <div class="nav-item" data-page="members">
+                <i class="fas fa-user-friends"></i>
+                <span>الأعضاء</span>
+            </div>
+            <div class="nav-item" data-page="reports">
+                <i class="fas fa-chart-line"></i>
+                <span>التقارير</span>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="admin-card">
+                <i class="fas fa-user-shield"></i>
+                <div>
+                    <p>مدير النظام</p>
+                    <small>Iron Fitness Admin</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-title">
+                <h1 id="pageTitle">لوحة التحكم</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-refresh" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="date-time" id="dateTime"></div>
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalMembers">0</h3>
+                        <p>إجمالي الأعضاء</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalTrainers">0</h3>
+                        <p>المدربين</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalSubscriptions">0</h3>
+                        <p>إجمالي الاشتراكات</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalRevenue">0</h3>
+                        <p>إجمالي الإيرادات</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3><i class="fas fa-chart-line"></i> الإيرادات الشهرية</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3><i class="fas fa-chart-pie"></i> توزيع الاشتراكات</h3>
+                    <canvas id="subscriptionsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="recent-section">
+                <h3><i class="fas fa-history"></i> آخر الاشتراكات</h3>
+                <div id="recentSubscriptions" class="recent-list"></div>
+            </div>
+        </div>
+
+        <!-- Subscriptions Page -->
+        <div id="subscriptionsPage" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-clipboard-list"></i> إدارة الاشتراكات</h2>
+                <button class="btn-primary" id="addSubscriptionBtn">
+                    <i class="fas fa-plus"></i> اشتراك جديد
+                </button>
+            </div>
+            <div class="filters-bar">
+                <input type="text" id="searchSubscription" placeholder="🔍 بحث بالاسم أو البريد..." class="search-input">
+                <select id="filterTrainer" class="filter-select">
+                    <option value="">كل المدربين</option>
+                </select>
+            </div>
+            <div class="data-table" id="subscriptionsTable"></div>
+        </div>
+
+        <!-- Trainers Page -->
+        <div id="trainersPage" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-users"></i> إدارة المدربين</h2>
+                <button class="btn-primary" id="addTrainerBtn">
+                    <i class="fas fa-plus"></i> مدرب جديد
+                </button>
+            </div>
+            <div class="data-table" id="trainersTable"></div>
+        </div>
+
+        <!-- Members Page -->
+        <div id="membersPage" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-user-friends"></i> إدارة الأعضاء</h2>
+            </div>
+            <div class="filters-bar">
+                <input type="text" id="searchMember" placeholder="🔍 بحث بالاسم أو الهاتف..." class="search-input">
+            </div>
+            <div class="data-table" id="membersTable"></div>
+        </div>
+
+        <!-- Reports Page -->
+        <div id="reportsPage" class="page">
+            <h2><i class="fas fa-chart-line"></i> التقارير والإحصائيات</h2>
+            <div class="stats-grid" style="margin-top: 25px;">
+                <div class="stat-card" onclick="generateReport('revenue')">
+                    <div class="stat-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="stat-info">
+                        <h3>تقرير الإيرادات</h3>
+                        <p>تحميل تقرير مالي مفصل</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="generateReport('members')">
+                    <div class="stat-icon"><i class="fas fa-file-contract"></i></div>
+                    <div class="stat-info">
+                        <h3>تقرير الأعضاء</h3>
+                        <p>قائمة بجميع الأعضاء</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="generateReport('trainers')">
+                    <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="stat-info">
+                        <h3>تقرير المدربين</h3>
+                        <p>إحصائيات المدربين</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Subscription Modal -->
+<div id="subscriptionModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">إضافة اشتراك جديد</h3>
+            <span class="close" onclick="closeSubscriptionModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>الاسم الكامل</label>
+                <input type="text" id="modalUserName" placeholder="أحمد محمد علي">
+            </div>
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="modalUserEmail" placeholder="ahmed@email.com">
+            </div>
+            <div class="form-group">
+                <label>رقم الهاتف</label>
+                <input type="tel" id="modalUserPhone" placeholder="01012345678">
+            </div>
+            <div class="form-group">
+                <label>المدرب</label>
+                <select id="modalTrainerId"></select>
+            </div>
+            <div class="form-group">
+                <label>عدد الأشهر</label>
+                <select id="modalMonths">
+                    <option value="1">شهر واحد</option>
+                    <option value="3">3 أشهر (خصم 5%)</option>
+                    <option value="6">6 أشهر (خصم 10%)</option>
+                    <option value="12">12 شهر (خصم 15%)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>طريقة الدفع</label>
+                <select id="modalPaymentMethod">
+                    <option value="cash">💰 كاش</option>
+                    <option value="card">💳 بطاقة ائتمان</option>
+                    <option value="bank">🏦 تحويل بنكي</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeSubscriptionModal()">إلغاء</button>
+            <button class="btn-primary" id="saveSubscriptionBtn">حفظ</button>
+        </div>
+    </div>
+</div>
+
+<!-- Trainer Modal -->
+<div id="trainerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="trainerModalTitle">إضافة مدرب جديد</h3>
+            <span class="close" onclick="closeTrainerModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>اسم المدرب</label>
+                <input type="text" id="modalTrainerName" placeholder="أحمد رجب">
+            </div>
+            <div class="form-group">
+                <label>التخصص</label>
+                <input type="text" id="modalTrainerSpecialty" placeholder="كمال أجسام - تضخيم">
+            </div>
+            <div class="form-group">
+                <label>السعر الشهري (ج.م)</label>
+                <input type="number" id="modalTrainerPrice" placeholder="1500">
+            </div>
+            <div class="form-group">
+                <label>صورة المدرب (URL)</label>
+                <input type="text" id="modalTrainerImage" placeholder="https://randomuser.me/api/portraits/men/1.jpg">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeTrainerModal()">إلغاء</button>
+            <button class="btn-primary" id="saveTrainerBtn">حفظ</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== Firebase Config ==========
+    const firebaseConfig = {
+        apiKey: "AIzaSyC_V-GXnzvoabdOdPppDYp4WCRjsDgzgkI",
+        authDomain: "platform-46177.firebaseapp.com",
+        databaseURL: "https://platform-46177-default-rtdb.firebaseio.com",
+        projectId: "platform-46177",
+        storageBucket: "platform-46177.firebasestorage.app",
+        messagingSenderId: "933736879105",
+        appId: "1:933736879105:web:13fa2d985214be44881c00",
+        measurementId: "G-9P1KMD5CSJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // ========== Global Variables ==========
+    let revenueChart = null;
+    let subscriptionsChart = null;
+    let trainersList = [];
+    let allSubscriptions = [];
+    let currentEditId = null;
+    let currentTrainerId = null;
+
+    // ========== Initialization ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        loadTrainers();
+        loadAllData();
+        setupEventListeners();
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    });
+
+    function setupEventListeners() {
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const page = item.dataset.page;
+                switchPage(page);
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Menu Toggle
+        document.getElementById('menuToggle')?.addEventListener('click', () => {
+            document.getElementById('sidebar')?.classList.toggle('show');
+        });
+
+        // Refresh
+        document.getElementById('refreshBtn')?.addEventListener('click', () => {
+            loadAllData();
+            showNotification('تم تحديث البيانات', 'success');
+        });
+
+        // Modals
+        document.getElementById('addSubscriptionBtn')?.addEventListener('click', () => openSubscriptionModal());
+        document.getElementById('addTrainerBtn')?.addEventListener('click', () => openTrainerModal());
+        document.getElementById('saveSubscriptionBtn')?.addEventListener('click', () => saveSubscription());
+        document.getElementById('saveTrainerBtn')?.addEventListener('click', () => saveTrainer());
+
+        // Filters
+        document.getElementById('searchSubscription')?.addEventListener('input', () => filterSubscriptions());
+        document.getElementById('filterTrainer')?.addEventListener('change', () => filterSubscriptions());
+        document.getElementById('searchMember')?.addEventListener('input', () => filterMembers());
+    }
+
+    function switchPage(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`${page}Page`).classList.add('active');
+        
+        const titles = { dashboard: 'لوحة التحكم', subscriptions: 'الاشتراكات', trainers: 'المدربين', members: 'الأعضاء', reports: 'التقارير' };
+        document.getElementById('pageTitle').innerHTML = titles[page] || 'لوحة التحكم';
+        
+        if (page === 'dashboard') loadDashboard();
+        if (page === 'subscriptions') loadSubscriptionsTable();
+        if (page === 'trainers') loadTrainersTable();
+        if (page === 'members') loadMembersTable();
+    }
+
+    // ========== Load Trainers ==========
+    function loadTrainers() {
+        const trainersRef = database.ref('trainers');
+        trainersRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            trainersList = data ? Object.entries(data).map(([id, t]) => ({ ...t, id })) : [];
+            document.getElementById('trainersCount').innerText = trainersList.length;
+            updateTrainerSelect();
+        });
+    }
+
+    function updateTrainerSelect() {
+        const select = document.getElementById('modalTrainerId');
+        if (select) {
+            select.innerHTML = '<option value="">-- اختر مدرب --</option>' + 
+                trainersList.map(t => `<option value="${t.id}">${t.name} - ${t.pricePerMonth} ج.م/شهر</option>`).join('');
+        }
+        
+        const filterSelect = document.getElementById('filterTrainer');
+        if (filterSelect) {
+            filterSelect.innerHTML = '<option value="">كل المدربين</option>' + 
+                trainersList.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+        }
+    }
+
+    // ========== Dashboard ==========
+    function loadDashboard() {
+        const subscriptionsRef = database.ref('subscriptions');
+        const trainersRef = database.ref('trainers');
+        
+        subscriptionsRef.once('value', (snapshot) => {
+            const data = snapshot.val();
+            allSubscriptions = data ? Object.entries(data).map(([id, sub]) => ({ ...sub, id })) : [];
+            
+            const uniqueMembers = [...new Set(allSubscriptions.map(s => s.userEmail))];
+            const totalRevenue = allSubscriptions.reduce((sum, s) => sum + (s.totalPrice || 0), 0);
+            
+            document.getElementById('totalMembers').innerText = uniqueMembers.length;
+            document.getElementById('totalSubscriptions').innerText = allSubscriptions.length;
+            document.getElementById('totalRevenue').innerText = totalRevenue.toLocaleString() + ' ج.م';
+            document.getElementById('subscriptionsCount').innerText = allSubscriptions.length;
+            
+            // Recent Subscriptions
+            const recent = [...allSubscriptions].reverse().slice(0, 5);
+            document.getElementById('recentSubscriptions').innerHTML = recent.map(sub => `
+                <div class="recent-item">
+                    <div><strong>${sub.userName}</strong><br><small>${sub.trainerName}</small></div>
+                    <div>${sub.totalPrice} ج.م<br><small>${new Date(sub.createdAt).toLocaleDateString('ar-EG')}</small></div>
+                </div>
+            `).join('');
+            
+            updateCharts(allSubscriptions);
+        });
+        
+        trainersRef.once('value', (snapshot) => {
+            const data = snapshot.val();
+            document.getElementById('totalTrainers').innerText = data ? Object.keys(data).length : 0;
+        });
+    }
+
+    function updateCharts(subscriptions) {
+        const monthlyRevenue = {};
+        subscriptions
