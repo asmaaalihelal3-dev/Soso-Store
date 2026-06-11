@@ -3,361 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Iron Fitness - أفضل جيم في مدينتك. أحدث الأجهزة، مدربون محترفون، وبيئة رياضية فريدة">
-    <title>Iron Fitness | أفضل جيم في مصر</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Tahoma', system-ui, -apple-system, sans-serif;
-            background-color: #07090c;
-            color: #eef2f5;
-            line-height: 1.55;
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* header & nav - احترافي */
-        header {
-            background: rgba(8, 10, 14, 0.96);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 59, 59, 0.4);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.2s;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            flex-wrap: wrap;
-        }
-
-        .logo h1 {
-            font-size: 26px;
-            color: #ff3b3b;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-        .logo span {
-            color: #f5f5f5;
-            font-weight: 600;
-        }
-        .logo p {
-            font-size: 11px;
-            letter-spacing: 1px;
-            color: #a0aab5;
-            margin-top: 4px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 28px;
-        }
-        .nav-links a {
-            color: #cfdde6;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: 0.2s;
-            letter-spacing: 0.3px;
-        }
-        .nav-links a:hover {
-            color: #ff5e5e;
-            border-bottom: 1px solid #ff3b3b;
-            padding-bottom: 4px;
-        }
-
-        /* Hero - تقليل حجم الخط قليلاً وزيادة الاحترافية */
-        .hero {
-            background: linear-gradient(105deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.65) 100%), url('https://placehold.co/1920x650/1c1f26/ff3b3b?text=IRON+FITNESS+ELITE');
-            background-size: cover;
-            background-position: center 30%;
-            min-height: 480px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            border-radius: 0 0 36px 36px;
-            margin-bottom: 50px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-        }
-
-        .hero-content h1 {
-            font-size: 40px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ff5e5e, #ff9f4a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 16px;
-        }
-        .hero-content p {
-            font-size: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            color: #dddddd;
-        }
-        .btn {
-            display: inline-block;
-            background: #ff3b3b;
-            color: #0a0c10;
-            padding: 10px 28px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-top: 18px;
-            transition: 0.2s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255,59,59,0.3);
-        }
-        .btn:hover {
-            background: #ff6060;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255,59,59,0.2);
-        }
-
-        /* Section titles */
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-            width: auto;
-            border-bottom: 2px solid #ff3b3b;
-            padding-bottom: 10px;
-        }
-        .title-center {
-            text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: fit-content;
-        }
-
-        /* Gallery grid */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 26px;
-        }
-        .gym-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 18px;
-            transition: 0.25s ease;
-            border: 1px solid #2a2e36;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-        .gym-img:hover {
-            transform: scale(1.02);
-            border-color: #ff4a4a;
-            box-shadow: 0 12px 24px rgba(255,59,59,0.15);
-        }
-
-        /* Gym info card */
-        .gym-info {
-            background: linear-gradient(145deg, #0e1117, #080a0f);
-            padding: 32px 36px;
-            border-radius: 36px;
-            margin: 60px 0;
-            text-align: center;
-            border: 1px solid #2c2f38;
-            backdrop-filter: blur(4px);
-        }
-        .gym-name {
-            font-size: 32px;
-            font-weight: 800;
-            color: #ff4c4c;
-            letter-spacing: -0.5px;
-        }
-        .gym-details p {
-            font-size: 0.95rem;
-            margin: 10px 0;
-            color: #cbd5e1;
-        }
-
-        /* Trainer cards */
-        .trainer-card {
-            background: #101217;
-            border-radius: 26px;
-            padding: 22px 18px;
-            text-align: center;
-            transition: 0.25s;
-            border: 1px solid #282c34;
-            backdrop-filter: blur(2px);
-        }
-        .trainer-card:hover {
-            border-color: #ff5757;
-            transform: translateY(-6px);
-            background: #141820;
-        }
-        .trainer-img {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ff3b3b;
-            margin-bottom: 14px;
-            background: #1f232b;
-        }
-        .trainer-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: #ff5e5e;
-            margin: 10px 0 6px;
-        }
-        .price {
-            font-size: 18px;
-            font-weight: 700;
-            background: #1a1e26;
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 40px;
-            margin: 8px 0;
-            color: #ffcf9a;
-        }
-
-        /* Subscription form */
-        .subscription-section {
-            background: #0c0f14;
-            padding: 46px 28px;
-            border-radius: 38px;
-            margin: 40px 0;
-            border: 1px solid #2b2f38;
-            box-shadow: 0 18px 30px rgba(0,0,0,0.3);
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #dfe7ef;
-        }
-        select, input {
-            width: 100%;
-            padding: 12px 14px;
-            background: #181c24;
-            border: 1px solid #3a3f48;
-            border-radius: 18px;
-            color: #f0f3f8;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-        select:focus, input:focus {
-            outline: none;
-            border-color: #ff5e5e;
-            box-shadow: 0 0 0 2px rgba(255,59,59,0.3);
-        }
-        .result-card {
-            background: #11151e;
-            padding: 24px;
-            border-radius: 28px;
-            margin-top: 28px;
-            display: none;
-            border-right: 5px solid #ff4a4a;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-        .result-card.show {
-            display: block;
-            animation: fadeUp 0.4s ease;
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(18px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
-        footer {
-            background: #04070c;
-            text-align: center;
-            padding: 28px 20px;
-            margin-top: 60px;
-            border-top: 1px solid #ff3b3b;
-            font-size: 0.85rem;
-            color: #9aa3af;
-        }
-
-        /* responsive & line height smaller */
-        @media (max-width: 780px) {
-            .container {
-                padding: 0 18px;
-            }
-            .hero-content h1 {
-                font-size: 32px;
-            }
-            .hero {
-                min-height: 380px;
-            }
-            .gym-name {
-                font-size: 26px;
-            }
-            .section-title {
-                font-size: 24px;
-            }
-            .nav-links {
-                gap: 16px;
-                flex-wrap: wrap;
-                justify-content: center;
-                margin-top: 8px;
-            }
-            nav {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .trainer-name {
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 28px;
-            }
-            .hero-content p {
-                font-size: 0.85rem;
-            }
-            .btn {
-                padding: 8px 22px;
-                font-size: 0.85rem;
-            }
-            .gym-info {
-                padding: 20px;
-            }
-            .price {
-                font-size: 16px;
-            }
-        }
-
-        /* تنسيق عام للخطوط يكون مريح */
-        p, li, a, button, input, select {
-            font-size: 0.95rem;
-        }
-        .gym-details p {
-            font-size: 0.92rem;
-        }
-        .trainer-card p {
-            font-size: 0.85rem;
-        }
-    </style>
+    <meta name="description" content="Iron Fitness - أفضل جيم في مدينتك">
+    <title>Iron Fitness | نظام اشتراكات متكامل</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -366,115 +18,88 @@
         <nav>
             <div class="logo">
                 <h1>IRON <span>FITNESS</span></h1>
-                <p>حيث القوة تلتقي بالإرادة</p>
+                <p>نظام اشتراكات ذكي | متصل بقاعدة بيانات Firebase</p>
             </div>
             <div class="nav-links">
-                <a href="#">الرئيسية</a>
-                <a href="#gallery">الصور</a>
+                <a href="#home">الرئيسية</a>
                 <a href="#trainers">المدربون</a>
                 <a href="#subscribe">اشتراك</a>
-                <a href="#location">الموقع</a>
+                <a href="#subscriptions">الاشتراكات</a>
             </div>
         </nav>
     </div>
 </header>
 
-<section class="hero">
+<section id="home" class="hero">
     <div class="hero-content">
-        <h1>إعادة تعريف القوة 💥</h1>
-        <p>أحدث تجهيزات, مدربين أولمبيين, وأجواء احترافية. غيّر حياتك اليوم.</p>
-        <a href="#subscribe" class="btn">🔥 ابدأ رحلتك الآن</a>
+        <h1>💪 نظام إدارة الجيم الذكي</h1>
+        <p>متكامل مع Firebase | تخزين بيانات حقيقي | لوحة تحكم فورية</p>
+        <a href="#subscribe" class="btn">🔥 سجل اشتراكك الآن</a>
     </div>
 </section>
 
 <div class="container">
-    <!-- معرض الصور -->
-    <section id="gallery" class="gallery">
-        <h2 class="section-title title-center">📸 معرض IRON FITNESS</h2>
-        <div class="grid-3">
-            <img src="https://placehold.co/600x400/181e26/ff4a4a?text=منطقة+الأثقال+PRO" alt="منطقة الأثقال" class="gym-img">
-            <img src="https://placehold.co/600x400/181e26/ff4a4a?text=كارديو+مبتكر" alt="أجهزة كارديو" class="gym-img">
-            <img src="https://placehold.co/600x400/181e26/ff4a4a?text=منطقة+CrossFit" alt="منطقة تمرين حر" class="gym-img">
-            <img src="https://placehold.co/600x400/181e26/ff4a4a?text=سبا+وساونا" alt="منطقة استرخاء" class="gym-img">
-            <img src="https://placehold.co/600x400/181e26/ff4a4a?text=حلقات+جماعية" alt="حلقات جماعية" class="gym-img">
-            <img src="https://placehold.co/600x400/181e26/ff4a4a?text=VIP+Lounge" alt="ردهة الاستقبال" class="gym-img">
-        </div>
-    </section>
-
-    <!-- معلومات الجيم واسمه وموقعه -->
-    <div class="gym-info" id="location">
-        <div class="gym-details">
-            <div class="gym-name">🏆 IRON FITNESS GYM 🏆</div>
-            <p><strong>📍 الموقع الاستراتيجي:</strong> برج النيل الرياضي – شارع التسعين، التجمع الخامس، القاهرة الجديدة</p>
-            <p><strong>⏰ العمل:</strong> 5:30 صباحاً – 1:00 بعد منتصف الليل (طوال أيام الأسبوع)</p>
-            <p><strong>📞 خط ساخن:</strong> 16789 | 0109 888 2222</p>
-            <p><strong>⚡ المميزات:</strong> أجهزة Technogym أحدث إصدار، مدربون معتمدون دولياً، كافيه رياضي، موقف خاص للاعضاء، غرف تبديل فاخرة</p>
-        </div>
-    </div>
-
-    <!-- عرض المدربين مع الأسعار الشهرية والسنوية -->
+    <!-- عرض المدربين -->
     <section id="trainers">
         <h2 class="section-title title-center">💎 المدربون المحترفون</h2>
         <div class="grid-3" id="trainersContainer"></div>
     </section>
 
-    <!-- نموذج الاشتراك مع المدرب وعدد الشهور واسم المتدرب -->
+    <!-- نموذج الاشتراك -->
     <section id="subscribe" class="subscription-section">
-        <h2 class="section-title title-center">✨ حجز اشتراكك الفاخر ✨</h2>
-        <div style="max-width: 520px; margin: 0 auto;">
+        <h2 class="section-title title-center">✨ نموذج الاشتراك ✨</h2>
+        <div style="max-width: 550px; margin: 0 auto;">
             <div class="form-group">
-                <label>👤 الاسم الكامل (المتدرب):</label>
-                <input type="text" id="userName" placeholder="مثل: يوسف عادل رشدي" autocomplete="off">
+                <label>👤 الاسم الكامل:</label>
+                <input type="text" id="userName" placeholder="مثال: أحمد محمد علي">
             </div>
             <div class="form-group">
-                <label>🏅 اختر المدرب الخاص:</label>
+                <label>📧 البريد الإلكتروني:</label>
+                <input type="email" id="userEmail" placeholder="ahmed@example.com">
+            </div>
+            <div class="form-group">
+                <label>📱 رقم الهاتف:</label>
+                <input type="tel" id="userPhone" placeholder="010XXXXXXXX">
+            </div>
+            <div class="form-group">
+                <label>🏅 اختر المدرب:</label>
                 <select id="trainerSelect">
-                    <option value="">-- اختر مدرب --</option>
+                    <option value="">-- جاري تحميل المدربين --</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>🗓️ مدة الاشتراك (شهور):</label>
+                <label>🗓️ عدد الأشهر:</label>
                 <select id="monthsSelect">
-                    <option value="1">شهر واحد (بدون خصم)</option>
-                    <option value="3">3 أشهر (خصم 5%)</option>
-                    <option value="6">6 أشهر (خصم 10%)</option>
-                    <option value="12">12 شهراً (خصم 15%)</option>
+                    <option value="1">شهر واحد - 0% خصم</option>
+                    <option value="3">3 أشهر - خصم 5%</option>
+                    <option value="6">6 أشهر - خصم 10%</option>
+                    <option value="12">12 شهر - خصم 15%</option>
                 </select>
             </div>
-            <button class="btn" id="subscribeBtn" style="width:100%; font-size:1rem;">💪 تأكيد الاشتراك</button>
-
+            <div class="form-group">
+                <label>💳 طريقة الدفع:</label>
+                <select id="paymentMethod">
+                    <option value="cash">دفع كاش</option>
+                    <option value="card">بطاقة ائتمان</option>
+                    <option value="bank">تحويل بنكي</option>
+                </select>
+            </div>
+            <button class="btn" id="subscribeBtn" style="width:100%">💾 حفظ الاشتراك في Firebase</button>
             <div id="subscriptionResult" class="result-card"></div>
         </div>
+    </section>
+
+    <!-- عرض الاشتراكات المحفوظة -->
+    <section id="subscriptions">
+        <h2 class="section-title title-center">📋 آخر الاشتراكات المسجلة</h2>
+        <div id="subscriptionsList" class="subscriptions-list"></div>
     </section>
 </div>
 
 <footer>
-    <p>© 2025 IRON FITNESS GYM - الريادة في عالم اللياقة | تصميم احترافي بأعلى المعايير</p>
+    <p>© 2025 IRON FITNESS GYM | نظام متكامل مع Firebase Realtime Database</p>
 </footer>
 
-<script>
-    // بيانات المدربين المتقدمين (احترافية + أسعار شهرية)
-    const trainersData = [
-        { id: 1, name: "محمود عبدالله (IFBB Pro)", specialty: "تضخيم وكمال أجسام محترف", pricePerMonth: 1650, image: "https://randomuser.me/api/portraits/men/32.jpg" },
-        { id: 2, name: "سارة خالد (Nutrition Coach)", specialty: "تخسيس وتغذية علاجية", pricePerMonth: 1800, image: "https://randomuser.me/api/portraits/women/68.jpg" },
-        { id: 3, name: "أحمد رجب (CrossFit L3)", specialty: "كروس فيت ورفع أثقال أولمبي", pricePerMonth: 1950, image: "https://randomuser.me/api/portraits/men/45.jpg" },
-        { id: 4, name: "نور الهدى (Yoga Master)", specialty: "يوجا وتأمل واستشفاء", pricePerMonth: 1500, image: "https://randomuser.me/api/portraits/women/22.jpg" },
-        { id: 5, name: "كريم وائل (Mr. Egypt)", specialty: "بطل كمال أجسام ولياقة وظيفية", pricePerMonth: 2100, image: "https://randomuser.me/api/portraits/men/15.jpg" }
-    ];
-
-    // دالة عرض المدربين مع الأسعار السنوية والتشجيعية
-    function renderTrainers() {
-        const container = document.getElementById('trainersContainer');
-        if (!container) return;
-        container.innerHTML = '';
-        trainersData.forEach(trainer => {
-            const annual = trainer.pricePerMonth * 12;
-            const discountAnnual = Math.round(annual * 0.9); // وفر 10% تقريبا
-            const card = document.createElement('div');
-            card.className = 'trainer-card';
-            card.innerHTML = `
-                <img src="${trainer.image}" alt="${trainer.name}" class="trainer-img" onerror="this.src='https://placehold.co/110x110/222/ff3b3b?text=PT'">
-                <h3 class="trainer-name">${trainer.name}</h3>
-                <p style="font-size:0.8rem; color:#b9c3ce;">🎯 ${trainer.specialty}</p>
-                <div class="price">💰 ${trainer.pricePerMonth.toLocaleString()} ج.م / شهرياً</div>
-                <div class="price" style="background:#1f
+<script src="script.js"></script>
+</body>
+    </html>
