@@ -985,4 +985,33 @@
         container.innerHTML = subscriptions.map(sub => {
             let paymentBadge = '';
             if (sub.paymentMethod === 'cash') paymentBadge = '<span class="badge badge-cash"><i class="fas fa-money-bill"></i> كاش</span>';
-            else if (sub.paymentMethod === 'card') paymentBadge = '<span class="badge badge-card"><i class="fab fa-cc-visa"></
+            else if (sub.paymentMethod === 'card') paymentBadge = '<span class="badge badge-card"><i class="fab fa-cc-visa"></else if (sub.paymentMethod === 'card') {
+    paymentBadge = '<span class="badge badge-card"><i class="fas fa-credit-card"></i> بطاقة</span>';
+} else {
+    paymentBadge = '<span class="badge badge-bank"><i class="fas fa-university"></i> تحويل بنكي</span>';
+}
+
+return `
+    <div class="subscription-item">
+        <h4>${sub.userName}</h4>
+
+        <p><strong>🏋️ المدرب:</strong> ${sub.trainerName}</p>
+        <p><strong>📧 البريد:</strong> ${sub.userEmail}</p>
+        <p><strong>📱 الهاتف:</strong> ${sub.userPhone}</p>
+        <p><strong>📅 المدة:</strong> ${sub.monthsText}</p>
+        <p><strong>💰 السعر:</strong> ${sub.totalPrice.toLocaleString()} ج.م</p>
+        <p><strong>📆 التاريخ:</strong>
+            ${new Date(sub.createdAt).toLocaleDateString('ar-EG')}
+        </p>
+
+        ${paymentBadge}
+    </div>
+`;
+}).join('');
+}
+
+// نهاية السكربت
+</script>
+
+</body>
+</html>
