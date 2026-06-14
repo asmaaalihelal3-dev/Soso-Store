@@ -624,7 +624,7 @@
         <select id="trainerSelectLogin">
             <option value="">-- اختر اسمك --</option>
         </select>
-        <button class="approve-btn" id="confirmTrainerBtn" style="width:100%; margin-top:10px;">دخول كلوحة التحكم</button>
+        <button class="approve-btn" id="confirmTrainerBtn" style="width:100%; margin-top:10px;">دخول للوحة التحكم</button>
         <button class="close-trainer-btn" id="closeSelectModal" style="margin-top:10px;">إلغاء</button>
     </div>
 </div>
@@ -998,12 +998,14 @@
         }
     }
 
-    // Load Trainer Requests (الطلبات الخاصة بالمدرب فقط)
+    // Load Trainer Requests (الطلبات الخاصة بالمدرب فقط) - مع تحديث فوري
     function loadTrainerRequests() {
         const container = document.getElementById('trainerRequestsList');
         if (!currentTrainerId) return;
         
-        database.ref('subscriptions').orderByChild('status').equalTo('pending').on('value', (snapshot) => {
+        // استماع مباشر للطلبات المعلقة الخاصة بهذا المدرب
+        const requestsRef = database.ref('subscriptions');
+        requestsRef.orderByChild('status').equalTo('pending').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 const allRequests = Object.entries(data).map(([id, req]) => ({ ...req, id }));
@@ -1034,65 +1036,53 @@
         });
     }
 
+    // قبول الطلب بنقرة واحدة (بدون تأكيد)
     window.approveRequest = function(requestId, months, totalPrice, userName) {
-        Swal.fire({
-            title: 'تأكيد القبول',
-            text: `هل أنت متأكد من قبول طلب ${userName}؟`,
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#10b981',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: 'نعم، اقبل',
-            cancelButtonText: 'إلغاء'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const endDate = calculateEndDate(new Date().toISOString(), months);
-                database.ref(`subscriptions/${requestId}`).update({
-                    status: 'approved',
-                    approvedAt: new Date().toISOString(),
-                    approvedBy: currentTrainerName,
-                    endDate: endDate
-                }).then(() => {
-                    Swal.fire({
-                        title: 'تم القبول!',
-                        text: `تم قبول طلب ${userName} بنجاح`,
-                        icon: 'success',
-                        confirmButtonColor: '#10b981'
-                    });
-                    loadTrainerRequests();
-                    loadSubscriptions();
-                });
-            }
+        const endDate = calculateEndDate(new Date().toISOString(), months);
+        database.ref(`subscriptions/${requestId}`).update({
+            status: 'approved',
+            approvedAt: new Date().toISOString(),
+            approvedBy: currentTrainerName,
+            endDate: endDate
+        }).then(() => {
+            // إظهار إشعار نجاح سريع
+            Swal.fire({
+                title: '✅ تم القبول!',
+                text: `تم قبول طلب ${userName}`,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+                position: 'top-end'
+            });
+            // تحديث القوائم
+            loadTrainerRequests();
+            loadSubscriptions();
+        }).catch(error => {
+            Swal.fire('خطأ', 'حدث خطأ في قبول الطلب', 'error');
         });
     };
 
+    // رفض الطلب بنقرة واحدة (بدون تأكيد)
     window.rejectRequest = function(requestId, userName) {
-        Swal.fire({
-            title: 'تأكيد الرفض',
-            text: `هل أنت متأكد من رفض طلب ${userName}؟`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: 'نعم، ارفض',
-            cancelButtonText: 'إلغاء'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                database.ref(`subscriptions/${requestId}`).update({
-                    status: 'rejected',
-                    rejectedAt: new Date().toISOString(),
-                    rejectedBy: currentTrainerName
-                }).then(() => {
-                    Swal.fire({
-                        title: 'تم الرفض!',
-                        text: `تم رفض طلب ${userName}`,
-                        icon: 'error',
-                        confirmButtonColor: '#ef4444'
-                    });
-                    loadTrainerRequests();
-                    loadSubscriptions();
-                });
-            }
+        database.ref(`subscriptions/${requestId}`).update({
+            status: 'rejected',
+            rejectedAt: new Date().toISOString(),
+            rejectedBy: currentTrainerName
+        }).then(() => {
+            // إظهار إشعار نجاح سريع
+            Swal.fire({
+                title: '❌ تم الرفض!',
+                text: `تم رفض طلب ${userName}`,
+                icon: 'error',
+                timer: 1500,
+                showConfirmButton: false,
+                position: 'top-end'
+            });
+            // تحديث القوائم
+            loadTrainerRequests();
+            loadSubscriptions();
+        }).catch(error => {
+            Swal.fire('خطأ', 'حدث خطأ في رفض الطلب', 'error');
         });
     };
 
