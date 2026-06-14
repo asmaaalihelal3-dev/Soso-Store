@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="description" content="Iron Fitness - أفضل نظام اشتراكات متكامل مع Firebase">
     <meta name="keywords" content="جيم, اشتراكات, Firebase, نظام إدارة">
-    <title>Iron Fitness | نظام اشتراكات احترافي</title>
+    <title>Iron Fitness | نظام اشتراكات - بانتظار موافقة المدير</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -43,6 +43,7 @@
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
+            --pending: #f59e0b;
         }
 
         body {
@@ -108,11 +109,29 @@
         .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { color: var(--primary); }
 
+        /* Admin Panel Button */
+        .admin-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
+        }
+
         .hero {
             background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=600&fit=crop');
             background-size: cover;
             background-position: center;
-            min-height: 450px;
+            min-height: 400px;
             display: flex;
             align-items: center;
             text-align: center;
@@ -290,7 +309,7 @@
             padding: 20px;
             margin-top: 20px;
             display: none;
-            border-right: 4px solid var(--success);
+            border-right: 4px solid var(--warning);
             animation: slideIn 0.4s ease;
         }
         .result-card.show { display: block; }
@@ -319,6 +338,7 @@
         }
         .subscription-item h4 { color: var(--primary); margin-bottom: 12px; font-size: 18px; }
         .subscription-item p { margin: 6px 0; font-size: 13px; color: var(--text-muted); }
+        
         .badge {
             display: inline-block;
             padding: 3px 10px;
@@ -329,6 +349,14 @@
         .badge-cash { background: var(--success); color: white; }
         .badge-card { background: var(--warning); color: white; }
         .badge-bank { background: var(--info); color: white; }
+        .badge-pending { background: #f59e0b; color: white; }
+        .badge-approved { background: #10b981; color: white; }
+        .badge-rejected { background: #ef4444; color: white; }
+
+        .status-pending {
+            border-right-color: #f59e0b;
+            opacity: 0.8;
+        }
 
         .spinner {
             width: 50px;
@@ -408,10 +436,74 @@
             background: var(--primary-dark);
         }
 
+        /* Admin Login Modal */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-modal.active { display: flex; }
+        .admin-modal-content {
+            background: var(--dark-card);
+            border-radius: 30px;
+            padding: 35px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            border: 1px solid var(--primary);
+        }
+        .admin-modal-content h2 { color: var(--primary); margin-bottom: 20px; }
+        .admin-modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            color: white;
+        }
+        .pending-requests {
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        .request-item {
+            background: var(--gray);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .request-item p { margin: 5px 0; font-size: 13px; }
+        .request-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .approve-btn, .reject-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .approve-btn { background: var(--success); color: white; }
+        .reject-btn { background: var(--danger); color: white; }
+        .approve-btn:hover, .reject-btn:hover { opacity: 0.8; transform: scale(0.98); }
+
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             nav { flex-direction: column; gap: 15px; }
-            .nav-links { gap: 20px; }
+            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
             .hero-content h1 { font-size: 32px; }
             .section-title { font-size: 24px; }
             .subscription-section { padding: 30px 20px; }
@@ -426,22 +518,25 @@
         <nav>
             <div class="logo">
                 <h1>IRON <span>FITNESS</span></h1>
-                <p>نظام اشتراكات احترافي | متصل بـ Firebase</p>
+                <p>نظام اشتراكات | بانتظار موافقة المدير</p>
             </div>
             <div class="nav-links">
                 <a href="#home">الرئيسية</a>
                 <a href="#trainers">المدربون</a>
                 <a href="#subscribe">اشتراك</a>
                 <a href="#subscriptions">الاشتراكات</a>
+                <a href="#" class="admin-btn" id="adminLoginBtn">
+                    <i class="fas fa-user-shield"></i> لوحة المدير
+                </a>
             </div>
         </nav>
     </div>
-</header>
+</section>
 
 <section id="home" class="hero">
     <div class="hero-content" data-aos="fade-up">
         <h1>💪 نظام إدارة الجيم الذكي</h1>
-        <p>متكامل مع Firebase | تخزين بيانات حقيقي | تجربة مستخدم فائقة</p>
+        <p>سجل اشتراكك وسيتم مراجعته من قبل المدير | انتظر الموافقة</p>
         <a href="#subscribe" class="btn">🔥 سجل اشتراكك الآن</a>
     </div>
 </section>
@@ -497,16 +592,30 @@
             </div>
             
             <button class="btn" id="subscribeBtn" style="width:100%">
-                <i class="fas fa-save"></i> حفظ الاشتراك في Firebase
+                <i class="fas fa-paper-plane"></i> إرسال طلب الاشتراك
             </button>
             <div id="subscriptionResult" class="result-card"></div>
         </div>
     </section>
 
     <section id="subscriptions" data-aos="fade-up">
-        <h2 class="section-title title-center">📋 آخر الاشتراكات المسجلة</h2>
+        <h2 class="section-title title-center">📋 طلبات الاشتراك</h2>
         <div id="subscriptionsList" class="subscriptions-list"></div>
     </section>
+</div>
+
+<!-- Admin Panel Modal -->
+<div id="adminModal" class="admin-modal">
+    <div class="admin-modal-content">
+        <h2><i class="fas fa-user-shield"></i> لوحة تحكم المدير</h2>
+        <input type="password" id="adminPassword" placeholder="كلمة المرور">
+        <button class="btn" id="adminLoginSubmit" style="width:100%; margin-top:10px;">دخول</button>
+        <div id="adminPanel" style="display: none; margin-top: 20px;">
+            <h3>طلبات الانتظار</h3>
+            <div id="pendingRequestsList" class="pending-requests"></div>
+        </div>
+        <button class="btn-secondary" id="closeAdminModal" style="margin-top: 15px; background:#374151; padding:10px 20px; border-radius:10px; cursor:pointer;">إغلاق</button>
+    </div>
 </div>
 
 <a href="https://wa.me/201098882222" class="whatsapp-float" target="_blank">
@@ -518,7 +627,7 @@
 </div>
 
 <footer>
-    <p>© 2025 IRON FITNESS GYM | نظام متكامل مع Firebase Realtime Database</p>
+    <p>© 2025 IRON FITNESS GYM | نظام اشتراكات - ينتظر موافقة المدير</p>
 </footer>
 
 <script>
@@ -540,6 +649,8 @@
     // Global Variables
     let trainersList = [];
     let allSubscriptions = [];
+    let isAdminLoggedIn = false;
+    const ADMIN_PASSWORD = "admin123";
 
     // Initialize AOS
     AOS.init({ duration: 800, once: true });
@@ -569,6 +680,89 @@
         document.getElementById('monthsSelect')?.addEventListener('change', updatePricePreview);
         document.getElementById('trainerSelect')?.addEventListener('change', updatePricePreview);
         document.getElementById('subscribeBtn')?.addEventListener('click', handleSubscription);
+        
+        // Admin Modal
+        document.getElementById('adminLoginBtn')?.addEventListener('click', () => {
+            document.getElementById('adminModal').classList.add('active');
+        });
+        document.getElementById('closeAdminModal')?.addEventListener('click', () => {
+            document.getElementById('adminModal').classList.remove('active');
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        });
+        document.getElementById('adminLoginSubmit')?.addEventListener('click', adminLogin);
+    }
+
+    function adminLogin() {
+        const password = document.getElementById('adminPassword').value;
+        if (password === ADMIN_PASSWORD) {
+            isAdminLoggedIn = true;
+            document.getElementById('adminPanel').style.display = 'block';
+            loadPendingRequests();
+            Swal.fire('تم الدخول', 'مرحباً مدير النظام', 'success');
+        } else {
+            Swal.fire('خطأ', 'كلمة المرور غير صحيحة', 'error');
+        }
+    }
+
+    function loadPendingRequests() {
+        const container = document.getElementById('pendingRequestsList');
+        database.ref('subscriptions').orderByChild('status').equalTo('pending').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const requests = Object.entries(data).map(([id, req]) => ({ ...req, id }));
+                container.innerHTML = requests.map(req => `
+                    <div class="request-item">
+                        <p><strong>👤 ${req.userName}</strong></p>
+                        <p>📧 ${req.userEmail}</p>
+                        <p>📱 ${req.userPhone}</p>
+                        <p>🏋️ ${req.trainerName}</p>
+                        <p>💰 ${req.totalPrice} ج.م</p>
+                        <div class="request-actions">
+                            <button class="approve-btn" onclick="approveRequest('${req.id}')">✅ قبول</button>
+                            <button class="reject-btn" onclick="rejectRequest('${req.id}')">❌ رفض</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<p style="text-align:center;">لا توجد طلبات معلقة</p>';
+            }
+        });
+    }
+
+    window.approveRequest = function(requestId) {
+        database.ref(`subscriptions/${requestId}`).update({
+            status: 'approved',
+            approvedAt: new Date().toISOString()
+        }).then(() => {
+            Swal.fire('تم القبول', 'تم قبول طلب الاشتراك', 'success');
+            loadPendingRequests();
+            loadSubscriptions();
+        });
+    }
+
+    window.rejectRequest = function(requestId) {
+        Swal.fire({
+            title: 'تأكيد الرفض',
+            text: 'هل أنت متأكد من رفض هذا الطلب؟',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'نعم، ارفض',
+            cancelButtonText: 'إلغاء'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                database.ref(`subscriptions/${requestId}`).update({
+                    status: 'rejected',
+                    rejectedAt: new Date().toISOString()
+                }).then(() => {
+                    Swal.fire('تم الرفض', 'تم رفض طلب الاشتراك', 'error');
+                    loadPendingRequests();
+                    loadSubscriptions();
+                });
+            }
+        });
     }
 
     function loadTrainers() {
@@ -709,17 +903,18 @@
         
         const totalPrice = calculatePrice(trainer.pricePerMonth, months);
         
+        // ✅ الحالة تكون "pending" بانتظار موافقة المدير
         const subscriptionData = {
             userName, userEmail, userPhone,
             trainerId: trainer.firebaseId, trainerName: trainer.name,
             months, totalPrice, paymentMethod,
             createdAt: new Date().toISOString(),
-            status: 'active'
+            status: 'pending'  // 🔴 ينتظر موافقة المدير
         };
         
         const btn = document.getElementById('subscribeBtn');
         const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> جاري الحفظ...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> جاري إرسال الطلب...';
         btn.disabled = true;
         btn.classList.add('btn-loading');
         
@@ -728,15 +923,22 @@
             
             const resultDiv = document.getElementById('subscriptionResult');
             resultDiv.innerHTML = `
-                <h3 style="color:#10b981;"><i class="fas fa-check-circle"></i> ✅ تم تسجيل اشتراكك بنجاح!</h3>
-                <p><strong>المتدرب:</strong> ${userName}</p>
-                <p><strong>المدرب:</strong> ${trainer.name}</p>
-                <p><strong>المدة:</strong> ${months} شهر</p>
-                <p><strong>المبلغ:</strong> ${totalPrice.toLocaleString()} ج.م</p>
-                <p><strong>طريقة الدفع:</strong> ${paymentMethod === 'cash' ? 'كاش' : paymentMethod === 'card' ? 'بطاقة ائتمان' : 'تحويل بنكي'}</p>
+                <h3 style="color:#f59e0b;"><i class="fas fa-clock"></i> ⏳ تم إرسال طلبك بنجاح!</h3>
+                <p><strong>👤 المستخدم:</strong> ${userName}</p>
+                <p><strong>🏋️ المدرب:</strong> ${trainer.name}</p>
+                <p><strong>📅 المدة:</strong> ${months} شهر</p>
+                <p><strong>💰 المبلغ:</strong> ${totalPrice.toLocaleString()} ج.م</p>
+                <hr style="margin: 10px 0; border-color: #333;">
+                <p style="color: #f59e0b; text-align: center;">
+                    <i class="fas fa-hourglass-half"></i> جاري الانتظار... سيتم مراجعة طلبك من قبل المدير
+                </p>
+                <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 10px;">
+                    سيتم إشعارك عند قبول الطلب
+                </p>
             `;
             resultDiv.classList.add('show');
             
+            // مسح الحقول
             document.getElementById('userName').value = '';
             document.getElementById('userEmail').value = '';
             document.getElementById('userPhone').value = '';
@@ -744,16 +946,16 @@
             updatePricePreview();
             
             Swal.fire({
-                title: 'تم بنجاح!',
-                text: 'تم تسجيل اشتراكك في النظام',
-                icon: 'success',
-                confirmButtonColor: '#ff3b3b',
+                title: 'تم إرسال الطلب!',
+                text: 'طلب الاشتراك قيد المراجعة من قبل المدير',
+                icon: 'info',
+                confirmButtonColor: '#f59e0b',
                 timer: 3000
             });
             
             setTimeout(() => {
                 resultDiv.classList.remove('show');
-            }, 5000);
+            }, 8000);
             
         } catch (error) {
             Swal.fire('خطأ', 'حدث خطأ في حفظ البيانات: ' + error.message, 'error');
@@ -772,14 +974,15 @@
             const data = snapshot.val();
             if (data) {
                 allSubscriptions = Object.entries(data).map(([id, sub]) => ({ ...sub, id }));
+                // عرض آخر 6 طلبات فقط
                 const sorted = [...allSubscriptions].reverse().slice(0, 6);
                 renderSubscriptions(sorted);
             } else {
                 container.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-inbox"></i>
-                        <p>لا توجد اشتراكات حتى الآن</p>
-                        <small>سجل اشتراكك الأول الآن!</small>
+                        <p>لا توجد طلبات اشتراك حتى الآن</p>
+                        <small>سجل طلبك الأول الآن!</small>
                     </div>
                 `;
             }
@@ -792,7 +995,7 @@
             container.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-inbox"></i>
-                    <p>لا توجد اشتراكات</p>
+                    <p>لا توجد طلبات</p>
                 </div>
             `;
             return;
@@ -800,6 +1003,8 @@
         
         container.innerHTML = subscriptions.map(sub => {
             let paymentBadge = '';
+            let statusBadge = '';
+            
             if (sub.paymentMethod === 'cash') {
                 paymentBadge = '<span class="badge badge-cash"><i class="fas fa-money-bill"></i> كاش</span>';
             } else if (sub.paymentMethod === 'card') {
@@ -808,8 +1013,19 @@
                 paymentBadge = '<span class="badge badge-bank"><i class="fas fa-university"></i> تحويل بنكي</span>';
             }
             
+            // ✅ عرض حالة الطلب
+            if (sub.status === 'pending') {
+                statusBadge = '<span class="badge badge-pending" style="background:#f59e0b;"><i class="fas fa-hourglass-half"></i> قيد المراجعة</span>';
+            } else if (sub.status === 'approved') {
+                statusBadge = '<span class="badge badge-approved" style="background:#10b981;"><i class="fas fa-check-circle"></i> تم القبول</span>';
+            } else if (sub.status === 'rejected') {
+                statusBadge = '<span class="badge badge-rejected" style="background:#ef4444;"><i class="fas fa-times-circle"></i> مرفوض</span>';
+            } else {
+                statusBadge = '<span class="badge badge-pending" style="background:#f59e0b;"><i class="fas fa-hourglass-half"></i> قيد المراجعة</span>';
+            }
+            
             return `
-                <div class="subscription-item">
+                <div class="subscription-item ${sub.status === 'pending' ? 'status-pending' : ''}">
                     <h4>${sub.userName}</h4>
                     <p><strong>🏋️ المدرب:</strong> ${sub.trainerName}</p>
                     <p><strong>📧 البريد:</strong> ${sub.userEmail}</p>
@@ -817,7 +1033,10 @@
                     <p><strong>📅 المدة:</strong> ${sub.months} شهر</p>
                     <p><strong>💰 السعر:</strong> ${sub.totalPrice.toLocaleString()} ج.م</p>
                     <p><strong>📆 التاريخ:</strong> ${new Date(sub.createdAt).toLocaleDateString('ar-EG')}</p>
-                    ${paymentBadge}
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                        ${statusBadge}
+                        ${paymentBadge}
+                    </div>
                 </div>
             `;
         }).join('');
