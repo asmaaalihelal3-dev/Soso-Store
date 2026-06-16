@@ -2,1045 +2,627 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Iron Fitness - أفضل نظام اشتراكات متكامل مع Firebase">
-    <meta name="keywords" content="جيم, اشتراكات, Firebase, نظام إدارة">
-    <title>Iron Fitness | نظام اشتراكات - بانتظار موافقة المدير</title>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Sweet Alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بروفايل مدربة جمباز أكاديمي - تسجيل الأطفال</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #ff3b3b;
-            --primary-dark: #cc2e2e;
-            --primary-light: #ff6b6b;
-            --secondary: #1a1a2e;
-            --dark: #0a0a0a;
-            --dark-card: #111827;
-            --gray: #1f2937;
-            --light-gray: #374151;
-            --text: #f3f4f6;
-            --text-muted: #9ca3af;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            --pending: #f59e0b;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #0a0a0a 100%);
-            color: var(--text);
+            background: linear-gradient(145deg, #f9f2e7 0%, #ffe6d5 100%);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--dark); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-
-        header {
-            background: rgba(8, 10, 14, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--primary);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        }
-
-        nav {
+            padding: 2rem 1rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 15px 0;
-            flex-wrap: wrap;
         }
 
-        .logo h1 {
-            font-size: 28px;
-            background: linear-gradient(135deg, var(--primary), #ff9f4a);
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* بطاقة البروفايل الرئيسية */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 60px 60px 40px 40px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 215, 150, 0.3);
+            padding: 2rem 2rem 2.5rem;
+            border: 1px solid rgba(255, 200, 150, 0.5);
+            margin-bottom: 2.5rem;
+        }
+
+        /* رأس البروفايل */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d43b6b, #f39c12, #2e86c1, #8e44ad);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 4px 4px 12px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            display: inline-block;
+            padding: 0 20px;
         }
-        .logo span { color: white; }
-        .logo p { font-size: 11px; color: var(--text-muted); }
 
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
+        .header .subtitle {
+            font-size: 1.5rem;
+            color: #4a2c1e;
+            background: rgba(255, 215, 150, 0.5);
+            display: inline-block;
+            padding: 0.3rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+            margin-top: 0.3rem;
             font-weight: 500;
-            transition: 0.3s;
-            position: relative;
+            border: 1px solid #f1b87b;
         }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--primary); }
 
-        /* Admin Panel Button */
-        .admin-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        /* شبكة الصور */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 40px 20px 40px 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .gallery-item:nth-child(1) { border-color: #ff6b81; }
+        .gallery-item:nth-child(2) { border-color: #f1c40f; }
+        .gallery-item:nth-child(3) { border-color: #3498db; }
+        .gallery-item:nth-child(4) { border-color: #2ecc71; }
+
+        .gallery-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            background: #fce4d6;
+        }
+
+        .gallery-item .label {
+            padding: 0.8rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d1f14;
+            border-top: 2px dashed #f1b87b;
+        }
+
+        .gallery-item .label i {
+            margin-left: 8px;
+            color: #d35400;
+        }
+
+        /* معلومات المدربة + العنوان */
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: rgba(255, 235, 210, 0.6);
+            backdrop-filter: blur(6px);
+            border-radius: 50px 20px 50px 20px;
+            padding: 1.8rem 2.2rem;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #f7cba0;
+        }
+
+        .info-text {
+            flex: 2 1 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .info-text h3 {
+            font-size: 2rem;
+            color: #3e2a1b;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 3px dotted #d68b5c;
+            padding-bottom: 5px;
+        }
+
+        .info-text p {
+            font-size: 1.2rem;
+            color: #2c1e13;
+            background: rgba(255, 215, 170, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid #efb68a;
+        }
+
+        .info-text p i {
+            width: 2rem;
+            color: #b85e2b;
+        }
+
+        .info-location {
+            flex: 1 1 200px;
+            background: #fce2ce;
+            border-radius: 50px 10px 50px 10px;
+            padding: 1rem 1.8rem;
+            border: 2px solid #e8a87c;
+            box-shadow: 0 0 0 3px #fad6b3;
+            margin-top: 0.5rem;
+        }
+
+        .info-location .address {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #492f1e;
+        }
+
+        .info-location .address span {
+            background: #d35400;
             color: white;
-            padding: 8px 20px;
+            padding: 0.2rem 1rem;
             border-radius: 30px;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 2px dashed #dba67a;
+        }
+
+        .social-links a {
+            background: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            color: #2d1a0c;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links a:nth-child(1) { background: #ffe5d0; border-color: #e67e22; }
+        .social-links a:nth-child(2) { background: #d5f0ff; border-color: #2980b9; }
+        .social-links a:nth-child(3) { background: #fcd5ce; border-color: #c0392b; }
+        .social-links a:nth-child(4) { background: #d4f0d4; border-color: #27ae60; }
+
+        .social-links a:hover {
+            transform: scale(1.05) translateY(-3px);
+            background: #fff4e6;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== نموذج التسجيل ===== */
+        .registration-section {
+            background: rgba(255, 245, 235, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 60px 20px 60px 20px;
+            padding: 2rem 2.5rem;
+            margin-top: 2.5rem;
+            border: 2px solid #f5cba0;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .registration-section h2 {
+            font-size: 2.2rem;
+            color: #3e2a1b;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 4px dotted #d68b5c;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .registration-section h2 i {
+            color: #d35400;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #4a2f1d;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: 0.3s;
-        }
-        .admin-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
         }
 
-        .hero {
-            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=600&fit=crop');
-            background-size: cover;
-            background-position: center;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            border-radius: 0 0 40px 40px;
-            margin-bottom: 50px;
+        .form-group label i {
+            color: #d35400;
+            width: 1.4rem;
         }
 
-        .hero-content {
-            width: 100%;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-content h1 {
-            font-size: 48px;
-            background: linear-gradient(135deg, var(--primary), #ff9f4a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-        }
-        .hero-content p { font-size: 1.1rem; color: #ddd; }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 12px 35px;
+        .form-group input, .form-group select {
+            padding: 0.8rem 1.2rem;
             border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.3);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 59, 59, 0.4);
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-        }
-        .title-center {
-            text-align: center;
-            display: block;
-            margin: 0 auto 50px;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
-        }
-        .title-center::after {
-            left: 50%;
-            transform: translateX(-50%);
-            right: auto;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .trainer-card {
-            background: linear-gradient(145deg, var(--dark-card), #0f1117);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 59, 59, 0.2);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .trainer-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), #ff9f4a);
-            transform: scaleX(0);
-            transition: 0.3s;
-        }
-        .trainer-card:hover::before { transform: scaleX(1); }
-        .trainer-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-        }
-        .trainer-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary);
-            margin-bottom: 15px;
-        }
-        .trainer-name { font-size: 22px; color: var(--primary); margin: 10px 0; }
-        .price {
-            font-size: 18px;
-            font-weight: bold;
-            background: var(--gray);
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 25px;
-            margin: 10px 0;
-        }
-
-        .subscription-section {
-            background: linear-gradient(145deg, var(--dark-card), #0f1117);
-            padding: 50px;
-            border-radius: 30px;
-            margin: 60px 0;
-            border: 1px solid rgba(255, 59, 59, 0.2);
-        }
-        .form-group { margin-bottom: 20px; }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-        select, input {
-            width: 100%;
-            padding: 12px 15px;
-            background: var(--gray);
-            border: 1px solid var(--light-gray);
-            border-radius: 12px;
-            color: white;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-        select:focus, input:focus {
+            border: 2px solid #e8b68e;
+            background: white;
+            font-size: 1rem;
+            transition: 0.25s;
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(255, 59, 59, 0.2);
-        }
-
-        .price-preview {
-            background: rgba(255, 59, 59, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px dashed var(--primary);
-        }
-        .price-preview .amount {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary);
-        }
-        .price-preview .discount { font-size: 12px; color: var(--success); }
-
-        .result-card {
-            background: var(--gray);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
-            display: none;
-            border-right: 4px solid var(--warning);
-            animation: slideIn 0.4s ease;
-        }
-        .result-card.show { display: block; }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .subscriptions-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .subscription-item {
-            background: linear-gradient(145deg, var(--dark-card), #0f1117);
-            border-radius: 16px;
-            padding: 20px;
-            border-right: 3px solid var(--primary);
-            transition: 0.3s;
-            animation: fadeIn 0.5s ease;
-        }
-        .subscription-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        .subscription-item h4 { color: var(--primary); margin-bottom: 12px; font-size: 18px; }
-        .subscription-item p { margin: 6px 0; font-size: 13px; color: var(--text-muted); }
-        
-        .badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            margin-top: 10px;
-        }
-        .badge-cash { background: var(--success); color: white; }
-        .badge-card { background: var(--warning); color: white; }
-        .badge-bank { background: var(--info); color: white; }
-        .badge-pending { background: #f59e0b; color: white; }
-        .badge-approved { background: #10b981; color: white; }
-        .badge-rejected { background: #ef4444; color: white; }
-
-        .status-pending {
-            border-right-color: #f59e0b;
-            opacity: 0.8;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--gray);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .empty-state {
-            text-align: center;
-            padding: 50px;
-            color: var(--text-muted);
-        }
-        .empty-state i { font-size: 50px; margin-bottom: 15px; opacity: 0.5; }
-
-        footer {
-            background: #050505;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            border-top: 1px solid var(--primary);
-        }
-
-        .btn-loading { opacity: 0.7; cursor: not-allowed; }
-        .btn-loading i { animation: spin 1s linear infinite; }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 100;
-            transition: 0.3s;
-            animation: pulse 2s infinite;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .scroll-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: 0.3s;
-            opacity: 0;
-            visibility: hidden;
-        }
-        .scroll-top.show { opacity: 1; visibility: visible; }
-        .scroll-top:hover {
-            transform: translateY(-3px);
-            background: var(--primary-dark);
-        }
-
-        /* Admin Login Modal */
-        .admin-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
         }
-        .admin-modal.active { display: flex; }
-        .admin-modal-content {
-            background: var(--dark-card);
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #d35400;
+            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.2);
+        }
+
+        .form-group select {
+            appearance: auto;
+        }
+
+        .price-box {
+            background: #fce2ce;
             border-radius: 30px;
-            padding: 35px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            border: 1px solid var(--primary);
-        }
-        .admin-modal-content h2 { color: var(--primary); margin-bottom: 20px; }
-        .admin-modal-content input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: var(--gray);
-            border: 1px solid var(--light-gray);
-            border-radius: 10px;
-            color: white;
-        }
-        .pending-requests {
-            max-height: 400px;
-            overflow-y: auto;
-            margin: 20px 0;
-        }
-        .request-item {
-            background: var(--gray);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            text-align: right;
-        }
-        .request-item p { margin: 5px 0; font-size: 13px; }
-        .request-actions {
+            padding: 1.2rem 2rem;
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            border: 2px solid #e8a87c;
         }
-        .approve-btn, .reject-btn {
-            flex: 1;
-            padding: 8px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .approve-btn { background: var(--success); color: white; }
-        .reject-btn { background: var(--danger); color: white; }
-        .approve-btn:hover, .reject-btn:hover { opacity: 0.8; transform: scale(0.98); }
 
-        @media (max-width: 768px) {
-            .container { padding: 0 16px; }
-            nav { flex-direction: column; gap: 15px; }
-            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
-            .hero-content h1 { font-size: 32px; }
-            .section-title { font-size: 24px; }
-            .subscription-section { padding: 30px 20px; }
-            .subscriptions-list { grid-template-columns: 1fr; }
+        .price-item {
+            background: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #2d1a0c;
+            border: 2px solid #f1b87b;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-item i {
+            color: #d35400;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 18px rgba(211, 84, 0, 0.3);
+            border: 2px solid #f5cba0;
+            margin-top: 0.5rem;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.03) translateY(-3px);
+            box-shadow: 0 14px 28px rgba(211, 84, 0, 0.4);
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+
+        /* رسالة القيد الانتظار */
+        .pending-message {
+            background: #fcebd9;
+            border-radius: 60px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            border: 3px solid #f39c12;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #7e4a1f;
+            box-shadow: 0 0 0 4px #ffe0b5;
+        }
+
+        .pending-message i {
+            font-size: 2.8rem;
+            color: #d35400;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.6; transform: scale(0.95); }
+        }
+
+        .pending-message.show {
+            display: flex;
+        }
+
+        .hidden-info {
+            display: none;
+            background: #fcebd9;
+            padding: 1rem;
+            border-radius: 40px;
+            border: 2px dashed #d35400;
+            margin-top: 1rem;
+            color: #6b3f1f;
+        }
+
+        .hidden-info.show {
+            display: block;
+        }
+
+        .badge {
+            background: #f39c12;
+            color: white;
+            border-radius: 40px;
+            padding: 0.2rem 1rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 650px) {
+            .profile-card { padding: 1.5rem; }
+            .header h1 { font-size: 2.5rem; }
+            .info-section { flex-direction: column; gap: 1.5rem; }
+            .registration-section { padding: 1.5rem; }
+        }
+
+        @media (max-width: 450px) {
+            .header h1 { font-size: 2rem; }
+            .form-row { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-
-<header>
-    <div class="container">
-        <nav>
-            <div class="logo">
-                <h1>IRON <span>FITNESS</span></h1>
-                <p>نظام اشتراكات | بانتظار موافقة المدير</p>
+<div class="main-container">
+    <!-- بروفايل المدربة -->
+    <div class="profile-card">
+        <div class="header">
+            <h1><i class="fas fa-star" style="color: #f1c40f;"></i> ليلى المنصور <i class="fas fa-star" style="color: #f1c40f;"></i></h1>
+            <div class="subtitle">
+                <i class="fas fa-medal"></i> مدربة جمباز أكاديمي معتمدة <i class="fas fa-medal"></i>
             </div>
-            <div class="nav-links">
-                <a href="#home">الرئيسية</a>
-                <a href="#trainers">المدربون</a>
-                <a href="#subscribe">اشتراك</a>
-                <a href="#subscriptions">الاشتراكات</a>
-                <a href="#" class="admin-btn" id="adminLoginBtn">
-                    <i class="fas fa-user-shield"></i> لوحة المدير
-                </a>
-            </div>
-        </nav>
-    </div>
-</section>
-
-<section id="home" class="hero">
-    <div class="hero-content" data-aos="fade-up">
-        <h1>💪 نظام إدارة الجيم الذكي</h1>
-        <p>سجل اشتراكك وسيتم مراجعته من قبل المدير | انتظر الموافقة</p>
-        <a href="#subscribe" class="btn">🔥 سجل اشتراكك الآن</a>
-    </div>
-</section>
-
-<div class="container">
-    <section id="trainers">
-        <h2 class="section-title title-center" data-aos="fade-up">💎 نخبة المدربين المحترفين</h2>
-        <div class="grid-3" id="trainersContainer"></div>
-    </section>
-
-    <section id="subscribe" class="subscription-section" data-aos="fade-up">
-        <h2 class="section-title title-center">✨ نموذج الاشتراك ✨</h2>
-        <div style="max-width: 550px; margin: 0 auto;">
-            <div class="form-group">
-                <label><i class="fas fa-user"></i> الاسم الكامل:</label>
-                <input type="text" id="userName" placeholder="مثال: أحمد محمد علي">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-envelope"></i> البريد الإلكتروني:</label>
-                <input type="email" id="userEmail" placeholder="ahmed@example.com">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-phone"></i> رقم الهاتف:</label>
-                <input type="tel" id="userPhone" placeholder="010XXXXXXXX">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-dumbbell"></i> اختر المدرب:</label>
-                <select id="trainerSelect">
-                    <option value="">-- جاري تحميل المدربين --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-calendar"></i> عدد الأشهر:</label>
-                <select id="monthsSelect">
-                    <option value="1">📅 شهر واحد - 0% خصم</option>
-                    <option value="3">📅 3 أشهر - 🔥 خصم 5%</option>
-                    <option value="6">📅 6 أشهر - 🔥 خصم 10%</option>
-                    <option value="12">📅 12 شهر - 🔥 خصم 15%</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-credit-card"></i> طريقة الدفع:</label>
-                <select id="paymentMethod">
-                    <option value="cash">💰 دفع كاش</option>
-                    <option value="card">💳 بطاقة ائتمان</option>
-                    <option value="bank">🏦 تحويل بنكي</option>
-                </select>
-            </div>
-            
-            <div class="price-preview" id="pricePreview">
-                <div class="amount" id="previewAmount">0 ج.م</div>
-                <div class="discount" id="previewDiscount"></div>
-            </div>
-            
-            <button class="btn" id="subscribeBtn" style="width:100%">
-                <i class="fas fa-paper-plane"></i> إرسال طلب الاشتراك
-            </button>
-            <div id="subscriptionResult" class="result-card"></div>
+            <p style="margin-top: 0.5rem; color: #5a3b26; font-weight: 500; background: rgba(255,230,200,0.6); display: inline-block; padding: 0.2rem 2rem; border-radius: 50px;">
+                <i class="fas fa-gymnastics"></i> جمباز فني · إيقاعي · كلاس · لايروبكس <i class="fas fa-gymnastics"></i>
+            </p>
         </div>
-    </section>
 
-    <section id="subscriptions" data-aos="fade-up">
-        <h2 class="section-title title-center">📋 طلبات الاشتراك</h2>
-        <div id="subscriptionsList" class="subscriptions-list"></div>
-    </section>
-</div>
-
-<!-- Admin Panel Modal -->
-<div id="adminModal" class="admin-modal">
-    <div class="admin-modal-content">
-        <h2><i class="fas fa-user-shield"></i> لوحة تحكم المدير</h2>
-        <input type="password" id="adminPassword" placeholder="كلمة المرور">
-        <button class="btn" id="adminLoginSubmit" style="width:100%; margin-top:10px;">دخول</button>
-        <div id="adminPanel" style="display: none; margin-top: 20px;">
-            <h3>طلبات الانتظار</h3>
-            <div id="pendingRequestsList" class="pending-requests"></div>
+        <!-- الصور -->
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/6112068/pexels-photo-6112068.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز فني" loading="lazy">
+                <div class="label"><i class="fas fa-hand-holding-heart"></i> الجمباز الفني</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز كلاس" loading="lazy">
+                <div class="label"><i class="fas fa-music"></i> الجمباز الكلاس</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="لايروبكس" loading="lazy">
+                <div class="label"><i class="fas fa-bolt"></i> لايروبكس</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="الأكاديمية" loading="lazy">
+                <div class="label"><i class="fas fa-location-dot"></i> الأكاديمية</div>
+            </div>
         </div>
-        <button class="btn-secondary" id="closeAdminModal" style="margin-top: 15px; background:#374151; padding:10px 20px; border-radius:10px; cursor:pointer;">إغلاق</button>
+
+        <!-- معلومات + عنوان -->
+        <div class="info-section">
+            <div class="info-text">
+                <h3><i class="fas fa-user-graduate" style="color:#8e44ad;"></i> عن المدربة</h3>
+                <p><i class="fas fa-certificate" style="color:#d35400;"></i> 12 عاماً من الخبرة في التدريب الأكاديمي</p>
+                <p><i class="fas fa-trophy" style="color:#f39c12;"></i> مدربة جمباز فني · إيقاعي · كلاس · لايروبكس</p>
+                <p><i class="fas fa-people-group" style="color:#2980b9;"></i> حاصلة على شهادة التدريب الدولية IPT</p>
+                <p style="background: #fad6b0; border: 1px solid #e67e22;"><i class="fas fa-phone-alt" style="color:#27ae60;"></i> +966 55 123 4567</p>
+            </div>
+            <div class="info-location" id="locationBlock">
+                <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+                    <i class="fas fa-map-pin"></i>
+                    <span class="address"><span>📍</span> العنوان</span>
+                </div>
+                <p style="font-weight: 500; color:#2c1e13; margin: 0.5rem 0;">
+                    <i class="fas fa-building" style="color:#d35400;"></i> أكاديمية الرياض الأولمبية
+                </p>
+                <p style="display: flex; align-items: center; gap: 8px; background: #fce8d6; padding: 0.2rem 1rem; border-radius: 40px;">
+                    <i class="fas fa-location-dot" style="color:#c0392b;"></i> 
+                    <span>شارع الأمير سلطان، حي الملقا، الرياض</span>
+                </p>
+                <p style="margin-top: 0.3rem;"><i class="fas fa-clock" style="color:#e67e22;"></i> يومياً 8ص – 10م</p>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="#"><i class="fab fa-whatsapp" style="color:#25d366;"></i> واتساب</a>
+            <a href="#"><i class="fab fa-instagram" style="color:#c13584;"></i> إنستغرام</a>
+            <a href="#"><i class="fab fa-youtube" style="color:#ff0000;"></i> يوتيوب</a>
+            <a href="#"><i class="fas fa-envelope" style="color:#d35400;"></i> البريد الإلكتروني</a>
+        </div>
+    </div>
+
+    <!-- ===== نموذج التسجيل ===== -->
+    <div class="registration-section" id="registrationSection">
+        <h2><i class="fas fa-child"></i> تسجيل الطفل للاشتراك</h2>
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> اسم الطفل</label>
+                    <input type="text" id="childName" placeholder="أدخل اسم الطفل" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> عمر الطفل</label>
+                    <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> رقم ولي الأمر</label>
+                    <input type="tel" id="parentPhone" placeholder="05xxxxxxxx" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-clock"></i> عدد الأشهر</label>
+                    <select id="monthsCount">
+                        <option value="1">شهر واحد</option>
+                        <option value="3">3 أشهر</option>
+                        <option value="6">6 أشهر</option>
+                        <option value="12">12 شهر</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> نوع الحصة</label>
+                    <select id="sessionType">
+                        <option value="فني">جمباز فني</option>
+                        <option value="كلاس">جمباز كلاس</option>
+                        <option value="لايروبكس">لايروبكس</option>
+                        <option value="مدمج">مدمج (فني + كلاس)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- الأسعار والحصص -->
+            <div class="price-box">
+                <span class="price-item"><i class="fas fa-dollar-sign"></i> 300 ريال / شهر</span>
+                <span class="price-item"><i class="fas fa-dollar-sign"></i> 800 ريال / 3 شهور</span>
+                <span class="price-item"><i class="fas fa-dollar-sign"></i> 1500 ريال / 6 شهور</span>
+                <span class="price-item"><i class="fas fa-dollar-sign"></i> 2800 ريال / 12 شهر</span>
+                <span class="price-item"><i class="fas fa-calendar-check"></i> حصص: مرتين أسبوعياً</span>
+            </div>
+
+            <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> تقديم الطلب</button>
+        </form>
+
+        <!-- رسالة قيد الانتظار -->
+        <div id="pendingMessage" class="pending-message">
+            <i class="fas fa-hourglass-half"></i>
+            <span>⏳ قيد الانتظار ... سيتم إرسال العنوان والوقت بعد قبول المدير</span>
+            <i class="fas fa-hourglass-half"></i>
+        </div>
+
+        <!-- معلومات مخفية (العنوان والوقت) تظهر فقط بعد القبول (محاكاة) -->
+        <div id="hiddenInfo" class="hidden-info">
+            <i class="fas fa-check-circle" style="color: #27ae60; font-size: 1.8rem;"></i>
+            <span style="font-weight: 700; font-size: 1.2rem;">تم القبول! التفاصيل:</span>
+            <p><i class="fas fa-location-dot"></i> العنوان: شارع الأمير سلطان، حي الملقا، الرياض (الصالة الرئيسية)</p>
+            <p><i class="fas fa-clock"></i> الوقت: السبت / الإثنين 5:00 عصراً – 6:30 مساءً</p>
+        </div>
     </div>
 </div>
-
-<a href="https://wa.me/201098882222" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-<div class="scroll-top" id="scrollTop">
-    <i class="fas fa-arrow-up"></i>
-</div>
-
-<footer>
-    <p>© 2025 IRON FITNESS GYM | نظام اشتراكات - ينتظر موافقة المدير</p>
-</footer>
 
 <script>
-    // Firebase Config
-    const firebaseConfig = {
-        apiKey: "AIzaSyC_V-GXnzvoabdOdPppDYp4WCRjsDgzgkI",
-        authDomain: "platform-46177.firebaseapp.com",
-        databaseURL: "https://platform-46177-default-rtdb.firebaseio.com",
-        projectId: "platform-46177",
-        storageBucket: "platform-46177.firebasestorage.app",
-        messagingSenderId: "933736879105",
-        appId: "1:933736879105:web:13fa2d985214be44881c00"
-    };
+    (function() {
+        const form = document.getElementById('registerForm');
+        const pendingMsg = document.getElementById('pendingMessage');
+        const hiddenInfo = document.getElementById('hiddenInfo');
+        const locationBlock = document.getElementById('locationBlock');
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+        // عند تقديم النموذج
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    // Global Variables
-    let trainersList = [];
-    let allSubscriptions = [];
-    let isAdminLoggedIn = false;
-    const ADMIN_PASSWORD = "admin123";
+            // التحقق من الحقول الأساسية
+            const childName = document.getElementById('childName').value.trim();
+            const childAge = document.getElementById('childAge').value.trim();
+            const parentPhone = document.getElementById('parentPhone').value.trim();
 
-    // Initialize AOS
-    AOS.init({ duration: 800, once: true });
-
-    // Initialize App
-    document.addEventListener('DOMContentLoaded', () => {
-        loadTrainers();
-        loadSubscriptions();
-        setupEventListeners();
-        updatePricePreview();
-        
-        window.addEventListener('scroll', () => {
-            const scrollBtn = document.getElementById('scrollTop');
-            if (window.scrollY > 300) {
-                scrollBtn.classList.add('show');
-            } else {
-                scrollBtn.classList.remove('show');
-            }
-        });
-        
-        document.getElementById('scrollTop').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    });
-
-    function setupEventListeners() {
-        document.getElementById('monthsSelect')?.addEventListener('change', updatePricePreview);
-        document.getElementById('trainerSelect')?.addEventListener('change', updatePricePreview);
-        document.getElementById('subscribeBtn')?.addEventListener('click', handleSubscription);
-        
-        // Admin Modal
-        document.getElementById('adminLoginBtn')?.addEventListener('click', () => {
-            document.getElementById('adminModal').classList.add('active');
-        });
-        document.getElementById('closeAdminModal')?.addEventListener('click', () => {
-            document.getElementById('adminModal').classList.remove('active');
-            document.getElementById('adminPanel').style.display = 'none';
-            document.getElementById('adminPassword').value = '';
-        });
-        document.getElementById('adminLoginSubmit')?.addEventListener('click', adminLogin);
-    }
-
-    function adminLogin() {
-        const password = document.getElementById('adminPassword').value;
-        if (password === ADMIN_PASSWORD) {
-            isAdminLoggedIn = true;
-            document.getElementById('adminPanel').style.display = 'block';
-            loadPendingRequests();
-            Swal.fire('تم الدخول', 'مرحباً مدير النظام', 'success');
-        } else {
-            Swal.fire('خطأ', 'كلمة المرور غير صحيحة', 'error');
-        }
-    }
-
-    function loadPendingRequests() {
-        const container = document.getElementById('pendingRequestsList');
-        database.ref('subscriptions').orderByChild('status').equalTo('pending').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                const requests = Object.entries(data).map(([id, req]) => ({ ...req, id }));
-                container.innerHTML = requests.map(req => `
-                    <div class="request-item">
-                        <p><strong>👤 ${req.userName}</strong></p>
-                        <p>📧 ${req.userEmail}</p>
-                        <p>📱 ${req.userPhone}</p>
-                        <p>🏋️ ${req.trainerName}</p>
-                        <p>💰 ${req.totalPrice} ج.م</p>
-                        <div class="request-actions">
-                            <button class="approve-btn" onclick="approveRequest('${req.id}')">✅ قبول</button>
-                            <button class="reject-btn" onclick="rejectRequest('${req.id}')">❌ رفض</button>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                container.innerHTML = '<p style="text-align:center;">لا توجد طلبات معلقة</p>';
-            }
-        });
-    }
-
-    window.approveRequest = function(requestId) {
-        database.ref(`subscriptions/${requestId}`).update({
-            status: 'approved',
-            approvedAt: new Date().toISOString()
-        }).then(() => {
-            Swal.fire('تم القبول', 'تم قبول طلب الاشتراك', 'success');
-            loadPendingRequests();
-            loadSubscriptions();
-        });
-    }
-
-    window.rejectRequest = function(requestId) {
-        Swal.fire({
-            title: 'تأكيد الرفض',
-            text: 'هل أنت متأكد من رفض هذا الطلب؟',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: 'نعم، ارفض',
-            cancelButtonText: 'إلغاء'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                database.ref(`subscriptions/${requestId}`).update({
-                    status: 'rejected',
-                    rejectedAt: new Date().toISOString()
-                }).then(() => {
-                    Swal.fire('تم الرفض', 'تم رفض طلب الاشتراك', 'error');
-                    loadPendingRequests();
-                    loadSubscriptions();
-                });
-            }
-        });
-    }
-
-    function loadTrainers() {
-        const container = document.getElementById('trainersContainer');
-        container.innerHTML = '<div class="spinner"></div>';
-        
-        database.ref('trainers').once('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data && Object.keys(data).length > 0) {
-                trainersList = Object.entries(data).map(([id, t]) => ({ ...t, id, firebaseId: id }));
-            } else {
-                trainersList = [
-                    { id: 1, name: "محمود عبدالله", specialty: "تضخيم وكمال أجسام", pricePerMonth: 1500, image: "https://randomuser.me/api/portraits/men/32.jpg", firebaseId: "1" },
-                    { id: 2, name: "سارة خالد", specialty: "تخسيس وتغذية", pricePerMonth: 1700, image: "https://randomuser.me/api/portraits/women/68.jpg", firebaseId: "2" },
-                    { id: 3, name: "أحمد رجب", specialty: "كروس فيت", pricePerMonth: 1800, image: "https://randomuser.me/api/portraits/men/45.jpg", firebaseId: "3" },
-                    { id: 4, name: "نور الهدى", specialty: "يوجا وتأمل", pricePerMonth: 1400, image: "https://randomuser.me/api/portraits/women/22.jpg", firebaseId: "4" },
-                    { id: 5, name: "كريم وائل", specialty: "بطل كمال أجسام", pricePerMonth: 2000, image: "https://randomuser.me/api/portraits/men/15.jpg", firebaseId: "5" }
-                ];
-            }
-            renderTrainers(trainersList);
-            updateTrainerSelect();
-        });
-    }
-
-    function renderTrainers(trainers) {
-        const container = document.getElementById('trainersContainer');
-        container.innerHTML = trainers.map(trainer => `
-            <div class="trainer-card" data-aos="fade-up" onclick="selectTrainer('${trainer.firebaseId}')">
-                <img src="${trainer.image}" class="trainer-img" onerror="this.src='https://placehold.co/120x120/333/ff3b3b?text=PT'">
-                <h3 class="trainer-name">${trainer.name}</h3>
-                <p>🎯 ${trainer.specialty}</p>
-                <div class="price">💰 ${trainer.pricePerMonth.toLocaleString()} ج.م / شهرياً</div>
-                <small style="color:#888;"><i class="fas fa-star" style="color:#ff9800;"></i> 4.8 ⭐</small>
-            </div>
-        `).join('');
-    }
-
-    function updateTrainerSelect() {
-        const select = document.getElementById('trainerSelect');
-        if (select && trainersList.length) {
-            select.innerHTML = '<option value="">-- اختر مدرب --</option>' + 
-                trainersList.map(t => `<option value="${t.firebaseId}">${t.name} - ${t.pricePerMonth.toLocaleString()} ج.م/شهر</option>`).join('');
-        }
-    }
-
-    window.selectTrainer = function(trainerId) {
-        const select = document.getElementById('trainerSelect');
-        if (select) {
-            select.value = trainerId;
-            updatePricePreview();
-            document.getElementById('subscribe').scrollIntoView({ behavior: 'smooth' });
-            Swal.fire({
-                title: 'تم الاختيار!',
-                text: `لقد اخترت المدرب ${trainersList.find(t => t.firebaseId == trainerId)?.name}`,
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-            });
-        }
-    };
-
-    function calculatePrice(monthlyPrice, months) {
-        let discount = months === 3 ? 0.05 : months === 6 ? 0.10 : months === 12 ? 0.15 : 0;
-        let total = monthlyPrice * months;
-        total = total - (total * discount);
-        return Math.round(total);
-    }
-
-    function updatePricePreview() {
-        const trainerId = document.getElementById('trainerSelect')?.value;
-        const months = parseInt(document.getElementById('monthsSelect')?.value || 1);
-        
-        if (trainerId && trainersList.length) {
-            const trainer = trainersList.find(t => t.firebaseId == trainerId);
-            if (trainer) {
-                const total = calculatePrice(trainer.pricePerMonth, months);
-                let discountText = "";
-                if (months === 3) discountText = "✅ خصم 5%";
-                else if (months === 6) discountText = "✅ خصم 10%";
-                else if (months === 12) discountText = "✅ خصم 15%";
-                else discountText = "💰 بدون خصم";
-                
-                document.getElementById('previewAmount').innerHTML = total.toLocaleString() + ' ج.م';
-                document.getElementById('previewDiscount').innerHTML = discountText;
+            if (!childName || !childAge || !parentPhone) {
+                alert('الرجاء ملء جميع الحقول المطلوبة (اسم الطفل، العمر، رقم ولي الأمر)');
                 return;
             }
-        }
-        document.getElementById('previewAmount').innerHTML = '0 ج.م';
-        document.getElementById('previewDiscount').innerHTML = 'اختر مدرب أولاً';
-    }
 
-    function validateForm(userName, userEmail, userPhone, trainerId) {
-        if (!userName) {
-            Swal.fire('تنبيه', 'الرجاء إدخال الاسم الكامل', 'warning');
-            return false;
-        }
-        if (userName.length < 5) {
-            Swal.fire('تنبيه', 'الاسم يجب أن يكون 5 أحرف على الأقل', 'warning');
-            return false;
-        }
-        if (!userEmail) {
-            Swal.fire('تنبيه', 'الرجاء إدخال البريد الإلكتروني', 'warning');
-            return false;
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(userEmail)) {
-            Swal.fire('تنبيه', 'البريد الإلكتروني غير صالح', 'warning');
-            return false;
-        }
-        if (!userPhone) {
-            Swal.fire('تنبيه', 'الرجاء إدخال رقم الهاتف', 'warning');
-            return false;
-        }
-        const phoneRegex = /^01[0-9]{9}$/;
-        if (!phoneRegex.test(userPhone)) {
-            Swal.fire('تنبيه', 'رقم الهاتف غير صالح (مثال: 01012345678)', 'warning');
-            return false;
-        }
-        if (!trainerId) {
-            Swal.fire('تنبيه', 'الرجاء اختيار المدرب', 'warning');
-            return false;
-        }
-        return true;
-    }
+            // إظهار رسالة "قيد الانتظار" وإخفاء أي معلومات سابقة
+            pendingMsg.classList.add('show');
+            hiddenInfo.classList.remove('show');
 
-    async function handleSubscription() {
-        const userName = document.getElementById('userName').value.trim();
-        const userEmail = document.getElementById('userEmail').value.trim();
-        const userPhone = document.getElementById('userPhone').value.trim();
-        const trainerId = document.getElementById('trainerSelect').value;
-        const months = parseInt(document.getElementById('monthsSelect').value);
-        const paymentMethod = document.getElementById('paymentMethod').value;
-        
-        if (!validateForm(userName, userEmail, userPhone, trainerId)) return;
-        
-        const trainer = trainersList.find(t => t.firebaseId == trainerId);
-        if (!trainer) return;
-        
-        const totalPrice = calculatePrice(trainer.pricePerMonth, months);
-        
-        // ✅ الحالة تكون "pending" بانتظار موافقة المدير
-        const subscriptionData = {
-            userName, userEmail, userPhone,
-            trainerId: trainer.firebaseId, trainerName: trainer.name,
-            months, totalPrice, paymentMethod,
-            createdAt: new Date().toISOString(),
-            status: 'pending'  // 🔴 ينتظر موافقة المدير
-        };
-        
-        const btn = document.getElementById('subscribeBtn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> جاري إرسال الطلب...';
-        btn.disabled = true;
-        btn.classList.add('btn-loading');
-        
-        try {
-            await database.ref('subscriptions').push(subscriptionData);
-            
-            const resultDiv = document.getElementById('subscriptionResult');
-            resultDiv.innerHTML = `
-                <h3 style="color:#f59e0b;"><i class="fas fa-clock"></i> ⏳ تم إرسال طلبك بنجاح!</h3>
-                <p><strong>👤 المستخدم:</strong> ${userName}</p>
-                <p><strong>🏋️ المدرب:</strong> ${trainer.name}</p>
-                <p><strong>📅 المدة:</strong> ${months} شهر</p>
-                <p><strong>💰 المبلغ:</strong> ${totalPrice.toLocaleString()} ج.م</p>
-                <hr style="margin: 10px 0; border-color: #333;">
-                <p style="color: #f59e0b; text-align: center;">
-                    <i class="fas fa-hourglass-half"></i> جاري الانتظار... سيتم مراجعة طلبك من قبل المدير
-                </p>
-                <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 10px;">
-                    سيتم إشعارك عند قبول الطلب
-                </p>
-            `;
-            resultDiv.classList.add('show');
-            
-            // مسح الحقول
-            document.getElementById('userName').value = '';
-            document.getElementById('userEmail').value = '';
-            document.getElementById('userPhone').value = '';
-            document.getElementById('trainerSelect').value = '';
-            updatePricePreview();
-            
-            Swal.fire({
-                title: 'تم إرسال الطلب!',
-                text: 'طلب الاشتراك قيد المراجعة من قبل المدير',
-                icon: 'info',
-                confirmButtonColor: '#f59e0b',
-                timer: 3000
-            });
-            
-            setTimeout(() => {
-                resultDiv.classList.remove('show');
-            }, 8000);
-            
-        } catch (error) {
-            Swal.fire('خطأ', 'حدث خطأ في حفظ البيانات: ' + error.message, 'error');
-        } finally {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            btn.classList.remove('btn-loading');
-        }
-    }
+            // إخفاء العنوان والمكان في البروفايل (محاكاة)
+            // لكننا نخفي block العنوان بشكل ديناميكي (نضيف class مخفي)
+            // باستخدام style display none مؤقتاً
+            locationBlock.style.display = 'none';
 
-    function loadSubscriptions() {
-        const container = document.getElementById('subscriptionsList');
-        container.innerHTML = '<div class="spinner"></div>';
-        
-        database.ref('subscriptions').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                allSubscriptions = Object.entries(data).map(([id, sub]) => ({ ...sub, id }));
-                // عرض آخر 6 طلبات فقط
-                const sorted = [...allSubscriptions].reverse().slice(0, 6);
-                renderSubscriptions(sorted);
-            } else {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <p>لا توجد طلبات اشتراك حتى الآن</p>
-                        <small>سجل طلبك الأول الآن!</small>
-                    </div>
+            // يمكن إظهار رسالة بأن الطلب قيد الانتظار
+            // كما نقوم بتعطيل الزر مؤقتاً
+            const btn = form.querySelector('.btn-submit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+
+            // محاكاة قبول المدير بعد 4 ثواني (لإظهار العنوان والوقت)
+            setTimeout(function() {
+                // إظهار العنوان والوقت (المعلومات المخفية)
+                hiddenInfo.classList.add('show');
+                // إعادة إظهار locationBlock (العنوان الأساسي)
+                locationBlock.style.display = 'flex';
+                // تغيير رسالة القيد إلى "تم القبول" مع إبقائها ظاهرة
+                pendingMsg.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                    <span>✅ تم قبول الطلب من قبل المدير! يمكنك الآن رؤية العنوان والوقت.</span>
+                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
                 `;
-            }
+                // إعادة الزر
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> تقديم الطلب';
+                // إضافة تأثير
+                pendingMsg.style.background = '#d4edda';
+                pendingMsg.style.borderColor = '#28a745';
+            }, 4000); // 4 ثواني محاكاة
         });
-    }
 
-    function renderSubscriptions(subscriptions) {
-        const container = document.getElementById('subscriptionsList');
-        if (!subscriptions.length) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>لا توجد طلبات</p>
-                </div>
-            `;
-            return;
-        }
-        
-        container.innerHTML = subscriptions.map(sub => {
-            let paymentBadge = '';
-            let statusBadge = '';
-            
-            if (sub.paymentMethod === 'cash') {
-                paymentBadge = '<span class="badge badge-cash"><i class="fas fa-money-bill"></i> كاش</span>';
-            } else if (sub.paymentMethod === 'card') {
-                paymentBadge = '<span class="badge badge-card"><i class="fas fa-credit-card"></i> بطاقة</span>';
-            } else {
-                paymentBadge = '<span class="badge badge-bank"><i class="fas fa-university"></i> تحويل بنكي</span>';
-            }
-            
-            // ✅ عرض حالة الطلب
-            if (sub.status === 'pending') {
-                statusBadge = '<span class="badge badge-pending" style="background:#f59e0b;"><i class="fas fa-hourglass-half"></i> قيد المراجعة</span>';
-            } else if (sub.status === 'approved') {
-                statusBadge = '<span class="badge badge-approved" style="background:#10b981;"><i class="fas fa-check-circle"></i> تم القبول</span>';
-            } else if (sub.status === 'rejected') {
-                statusBadge = '<span class="badge badge-rejected" style="background:#ef4444;"><i class="fas fa-times-circle"></i> مرفوض</span>';
-            } else {
-                statusBadge = '<span class="badge badge-pending" style="background:#f59e0b;"><i class="fas fa-hourglass-half"></i> قيد المراجعة</span>';
-            }
-            
-            return `
-                <div class="subscription-item ${sub.status === 'pending' ? 'status-pending' : ''}">
-                    <h4>${sub.userName}</h4>
-                    <p><strong>🏋️ المدرب:</strong> ${sub.trainerName}</p>
-                    <p><strong>📧 البريد:</strong> ${sub.userEmail}</p>
-                    <p><strong>📱 الهاتف:</strong> ${sub.userPhone}</p>
-                    <p><strong>📅 المدة:</strong> ${sub.months} شهر</p>
-                    <p><strong>💰 السعر:</strong> ${sub.totalPrice.toLocaleString()} ج.م</p>
-                    <p><strong>📆 التاريخ:</strong> ${new Date(sub.createdAt).toLocaleDateString('ar-EG')}</p>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
-                        ${statusBadge}
-                        ${paymentBadge}
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
+        // إعادة تعيين إذا أراد المستخدم تقديم طلب جديد (يمكن إعادة تحميل الصفحة)
+        // لكننا نضيف زر مخفي لإعادة تعيين الحالة (اختياري)
+        // يمكن إعادة تعيين يدوي عن طريق تحديث الصفحة
+    })();
 </script>
+
+<!-- إضافة بعض التعديلات للتوافق -->
 </body>
     </html>
