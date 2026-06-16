@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المدرب - أكاديمية الجمباز</title>
+    <title>صفحة الطالب - أكاديمية الجمباز</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Font (Cairo) -->
@@ -20,566 +21,377 @@
             background: linear-gradient(145deg, #f8f0e8 0%, #fef6ed 100%);
             min-height: 100vh;
             padding: 2rem 1.8rem;
-        }
-
-        .dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* header أنيق */
-        .dash-header {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 2.8rem;
-            background: rgba(255, 250, 245, 0.75);
+        }
+
+        .student-page {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 252, 248, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 1.2rem 2.8rem;
-            border-radius: 80px;
-            border: 1px solid rgba(235, 200, 170, 0.6);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
-        }
-
-        .dash-header h1 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #b94a6f, #e67e22, #2e86c1, #8e44ad);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            letter-spacing: -0.5px;
-        }
-
-        .dash-header .admin-badge {
-            background: #2c3e50;
-            color: #f5e6d3;
-            padding: 0.5rem 2rem;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1rem;
-            border: 2px solid #f1c40f;
-            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .dash-header .admin-badge i {
-            color: #f1c40f;
-        }
-
-        /* بطاقات الإحصائيات */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 1.8rem;
-            margin-bottom: 3rem;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 40px 12px 40px 12px;
-            padding: 1.6rem 1.5rem;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
-            border: 1px solid #f1dbcb;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            backdrop-filter: blur(4px);
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.07);
-            border-color: #dba67a;
-        }
-
-        .stat-card .icon {
-            font-size: 2.6rem;
-            width: 4.2rem;
-            height: 4.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 30px;
-            background: #fdebd0;
-            color: #d35400;
-        }
-
-        .stat-card .info h3 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #2d1a0c;
-            line-height: 1.2;
-        }
-
-        .stat-card .info p {
-            color: #7a5a40;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* filters */
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-            background: rgba(255, 248, 240, 0.5);
-            padding: 0.8rem 1.8rem;
-            border-radius: 80px;
-            backdrop-filter: blur(4px);
-            border: 1px solid #eddbc9;
-        }
-
-        .filters select, .filters input {
-            padding: 0.6rem 1.8rem;
-            border-radius: 60px;
-            border: 2px solid #e8b68e;
-            background: white;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #3e2a1b;
-            outline: none;
-            transition: 0.2s;
-        }
-
-        .filters select:focus, .filters input:focus {
-            border-color: #d35400;
-            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.1);
-        }
-
-        /* titles */
-        .section-title {
-            font-size: 1.9rem;
-            font-weight: 800;
-            color: #3e2a1b;
-            margin: 2.5rem 0 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            border-right: 8px solid #e67e22;
-            padding-right: 1.2rem;
-        }
-
-        .section-title i {
-            color: #d35400;
-        }
-
-        /* شبكة الطلاب */
-        .students-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .student-card {
-            background: rgba(255, 252, 248, 0.8);
-            backdrop-filter: blur(8px);
-            border-radius: 48px 16px 48px 16px;
-            padding: 1.8rem 1.8rem 1.5rem;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.04);
-            border: 1px solid #f0dac8;
-            transition: all 0.25s ease;
+            border-radius: 60px 20px 60px 20px;
+            padding: 2.8rem 3rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            border: 2px solid #f1d7c0;
             position: relative;
             overflow: hidden;
         }
 
-        .student-card::before {
+        .student-page::before {
             content: '';
             position: absolute;
             top: 0;
             right: 0;
-            width: 6px;
+            width: 8px;
             height: 100%;
-            background: linear-gradient(180deg, #e67e22, #f1c40f);
+            background: linear-gradient(180deg, #e67e22, #f1c40f, #2e86c1, #8e44ad);
             border-radius: 0 12px 12px 0;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
-        .student-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.07);
-            border-color: #dba67a;
-        }
-
-        .student-card .top {
+        .page-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 4px dotted #dba67a;
+            padding-bottom: 1rem;
         }
 
-        .student-card .name {
-            font-size: 1.6rem;
+        .page-header h1 {
+            font-size: 2.2rem;
             font-weight: 800;
+            color: #2d1a0c;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h1 i {
+            color: #d35400;
+        }
+
+        .page-header .status-badge {
+            background: #27ae60;
+            color: white;
+            padding: 0.3rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 2px solid #1e8449;
+        }
+
+        .student-info {
+            background: #fdf6ef;
+            border-radius: 40px;
+            padding: 1.8rem 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid #eacab0;
+        }
+
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 2rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #e6cfbb;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #3e2a1b;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row i {
+            width: 2.2rem;
+            color: #d35400;
+            font-size: 1.3rem;
+        }
+
+        .info-row strong {
+            color: #2d1a0c;
+            min-width: 130px;
+        }
+
+        .info-row .value {
+            color: #4d3522;
+        }
+
+        .coach-card {
+            background: linear-gradient(135deg, #fef0e6, #fce4d6);
+            border-radius: 30px;
+            padding: 1.2rem 1.8rem;
+            margin: 1rem 0;
+            border: 2px solid #eacab0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .coach-card .coach-name {
+            font-size: 1.2rem;
+            font-weight: 700;
             color: #2d1a0c;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .student-card .name i {
-            color: #d35400;
+        .coach-card .coach-phone {
+            font-size: 1rem;
+            color: #4d3522;
         }
 
-        .student-card .status {
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.3rem 1.4rem;
-            border-radius: 60px;
-            letter-spacing: 0.3px;
-        }
-
-        .status.new { background: #d4edda; color: #155724; border: 1px solid #b7d7b7; }
-        .status.pending { background: #fff3cd; color: #856404; border: 1px solid #f0dbaa; }
-        .status.active { background: #cce5ff; color: #004085; border: 1px solid #b3d7f0; }
-        .status.renew { background: #f8d7da; color: #721c24; border: 1px solid #f1c0c0; }
-
-        .student-card .detail {
+        .whatsapp-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 3px solid #e8c8b0;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem 1.5rem;
-            margin: 0.8rem 0 0.4rem;
-            color: #4d3522;
-            font-weight: 500;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
-        .student-card .detail i {
-            width: 1.8rem;
-            color: #b85e2b;
-        }
-
-        .interaction-bar {
-            background: #fdf6ef;
-            border-radius: 40px;
-            padding: 0.4rem 1.4rem;
-            margin-top: 0.8rem;
+        .whatsapp-section .title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #2d1a0c;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            font-size: 0.9rem;
-            border: 1px solid #eacab0;
-            font-weight: 500;
+            gap: 10px;
         }
 
-        .interaction-bar i {
-            color: #d35400;
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 0.7rem 2.2rem;
+            border-radius: 60px;
+            border: 2px solid #1da851;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
         }
 
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 1.2rem;
-            border-top: 2px dashed #e8c8b0;
-            padding-top: 1.2rem;
+        .btn-whatsapp:hover {
+            transform: scale(1.04) translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
         }
 
-        .btn {
-            padding: 0.4rem 1.5rem;
+        .btn-whatsapp i {
+            font-size: 1.6rem;
+        }
+
+        .btn-back {
+            background: #2c3e50;
+            color: white;
+            padding: 0.6rem 2rem;
             border-radius: 60px;
             border: none;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 1rem;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            text-decoration: none;
+            transition: 0.2s;
             cursor: pointer;
-            transition: all 0.2s ease;
-            background: #f1e0d0;
-            color: #2d1a0c;
-            border: 2px solid transparent;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
-        .btn-success { background: #27ae60; color: white; border-color: #1e8449; }
-        .btn-danger { background: #e74c3c; color: white; border-color: #b03a2e; }
-        .btn-warning { background: #f39c12; color: white; border-color: #d68910; }
-        .btn-info { background: #3498db; color: white; border-color: #217dbb; }
-        .btn-outline { background: transparent; border: 2px solid #b85e2b; color: #b85e2b; }
-
-        .btn:hover {
-            transform: scale(1.04) translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-        }
-        .btn:disabled { opacity: 0.5; transform: none; }
-
-        /* log */
-        .log-area {
-            background: rgba(255, 252, 248, 0.7);
-            backdrop-filter: blur(6px);
-            border-radius: 40px 12px 40px 12px;
-            padding: 1.8rem 2.2rem;
-            border: 1px solid #edd7c4;
-            margin: 2.5rem 0 1rem;
-            max-height: 220px;
-            overflow-y: auto;
-            box-shadow: inset 0 2px 12px rgba(0,0,0,0.02);
+        .btn-back:hover {
+            transform: scale(1.03);
+            background: #1a252f;
         }
 
-        .log-area p {
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed #e6cfbb;
+        .action-buttons {
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
-            font-weight: 500;
-            color: #3e2a1b;
+            margin-top: 1.5rem;
+            justify-content: center;
         }
 
-        .log-area p:last-child { border-bottom: none; }
-        .log-area i { color: #b85e2b; width: 2rem; font-size: 1.1rem; }
-
-        /* responsive */
-        @media (max-width: 650px) {
-            .dash-header { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.5rem; }
-            .dash-header h1 { font-size: 1.8rem; }
-        }
-
-        /* شريط جانبي ملون */
-        .glow-text {
-            font-size: 0.8rem;
-            background: #d35400;
-            color: white;
-            padding: 0.2rem 1rem;
-            border-radius: 30px;
-            margin-right: 0.5rem;
-        }
-
-        .badge-soft {
-            background: #fae5d6;
-            padding: 0.2rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 600;
-        }
-
-        /* تزيين */
-        .dash-header .notification {
-            background: #fef0e6;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid #eacab0;
-            display: flex;
+        /* تنسيق select */
+        .student-selector {
+            background: white;
+            border-radius: 60px;
+            padding: 0.3rem 0.3rem 0.3rem 1.5rem;
+            border: 2px solid #e8b68e;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
-        .dash-header .notification i {
+
+        .student-selector select {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2d1a0c;
+            outline: none;
+            min-width: 160px;
+        }
+
+        .student-selector i {
             color: #d35400;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 650px) {
+            .student-page { padding: 1.8rem 1.5rem; }
+            .page-header h1 { font-size: 1.6rem; }
+            .info-row { font-size: 1rem; }
+            .coach-card { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .whatsapp-section { flex-direction: column; align-items: stretch; }
+            .btn-whatsapp { justify-content: center; }
         }
     </style>
 </head>
 <body>
-<div class="dashboard">
+
+<div class="student-page" id="studentPage">
     <!-- Header -->
-    <div class="dash-header">
-        <h1><i class="fas fa-chalkboard-user" style="color:#d35400;"></i> لوحة تحكم المدرب</h1>
-        <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
-            <div class="notification"><i class="fas fa-bell"></i> 3 إشعارات</div>
-            <span class="admin-badge"><i class="fas fa-user-tie"></i> مدير / مدرب</span>
+    <div class="page-header">
+        <h1><i class="fas fa-user-graduate"></i> <span id="studentNameDisplay">أحمد</span></h1>
+        <span class="status-badge"><i class="fas fa-check-circle"></i> نشط</span>
+    </div>
+
+    <!-- Selector لاختيار طالب (محاكاة) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+        <div class="student-selector">
+            <i class="fas fa-users"></i>
+            <select id="studentSelect" onchange="loadStudent(this.value)">
+                <option value="1">أحمد</option>
+                <option value="4">عمر</option>
+                <option value="5">مريم</option>
+                <option value="7">نور</option>
+                <option value="10">سلمان</option>
+            </select>
+        </div>
+        <a href="#" class="btn-back" onclick="window.history.back(); return false;"><i class="fas fa-arrow-right"></i> رجوع للوحة</a>
+    </div>
+
+    <!-- معلومات الطالب -->
+    <div class="student-info">
+        <div class="info-row"><i class="fas fa-id-card"></i> <strong>اسم الطفل:</strong> <span class="value" id="infoName">أحمد</span></div>
+        <div class="info-row"><i class="fas fa-calendar-alt"></i> <strong>العمر:</strong> <span class="value" id="infoAge">8 سنوات</span></div>
+        <div class="info-row"><i class="fas fa-phone"></i> <strong>رقم ولي الأمر:</strong> <span class="value" id="infoParent">0501234567</span></div>
+        <div class="info-row"><i class="fas fa-tag"></i> <strong>نوع الحصة:</strong> <span class="value" id="infoType">فني</span></div>
+        <div class="info-row"><i class="fas fa-clock"></i> <strong>عدد الأشهر:</strong> <span class="value" id="infoMonths">3 شهور</span></div>
+        <div class="info-row"><i class="fas fa-calendar-check"></i> <strong>عدد الحصص:</strong> <span class="value" id="infoSessions">2 حصص أسبوعياً</span></div>
+    </div>
+
+    <!-- المدرب -->
+    <div class="coach-card">
+        <div class="coach-name"><i class="fas fa-chalkboard-teacher" style="color:#d35400;"></i> المدرب: <span id="coachName">ليلى المنصور</span></div>
+        <div class="coach-phone"><i class="fas fa-phone-alt" style="color:#d35400;"></i> <span id="coachPhone">+966 55 123 4567</span></div>
+    </div>
+
+    <!-- المكان والوقت -->
+    <div class="student-info" style="background: #fcf3e9;">
+        <div class="info-row"><i class="fas fa-location-dot" style="color:#e74c3c;"></i> <strong>المكان:</strong> <span class="value" id="infoLocation">أكاديمية الرياض الأولمبية - شارع الأمير سلطان</span></div>
+        <div class="info-row"><i class="fas fa-clock" style="color:#2e86c1;"></i> <strong>المواعيد:</strong> <span class="value" id="infoSchedule">السبت / الإثنين 5:00 عصراً – 6:30 مساءً</span></div>
+    </div>
+
+    <!-- واتساب -->
+    <div class="whatsapp-section">
+        <div class="title"><i class="fab fa-whatsapp" style="color:#25D366; font-size:1.8rem;"></i> تواصل مباشر</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+            <a href="#" id="whatsappCoach" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب المدرب</a>
+            <a href="#" id="whatsappParent" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب ولي الأمر</a>
         </div>
     </div>
 
-    <!-- إحصائيات -->
-    <div class="stats-grid">
-        <div class="stat-card"><div class="icon" style="background:#d4edda; color:#27ae60;"><i class="fas fa-user-plus"></i></div><div class="info"><h3 id="newCount">3</h3><p>جدد جديد</p></div></div>
-        <div class="stat-card"><div class="icon" style="background:#fff3cd; color:#f39c12;"><i class="fas fa-clock"></i></div><div class="info"><h3 id="pendingCount">2</h3><p>بانتظار القبول</p></div></div>
-        <div class="stat-card"><div class="icon" style="background:#cce5ff; color:#2e86c1;"><i class="fas fa-user-check"></i></div><div class="info"><h3 id="activeCount">5</h3><p>طلاب نشطاء</p></div></div>
-        <div class="stat-card"><div class="icon" style="background:#f8d7da; color:#e74c3c;"><i class="fas fa-hourglass-end"></i></div><div class="info"><h3 id="renewCount">2</h3><p>قربوا يخلصوا</p></div></div>
-    </div>
-
-    <!-- فلتر -->
-    <div class="filters">
-        <select><option>كل الطلاب</option><option>جدد</option><option>نشطاء</option><option>قيد الانتظار</option></select>
-        <input type="text" placeholder="🔍 بحث باسم الطفل أو ولي الأمر">
-    </div>
-
-    <!-- طلبات جديدة / قيد الانتظار -->
-    <h2 class="section-title"><i class="fas fa-user-plus" style="color:#27ae60;"></i> طلبات جديدة / قيد الانتظار</h2>
-    <div class="students-grid" id="pendingStudents"></div>
-
-    <!-- طلاب نشطاء + قربوا يخلصوا -->
-    <h2 class="section-title"><i class="fas fa-users" style="color:#2e86c1;"></i> الطلاب النشطاء & قربوا يخلصوا</h2>
-    <div class="students-grid" id="activeStudents"></div>
-
-    <!-- سجل التفاعل -->
-    <h2 class="section-title"><i class="fas fa-comment-dots" style="color:#8e44ad;"></i> سجل التفاعل (مدرب ← طالب)</h2>
-    <div class="log-area" id="interactionLog">
-        <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> 10:30 - تم قبول طالب: يوسف (فني)</p>
-        <p><i class="fas fa-bell" style="color:#f39c12;"></i> 09:15 - تذكير بالتجديد أرسل لأم محمد</p>
-        <p><i class="fas fa-user-check"></i> 08:45 - تفاعل المدرب مع سارة: استفسار عن الحصة</p>
-        <p><i class="fas fa-times-circle" style="color:#e74c3c;"></i> 07:20 - رفض طلب: خالد (عمر غير مناسب)</p>
+    <!-- أزرار إضافية -->
+    <div class="action-buttons">
+        <button class="btn-back" onclick="window.history.back();"><i class="fas fa-arrow-right"></i> العودة للوحة</button>
+        <button class="btn-back" style="background:#27ae60;" onclick="alert('تم إرسال تذكير عبر واتساب')"><i class="fas fa-bell"></i> إرسال تذكير</button>
     </div>
 </div>
 
 <script>
-    (function() {
-        // بيانات وهمية
-        let students = [
-            { id: 1, name: 'أحمد', age: 8, parent: '0501234567', months: 3, type: 'فني', status: 'new', interaction: 'استفسار عن موعد' },
-            { id: 2, name: 'سارة', age: 7, parent: '0509876543', months: 6, type: 'كلاس', status: 'pending', interaction: 'بانتظار القبول' },
-            { id: 3, name: 'ليلى', age: 9, parent: '0551112233', months: 1, type: 'لايروبكس', status: 'new', interaction: 'تسجيل جديد' },
-            { id: 4, name: 'عمر', age: 10, parent: '0552223344', months: 12, type: 'مدمج', status: 'active', interaction: 'تفاعل جيد' },
-            { id: 5, name: 'مريم', age: 6, parent: '0563334455', months: 6, type: 'فني', status: 'active', interaction: 'حضور منتظم' },
-            { id: 6, name: 'خالد', age: 5, parent: '0564445566', months: 3, type: 'كلاس', status: 'renew', interaction: 'ينتهي الشهر القادم' },
-            { id: 7, name: 'نور', age: 8, parent: '0575556677', months: 3, type: 'لايروبكس', status: 'active', interaction: 'تقدم ملحوظ' },
-            { id: 8, name: 'جود', age: 7, parent: '0576667788', months: 1, type: 'فني', status: 'pending', interaction: 'بانتظار الموافقة' },
-            { id: 9, name: 'فاطمة', age: 9, parent: '0587778899', months: 6, type: 'مدمج', status: 'renew', interaction: 'قرب يخلص' },
-            { id: 10, name: 'سلمان', age: 11, parent: '0588889900', months: 12, type: 'فني', status: 'active', interaction: 'متميز' }
-        ];
+    // بيانات الطلاب الكاملة (نفس البيانات من لوحة التحكم)
+    const studentsData = [
+        { id: 1, name: 'أحمد', age: 8, parent: '0501234567', months: 3, type: 'فني', status: 'new', interaction: 'استفسار عن موعد', sessions: '2 حصص أسبوعياً', location: 'أكاديمية الرياض الأولمبية - شارع الأمير سلطان', schedule: 'السبت / الإثنين 5:00 عصراً – 6:30 مساءً' },
+        { id: 2, name: 'سارة', age: 7, parent: '0509876543', months: 6, type: 'كلاس', status: 'pending', interaction: 'بانتظار القبول', sessions: '3 حصص أسبوعياً', location: 'أكاديمية الرياض - فرع الشرق', schedule: 'الأحد / الأربعاء 4:00 – 5:30 مساءً' },
+        { id: 3, name: 'ليلى', age: 9, parent: '0551112233', months: 1, type: 'لايروبكس', status: 'new', interaction: 'تسجيل جديد', sessions: 'حصتين أسبوعياً', location: 'أكاديمية الرياض الأولمبية', schedule: 'الثلاثاء / الخميس 6:00 – 7:30 مساءً' },
+        { id: 4, name: 'عمر', age: 10, parent: '0552223344', months: 12, type: 'مدمج', status: 'active', interaction: 'تفاعل جيد', sessions: '4 حصص أسبوعياً', location: 'أكاديمية الرياض الأولمبية', schedule: 'السبت / الأحد / الثلاثاء / الخميس 5:00 – 6:30 مساءً' },
+        { id: 5, name: 'مريم', age: 6, parent: '0563334455', months: 6, type: 'فني', status: 'active', interaction: 'حضور منتظم', sessions: 'حصتين أسبوعياً', location: 'أكاديمية الرياض - فرع الشرق', schedule: 'الإثنين / الأربعاء 5:00 – 6:30 مساءً' },
+        { id: 6, name: 'خالد', age: 5, parent: '0564445566', months: 3, type: 'كلاس', status: 'renew', interaction: 'ينتهي الشهر القادم', sessions: 'حصتين أسبوعياً', location: 'أكاديمية الرياض الأولمبية', schedule: 'السبت / الثلاثاء 4:00 – 5:30 مساءً' },
+        { id: 7, name: 'نور', age: 8, parent: '0575556677', months: 3, type: 'لايروبكس', status: 'active', interaction: 'تقدم ملحوظ', sessions: '3 حصص أسبوعياً', location: 'أكاديمية الرياض - فرع الشرق', schedule: 'الأحد / الأربعاء / الخميس 6:00 – 7:30 مساءً' },
+        { id: 8, name: 'جود', age: 7, parent: '0576667788', months: 1, type: 'فني', status: 'pending', interaction: 'بانتظار الموافقة', sessions: 'حصتين أسبوعياً', location: 'أكاديمية الرياض الأولمبية', schedule: 'الإثنين / الخميس 5:00 – 6:30 مساءً' },
+        { id: 9, name: 'فاطمة', age: 9, parent: '0587778899', months: 6, type: 'مدمج', status: 'renew', interaction: 'قرب يخلص', sessions: '4 حصص أسبوعياً', location: 'أكاديمية الرياض الأولمبية', schedule: 'السبت / الأحد / الثلاثاء / الخميس 4:00 – 5:30 مساءً' },
+        { id: 10, name: 'سلمان', age: 11, parent: '0588889900', months: 12, type: 'فني', status: 'active', interaction: 'متميز', sessions: 'حصتين أسبوعياً', location: 'أكاديمية الرياض - فرع الشرق', schedule: 'السبت / الثلاثاء 6:00 – 7:30 مساءً' }
+    ];
 
-        const pendingContainer = document.getElementById('pendingStudents');
-        const activeContainer = document.getElementById('activeStudents');
-        const logArea = document.getElementById('interactionLog');
+    const coachInfo = {
+        name: 'ليلى المنصور',
+        phone: '+966 55 123 4567',
+        whatsapp: 'https://wa.me/966551234567'
+    };
 
-        function updateStats() {
-            document.getElementById('newCount').textContent = students.filter(s => s.status === 'new').length;
-            document.getElementById('pendingCount').textContent = students.filter(s => s.status === 'pending').length;
-            document.getElementById('activeCount').textContent = students.filter(s => s.status === 'active').length;
-            document.getElementById('renewCount').textContent = students.filter(s => s.status === 'renew').length;
+    // تحميل بيانات الطالب
+    function loadStudent(studentId) {
+        const id = parseInt(studentId);
+        const student = studentsData.find(s => s.id === id);
+        if (!student) return;
+
+        // تحديث العناصر
+        document.getElementById('studentNameDisplay').textContent = student.name;
+        document.getElementById('infoName').textContent = student.name;
+        document.getElementById('infoAge').textContent = student.age + ' سنوات';
+        document.getElementById('infoParent').textContent = student.parent;
+        document.getElementById('infoType').textContent = student.type;
+        document.getElementById('infoMonths').textContent = student.months + ' شهور';
+        document.getElementById('infoSessions').textContent = student.sessions || '2 حصص أسبوعياً';
+        document.getElementById('infoLocation').textContent = student.location || 'أكاديمية الرياض الأولمبية';
+        document.getElementById('infoSchedule').textContent = student.schedule || 'السبت / الإثنين 5:00 – 6:30 مساءً';
+
+        // المدرب
+        document.getElementById('coachName').textContent = coachInfo.name;
+        document.getElementById('coachPhone').textContent = coachInfo.phone;
+
+        // واتساب
+        const coachWhatsapp = document.getElementById('whatsappCoach');
+        const parentWhatsapp = document.getElementById('whatsappParent');
+        coachWhatsapp.href = `https://wa.me/${coachInfo.phone.replace(/[^0-9]/g, '')}`;
+        parentWhatsapp.href = `https://wa.me/${student.parent.replace(/[^0-9]/g, '')}`;
+
+        // تحديث حالة الطالب (نشط / غير نشط)
+        const statusBadge = document.querySelector('.status-badge');
+        if (student.status === 'active' || student.status === 'renew') {
+            statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> نشط';
+            statusBadge.style.background = '#27ae60';
+            statusBadge.style.borderColor = '#1e8449';
+        } else {
+            statusBadge.innerHTML = '<i class="fas fa-clock"></i> قيد الانتظار';
+            statusBadge.style.background = '#f39c12';
+            statusBadge.style.borderColor = '#d68910';
         }
+    }
 
-        function renderStudents() {
-            const pendingStudents = students.filter(s => s.status === 'new' || s.status === 'pending');
-            const activeStudents = students.filter(s => s.status === 'active' || s.status === 'renew');
-
-            pendingContainer.innerHTML = pendingStudents.map(s => createCard(s)).join('');
-            activeContainer.innerHTML = activeStudents.map(s => createCard(s)).join('');
-            attachEvents();
-        }
-
-        function createCard(s) {
-            const statusMap = { 'new': 'جديد', 'pending': 'قيد الانتظار', 'active': 'نشط', 'renew': 'ينتهي قريباً' };
-            const statusClass = { 'new': 'new', 'pending': 'pending', 'active': 'active', 'renew': 'renew' };
-            const typeIcon = s.type === 'فني' ? 'fa-hand-holding-heart' : 
-                            s.type === 'كلاس' ? 'fa-music' : 
-                            s.type === 'لايروبكس' ? 'fa-bolt' : 'fa-star';
-
-            return `
-                <div class="student-card" data-id="${s.id}" data-status="${s.status}">
-                    <div class="top">
-                        <span class="name"><i class="fas ${typeIcon}"></i> ${s.name}</span>
-                        <span class="status ${statusClass[s.status]}">${statusMap[s.status]}</span>
-                    </div>
-                    <div class="detail">
-                        <span><i class="fas fa-calendar-alt"></i> ${s.age} سنة</span>
-                        <span><i class="fas fa-phone"></i> ${s.parent}</span>
-                        <span><i class="fas fa-clock"></i> ${s.months} شهر</span>
-                        <span><i class="fas fa-tag"></i> ${s.type}</span>
-                    </div>
-                    <div class="interaction-bar">
-                        <i class="fas fa-comment"></i> <span>تفاعل: ${s.interaction}</span>
-                    </div>
-                    <div class="actions">
-                        ${s.status === 'new' || s.status === 'pending' ? `
-                            <button class="btn btn-success accept-btn" data-id="${s.id}"><i class="fas fa-check"></i> قبول</button>
-                            <button class="btn btn-danger reject-btn" data-id="${s.id}"><i class="fas fa-times"></i> رفض</button>
-                        ` : ''}
-                        ${s.status === 'active' || s.status === 'renew' ? `
-                            <button class="btn btn-warning remind-btn" data-id="${s.id}"><i class="fas fa-bell"></i> تذكير</button>
-                            <button class="btn btn-info interaction-btn" data-id="${s.id}"><i class="fas fa-comment-dots"></i> تفاعل</button>
-                        ` : ''}
-                        ${s.status === 'renew' ? `<button class="btn btn-success renew-btn" data-id="${s.id}"><i class="fas fa-sync-alt"></i> تجديد</button>` : ''}
-                    </div>
-                </div>
-            `;
-        }
-
-        function attachEvents() {
-            document.querySelectorAll('.accept-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        student.status = 'active';
-                        addLog(`✅ تم قبول طالب: ${student.name} (${student.type}) بواسطة المدير`);
-                        renderStudents();
-                        updateStats();
-                    }
-                };
-            });
-
-            document.querySelectorAll('.reject-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        students = students.filter(s => s.id !== id);
-                        addLog(`❌ تم رفض طالب: ${student.name} (${student.type})`);
-                        renderStudents();
-                        updateStats();
-                    }
-                };
-            });
-
-            document.querySelectorAll('.remind-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        addLog(`🔔 تم إرسال تذكير بالتجديد لـ ${student.name} (ولي الأمر: ${student.parent})`);
-                        alert(`تم إرسال تذكير للتجديد إلى ولي أمر ${student.name}`);
-                    }
-                };
-            });
-
-            document.querySelectorAll('.interaction-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        const newInteraction = prompt(`سجل تفاعلك مع ${student.name}:`, student.interaction || 'تفاعل جديد');
-                        if (newInteraction !== null && newInteraction.trim() !== '') {
-                            student.interaction = newInteraction.trim();
-                            addLog(`💬 تفاعل المدرب مع ${student.name}: ${student.interaction}`);
-                            renderStudents();
-                        }
-                    }
-                };
-            });
-
-            document.querySelectorAll('.renew-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        student.status = 'active';
-                        student.months = parseInt(student.months) + 3;
-                        addLog(`🔄 تم تجديد اشتراك ${student.name} +3 شهور`);
-                        renderStudents();
-                        updateStats();
-                    }
-                };
-            });
-        }
-
-        function addLog(message) {
-            const logDiv = document.getElementById('interactionLog');
-            const time = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-            const entry = document.createElement('p');
-            entry.innerHTML = `<i class="fas fa-circle" style="color:#b85e2b; font-size:0.5rem;"></i> ${time} - ${message}`;
-            logDiv.prepend(entry);
-            while (logDiv.children.length > 10) logDiv.removeChild(logDiv.lastChild);
-        }
-
-        renderStudents();
-        updateStats();
-        addLog('🚀 لوحة التحكم جاهزة - يمكنك مراقبة الطلاب والتفاعل');
-    })();
+    // تحميل افتراضي (أول طالب)
+    window.onload = function() {
+        // تعيين القائمة المنسدلة على أول طالب
+        const select = document.getElementById('studentSelect');
+        select.value = '1';
+        loadStudent('1');
+    };
 </script>
+
 </body>
-    </html>
+</html>
+```
