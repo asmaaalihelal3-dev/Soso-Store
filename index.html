@@ -3,626 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بروفايل مدربة جمباز أكاديمي - تسجيل الأطفال</title>
+    <title>لوحة تحكم المدرب - أكاديمية الجمباز</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
         }
 
         body {
-            background: linear-gradient(145deg, #f9f2e7 0%, #ffe6d5 100%);
+            background: linear-gradient(145deg, #f8f0e8 0%, #fef6ed 100%);
             min-height: 100vh;
-            padding: 2rem 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 2rem 1.8rem;
         }
 
-        .main-container {
-            max-width: 1200px;
-            width: 100%;
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* بطاقة البروفايل الرئيسية */
-        .profile-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 60px 60px 40px 40px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 215, 150, 0.3);
-            padding: 2rem 2rem 2.5rem;
-            border: 1px solid rgba(255, 200, 150, 0.5);
-            margin-bottom: 2.5rem;
-        }
-
-        /* رأس البروفايل */
-        .header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .header h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #d43b6b, #f39c12, #2e86c1, #8e44ad);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 4px 4px 12px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
-            display: inline-block;
-            padding: 0 20px;
-        }
-
-        .header .subtitle {
-            font-size: 1.5rem;
-            color: #4a2c1e;
-            background: rgba(255, 215, 150, 0.5);
-            display: inline-block;
-            padding: 0.3rem 2rem;
-            border-radius: 50px;
-            backdrop-filter: blur(4px);
-            margin-top: 0.3rem;
-            font-weight: 500;
-            border: 1px solid #f1b87b;
-        }
-
-        /* شبكة الصور */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.8rem;
-            margin: 2.5rem 0;
-        }
-
-        .gallery-item {
-            background: white;
-            border-radius: 40px 20px 40px 20px;
-            overflow: hidden;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-            transition: transform 0.25s ease, box-shadow 0.3s;
-            border: 3px solid transparent;
-        }
-
-        .gallery-item:nth-child(1) { border-color: #ff6b81; }
-        .gallery-item:nth-child(2) { border-color: #f1c40f; }
-        .gallery-item:nth-child(3) { border-color: #3498db; }
-        .gallery-item:nth-child(4) { border-color: #2ecc71; }
-
-        .gallery-item:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-            background: #fce4d6;
-        }
-
-        .gallery-item .label {
-            padding: 0.8rem 0.5rem;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #2d1f14;
-            border-top: 2px dashed #f1b87b;
-        }
-
-        .gallery-item .label i {
-            margin-left: 8px;
-            color: #d35400;
-        }
-
-        /* معلومات المدربة + العنوان */
-        .info-section {
+        /* header أنيق */
+        .dash-header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            background: rgba(255, 235, 210, 0.6);
-            backdrop-filter: blur(6px);
-            border-radius: 50px 20px 50px 20px;
-            padding: 1.8rem 2.2rem;
-            margin: 2rem 0 1.5rem;
-            border: 1px solid #f7cba0;
+            align-items: center;
+            margin-bottom: 2.8rem;
+            background: rgba(255, 250, 245, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.2rem 2.8rem;
+            border-radius: 80px;
+            border: 1px solid rgba(235, 200, 170, 0.6);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
         }
 
-        .info-text {
-            flex: 2 1 280px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .info-text h3 {
-            font-size: 2rem;
-            color: #3e2a1b;
+        .dash-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b94a6f, #e67e22, #2e86c1, #8e44ad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             display: flex;
             align-items: center;
-            gap: 12px;
-            border-bottom: 3px dotted #d68b5c;
-            padding-bottom: 5px;
+            gap: 14px;
+            letter-spacing: -0.5px;
         }
 
-        .info-text p {
-            font-size: 1.2rem;
-            color: #2c1e13;
-            background: rgba(255, 215, 170, 0.3);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            display: inline-block;
-            border: 1px solid #efb68a;
+        .dash-header .admin-badge {
+            background: #2c3e50;
+            color: #f5e6d3;
+            padding: 0.5rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid #f1c40f;
+            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .info-text p i {
-            width: 2rem;
+        .dash-header .admin-badge i {
+            color: #f1c40f;
+        }
+
+        /* بطاقات الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 40px 12px 40px 12px;
+            padding: 1.6rem 1.5rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f1dbcb;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.07);
+            border-color: #dba67a;
+        }
+
+        .stat-card .icon {
+            font-size: 2.6rem;
+            width: 4.2rem;
+            height: 4.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            background: #fdebd0;
+            color: #d35400;
+        }
+
+        .stat-card .info h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2d1a0c;
+            line-height: 1.2;
+        }
+
+        .stat-card .info p {
+            color: #7a5a40;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 248, 240, 0.5);
+            padding: 0.8rem 1.8rem;
+            border-radius: 80px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #eddbc9;
+        }
+
+        .filters select, .filters input {
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            border: 2px solid #e8b68e;
+            background: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #3e2a1b;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .filters select:focus, .filters input:focus {
+            border-color: #d35400;
+            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.1);
+        }
+
+        /* titles */
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #3e2a1b;
+            margin: 2.5rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-right: 8px solid #e67e22;
+            padding-right: 1.2rem;
+        }
+
+        .section-title i {
+            color: #d35400;
+        }
+
+        /* شبكة الطلاب */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .student-card {
+            background: rgba(255, 252, 248, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 48px 16px 48px 16px;
+            padding: 1.8rem 1.8rem 1.5rem;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0dac8;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #e67e22, #f1c40f);
+            border-radius: 0 12px 12px 0;
+            opacity: 0.6;
+        }
+
+        .student-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.07);
+            border-color: #dba67a;
+        }
+
+        .student-card .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .student-card .name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #2d1a0c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-card .name i {
+            color: #d35400;
+        }
+
+        .student-card .status {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.3rem 1.4rem;
+            border-radius: 60px;
+            letter-spacing: 0.3px;
+        }
+
+        .status.new { background: #d4edda; color: #155724; border: 1px solid #b7d7b7; }
+        .status.pending { background: #fff3cd; color: #856404; border: 1px solid #f0dbaa; }
+        .status.active { background: #cce5ff; color: #004085; border: 1px solid #b3d7f0; }
+        .status.renew { background: #f8d7da; color: #721c24; border: 1px solid #f1c0c0; }
+
+        .student-card .detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 1.5rem;
+            margin: 0.8rem 0 0.4rem;
+            color: #4d3522;
+            font-weight: 500;
+        }
+
+        .student-card .detail i {
+            width: 1.8rem;
             color: #b85e2b;
         }
 
-        .info-location {
-            flex: 1 1 200px;
-            background: #fce2ce;
-            border-radius: 50px 10px 50px 10px;
-            padding: 1rem 1.8rem;
-            border: 2px solid #e8a87c;
-            box-shadow: 0 0 0 3px #fad6b3;
-            margin-top: 0.5rem;
+        .interaction-bar {
+            background: #fdf6ef;
+            border-radius: 40px;
+            padding: 0.4rem 1.4rem;
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+            border: 1px solid #eacab0;
+            font-weight: 500;
         }
 
-        .info-location .address {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #492f1e;
+        .interaction-bar i {
+            color: #d35400;
         }
 
-        .info-location .address span {
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+            border-top: 2px dashed #e8c8b0;
+            padding-top: 1.2rem;
+        }
+
+        .btn {
+            padding: 0.4rem 1.5rem;
+            border-radius: 60px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f1e0d0;
+            color: #2d1a0c;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .btn-success { background: #27ae60; color: white; border-color: #1e8449; }
+        .btn-danger { background: #e74c3c; color: white; border-color: #b03a2e; }
+        .btn-warning { background: #f39c12; color: white; border-color: #d68910; }
+        .btn-info { background: #3498db; color: white; border-color: #217dbb; }
+        .btn-outline { background: transparent; border: 2px solid #b85e2b; color: #b85e2b; }
+
+        .btn:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+        }
+        .btn:disabled { opacity: 0.5; transform: none; }
+
+        /* log */
+        .log-area {
+            background: rgba(255, 252, 248, 0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 40px 12px 40px 12px;
+            padding: 1.8rem 2.2rem;
+            border: 1px solid #edd7c4;
+            margin: 2.5rem 0 1rem;
+            max-height: 220px;
+            overflow-y: auto;
+            box-shadow: inset 0 2px 12px rgba(0,0,0,0.02);
+        }
+
+        .log-area p {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e6cfbb;
+            display: flex;
+            gap: 1rem;
+            font-weight: 500;
+            color: #3e2a1b;
+        }
+
+        .log-area p:last-child { border-bottom: none; }
+        .log-area i { color: #b85e2b; width: 2rem; font-size: 1.1rem; }
+
+        /* responsive */
+        @media (max-width: 650px) {
+            .dash-header { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.5rem; }
+            .dash-header h1 { font-size: 1.8rem; }
+        }
+
+        /* شريط جانبي ملون */
+        .glow-text {
+            font-size: 0.8rem;
             background: #d35400;
             color: white;
             padding: 0.2rem 1rem;
             border-radius: 30px;
-            font-size: 0.9rem;
-            margin-right: 8px;
+            margin-right: 0.5rem;
         }
 
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 2px dashed #dba67a;
-        }
-
-        .social-links a {
-            background: white;
-            padding: 0.7rem 1.8rem;
-            border-radius: 60px;
-            text-decoration: none;
+        .badge-soft {
+            background: #fae5d6;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
             font-weight: 600;
-            color: #2d1a0c;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: 0.2s;
-            border: 2px solid transparent;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .social-links a:nth-child(1) { background: #ffe5d0; border-color: #e67e22; }
-        .social-links a:nth-child(2) { background: #d5f0ff; border-color: #2980b9; }
-        .social-links a:nth-child(3) { background: #fcd5ce; border-color: #c0392b; }
-        .social-links a:nth-child(4) { background: #d4f0d4; border-color: #27ae60; }
-
-        .social-links a:hover {
-            transform: scale(1.05) translateY(-3px);
-            background: #fff4e6;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        /* ===== نموذج التسجيل ===== */
-        .registration-section {
-            background: rgba(255, 245, 235, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 60px 20px 60px 20px;
-            padding: 2rem 2.5rem;
-            margin-top: 2.5rem;
-            border: 2px solid #f5cba0;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .registration-section h2 {
-            font-size: 2.2rem;
-            color: #3e2a1b;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 4px dotted #d68b5c;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .registration-section h2 i {
-            color: #d35400;
-        }
-
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            flex: 1 1 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            color: #4a2f1d;
-            font-size: 1rem;
+        /* تزيين */
+        .dash-header .notification {
+            background: #fef0e6;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #eacab0;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .form-group label i {
-            color: #d35400;
-            width: 1.4rem;
-        }
-
-        .form-group input, .form-group select {
-            padding: 0.8rem 1.2rem;
-            border-radius: 50px;
-            border: 2px solid #e8b68e;
-            background: white;
-            font-size: 1rem;
-            transition: 0.25s;
-            outline: none;
-            width: 100%;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: #d35400;
-            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.2);
-        }
-
-        .form-group select {
-            appearance: auto;
-        }
-
-        .price-box {
-            background: #fce2ce;
-            border-radius: 30px;
-            padding: 1.2rem 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            border: 2px solid #e8a87c;
-        }
-
-        .price-item {
-            background: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-weight: 700;
-            color: #2d1a0c;
-            border: 2px solid #f1b87b;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .price-item i {
-            color: #d35400;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 60px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 8px 18px rgba(211, 84, 0, 0.3);
-            border: 2px solid #f5cba0;
-            margin-top: 0.5rem;
-        }
-
-        .btn-submit:hover {
-            transform: scale(1.03) translateY(-3px);
-            box-shadow: 0 14px 28px rgba(211, 84, 0, 0.4);
-            background: linear-gradient(135deg, #e67e22, #d35400);
-        }
-
-        /* رسالة القيد الانتظار */
-        .pending-message {
-            background: #fcebd9;
-            border-radius: 60px;
-            padding: 1.5rem 2rem;
-            margin-top: 2rem;
-            border: 3px solid #f39c12;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #7e4a1f;
-            box-shadow: 0 0 0 4px #ffe0b5;
-        }
-
-        .pending-message i {
-            font-size: 2.8rem;
-            color: #d35400;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0.6; transform: scale(0.95); }
-        }
-
-        .pending-message.show {
-            display: flex;
-        }
-
-        .hidden-info {
-            display: none;
-            background: #fcebd9;
-            padding: 1rem;
-            border-radius: 40px;
-            border: 2px dashed #d35400;
-            margin-top: 1rem;
-            color: #6b3f1f;
-        }
-
-        .hidden-info.show {
-            display: block;
-        }
-
-        .badge {
-            background: #f39c12;
-            color: white;
-            border-radius: 40px;
-            padding: 0.2rem 1rem;
             font-weight: 600;
         }
-
-        @media (max-width: 650px) {
-            .profile-card { padding: 1.5rem; }
-            .header h1 { font-size: 2.5rem; }
-            .info-section { flex-direction: column; gap: 1.5rem; }
-            .registration-section { padding: 1.5rem; }
-        }
-
-        @media (max-width: 450px) {
-            .header h1 { font-size: 2rem; }
-            .form-row { flex-direction: column; }
+        .dash-header .notification i {
+            color: #d35400;
         }
     </style>
 </head>
 <body>
-<div class="main-container">
-    <!-- بروفايل المدربة -->
-    <div class="profile-card">
-        <div class="header">
-            <h1><i class="fas fa-star" style="color: #f1c40f;"></i> ليلى المنصور <i class="fas fa-star" style="color: #f1c40f;"></i></h1>
-            <div class="subtitle">
-                <i class="fas fa-medal"></i> مدربة جمباز أكاديمي معتمدة <i class="fas fa-medal"></i>
-            </div>
-            <p style="margin-top: 0.5rem; color: #5a3b26; font-weight: 500; background: rgba(255,230,200,0.6); display: inline-block; padding: 0.2rem 2rem; border-radius: 50px;">
-                <i class="fas fa-gymnastics"></i> جمباز فني · إيقاعي · كلاس · لايروبكس <i class="fas fa-gymnastics"></i>
-            </p>
-        </div>
-
-        <!-- الصور -->
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/6112068/pexels-photo-6112068.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز فني" loading="lazy">
-                <div class="label"><i class="fas fa-hand-holding-heart"></i> الجمباز الفني</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز كلاس" loading="lazy">
-                <div class="label"><i class="fas fa-music"></i> الجمباز الكلاس</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="لايروبكس" loading="lazy">
-                <div class="label"><i class="fas fa-bolt"></i> لايروبكس</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="الأكاديمية" loading="lazy">
-                <div class="label"><i class="fas fa-location-dot"></i> الأكاديمية</div>
-            </div>
-        </div>
-
-        <!-- معلومات + عنوان -->
-        <div class="info-section">
-            <div class="info-text">
-                <h3><i class="fas fa-user-graduate" style="color:#8e44ad;"></i> عن المدربة</h3>
-                <p><i class="fas fa-certificate" style="color:#d35400;"></i> 12 عاماً من الخبرة في التدريب الأكاديمي</p>
-                <p><i class="fas fa-trophy" style="color:#f39c12;"></i> مدربة جمباز فني · إيقاعي · كلاس · لايروبكس</p>
-                <p><i class="fas fa-people-group" style="color:#2980b9;"></i> حاصلة على شهادة التدريب الدولية IPT</p>
-                <p style="background: #fad6b0; border: 1px solid #e67e22;"><i class="fas fa-phone-alt" style="color:#27ae60;"></i> +966 55 123 4567</p>
-            </div>
-            <div class="info-location" id="locationBlock">
-                <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                    <i class="fas fa-map-pin"></i>
-                    <span class="address"><span>📍</span> العنوان</span>
-                </div>
-                <p style="font-weight: 500; color:#2c1e13; margin: 0.5rem 0;">
-                    <i class="fas fa-building" style="color:#d35400;"></i> أكاديمية الرياض الأولمبية
-                </p>
-                <p style="display: flex; align-items: center; gap: 8px; background: #fce8d6; padding: 0.2rem 1rem; border-radius: 40px;">
-                    <i class="fas fa-location-dot" style="color:#c0392b;"></i> 
-                    <span>شارع الأمير سلطان، حي الملقا، الرياض</span>
-                </p>
-                <p style="margin-top: 0.3rem;"><i class="fas fa-clock" style="color:#e67e22;"></i> يومياً 8ص – 10م</p>
-            </div>
-        </div>
-
-        <div class="social-links">
-            <a href="#"><i class="fab fa-whatsapp" style="color:#25d366;"></i> واتساب</a>
-            <a href="#"><i class="fab fa-instagram" style="color:#c13584;"></i> إنستغرام</a>
-            <a href="#"><i class="fab fa-youtube" style="color:#ff0000;"></i> يوتيوب</a>
-            <a href="#"><i class="fas fa-envelope" style="color:#d35400;"></i> البريد الإلكتروني</a>
+<div class="dashboard">
+    <!-- Header -->
+    <div class="dash-header">
+        <h1><i class="fas fa-chalkboard-user" style="color:#d35400;"></i> لوحة تحكم المدرب</h1>
+        <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+            <div class="notification"><i class="fas fa-bell"></i> 3 إشعارات</div>
+            <span class="admin-badge"><i class="fas fa-user-tie"></i> مدير / مدرب</span>
         </div>
     </div>
 
-    <!-- ===== نموذج التسجيل ===== -->
-    <div class="registration-section" id="registrationSection">
-        <h2><i class="fas fa-child"></i> تسجيل الطفل للاشتراك</h2>
-        <form id="registerForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> اسم الطفل</label>
-                    <input type="text" id="childName" placeholder="أدخل اسم الطفل" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-calendar-alt"></i> عمر الطفل</label>
-                    <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-phone"></i> رقم ولي الأمر</label>
-                    <input type="tel" id="parentPhone" placeholder="05xxxxxxxx" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label><i class="fas fa-clock"></i> عدد الأشهر</label>
-                    <select id="monthsCount">
-                        <option value="1">شهر واحد</option>
-                        <option value="3">3 أشهر</option>
-                        <option value="6">6 أشهر</option>
-                        <option value="12">12 شهر</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-tag"></i> نوع الحصة</label>
-                    <select id="sessionType">
-                        <option value="فني">جمباز فني</option>
-                        <option value="كلاس">جمباز كلاس</option>
-                        <option value="لايروبكس">لايروبكس</option>
-                        <option value="مدمج">مدمج (فني + كلاس)</option>
-                    </select>
-                </div>
-            </div>
+    <!-- إحصائيات -->
+    <div class="stats-grid">
+        <div class="stat-card"><div class="icon" style="background:#d4edda; color:#27ae60;"><i class="fas fa-user-plus"></i></div><div class="info"><h3 id="newCount">3</h3><p>جدد جديد</p></div></div>
+        <div class="stat-card"><div class="icon" style="background:#fff3cd; color:#f39c12;"><i class="fas fa-clock"></i></div><div class="info"><h3 id="pendingCount">2</h3><p>بانتظار القبول</p></div></div>
+        <div class="stat-card"><div class="icon" style="background:#cce5ff; color:#2e86c1;"><i class="fas fa-user-check"></i></div><div class="info"><h3 id="activeCount">5</h3><p>طلاب نشطاء</p></div></div>
+        <div class="stat-card"><div class="icon" style="background:#f8d7da; color:#e74c3c;"><i class="fas fa-hourglass-end"></i></div><div class="info"><h3 id="renewCount">2</h3><p>قربوا يخلصوا</p></div></div>
+    </div>
 
-            <!-- الأسعار والحصص -->
-            <div class="price-box">
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 300 ريال / شهر</span>
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 800 ريال / 3 شهور</span>
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 1500 ريال / 6 شهور</span>
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 2800 ريال / 12 شهر</span>
-                <span class="price-item"><i class="fas fa-calendar-check"></i> حصص: مرتين أسبوعياً</span>
-            </div>
+    <!-- فلتر -->
+    <div class="filters">
+        <select><option>كل الطلاب</option><option>جدد</option><option>نشطاء</option><option>قيد الانتظار</option></select>
+        <input type="text" placeholder="🔍 بحث باسم الطفل أو ولي الأمر">
+    </div>
 
-            <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> تقديم الطلب</button>
-        </form>
+    <!-- طلبات جديدة / قيد الانتظار -->
+    <h2 class="section-title"><i class="fas fa-user-plus" style="color:#27ae60;"></i> طلبات جديدة / قيد الانتظار</h2>
+    <div class="students-grid" id="pendingStudents"></div>
 
-        <!-- رسالة قيد الانتظار -->
-        <div id="pendingMessage" class="pending-message">
-            <i class="fas fa-hourglass-half"></i>
-            <span>⏳ قيد الانتظار ... سيتم إرسال العنوان والوقت بعد قبول المدير</span>
-            <i class="fas fa-hourglass-half"></i>
-        </div>
+    <!-- طلاب نشطاء + قربوا يخلصوا -->
+    <h2 class="section-title"><i class="fas fa-users" style="color:#2e86c1;"></i> الطلاب النشطاء & قربوا يخلصوا</h2>
+    <div class="students-grid" id="activeStudents"></div>
 
-        <!-- معلومات مخفية (العنوان والوقت) تظهر فقط بعد القبول (محاكاة) -->
-        <div id="hiddenInfo" class="hidden-info">
-            <i class="fas fa-check-circle" style="color: #27ae60; font-size: 1.8rem;"></i>
-            <span style="font-weight: 700; font-size: 1.2rem;">تم القبول! التفاصيل:</span>
-            <p><i class="fas fa-location-dot"></i> العنوان: شارع الأمير سلطان، حي الملقا، الرياض (الصالة الرئيسية)</p>
-            <p><i class="fas fa-clock"></i> الوقت: السبت / الإثنين 5:00 عصراً – 6:30 مساءً</p>
-        </div>
+    <!-- سجل التفاعل -->
+    <h2 class="section-title"><i class="fas fa-comment-dots" style="color:#8e44ad;"></i> سجل التفاعل (مدرب ← طالب)</h2>
+    <div class="log-area" id="interactionLog">
+        <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> 10:30 - تم قبول طالب: يوسف (فني)</p>
+        <p><i class="fas fa-bell" style="color:#f39c12;"></i> 09:15 - تذكير بالتجديد أرسل لأم محمد</p>
+        <p><i class="fas fa-user-check"></i> 08:45 - تفاعل المدرب مع سارة: استفسار عن الحصة</p>
+        <p><i class="fas fa-times-circle" style="color:#e74c3c;"></i> 07:20 - رفض طلب: خالد (عمر غير مناسب)</p>
     </div>
 </div>
 
 <script>
     (function() {
-        const form = document.getElementById('registerForm');
-        const pendingMsg = document.getElementById('pendingMessage');
-        const hiddenInfo = document.getElementById('hiddenInfo');
-        const locationBlock = document.getElementById('locationBlock');
+        // بيانات وهمية
+        let students = [
+            { id: 1, name: 'أحمد', age: 8, parent: '0501234567', months: 3, type: 'فني', status: 'new', interaction: 'استفسار عن موعد' },
+            { id: 2, name: 'سارة', age: 7, parent: '0509876543', months: 6, type: 'كلاس', status: 'pending', interaction: 'بانتظار القبول' },
+            { id: 3, name: 'ليلى', age: 9, parent: '0551112233', months: 1, type: 'لايروبكس', status: 'new', interaction: 'تسجيل جديد' },
+            { id: 4, name: 'عمر', age: 10, parent: '0552223344', months: 12, type: 'مدمج', status: 'active', interaction: 'تفاعل جيد' },
+            { id: 5, name: 'مريم', age: 6, parent: '0563334455', months: 6, type: 'فني', status: 'active', interaction: 'حضور منتظم' },
+            { id: 6, name: 'خالد', age: 5, parent: '0564445566', months: 3, type: 'كلاس', status: 'renew', interaction: 'ينتهي الشهر القادم' },
+            { id: 7, name: 'نور', age: 8, parent: '0575556677', months: 3, type: 'لايروبكس', status: 'active', interaction: 'تقدم ملحوظ' },
+            { id: 8, name: 'جود', age: 7, parent: '0576667788', months: 1, type: 'فني', status: 'pending', interaction: 'بانتظار الموافقة' },
+            { id: 9, name: 'فاطمة', age: 9, parent: '0587778899', months: 6, type: 'مدمج', status: 'renew', interaction: 'قرب يخلص' },
+            { id: 10, name: 'سلمان', age: 11, parent: '0588889900', months: 12, type: 'فني', status: 'active', interaction: 'متميز' }
+        ];
 
-        // عند تقديم النموذج
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+        const pendingContainer = document.getElementById('pendingStudents');
+        const activeContainer = document.getElementById('activeStudents');
+        const logArea = document.getElementById('interactionLog');
 
-            // التحقق من الحقول الأساسية
-            const childName = document.getElementById('childName').value.trim();
-            const childAge = document.getElementById('childAge').value.trim();
-            const parentPhone = document.getElementById('parentPhone').value.trim();
+        function updateStats() {
+            document.getElementById('newCount').textContent = students.filter(s => s.status === 'new').length;
+            document.getElementById('pendingCount').textContent = students.filter(s => s.status === 'pending').length;
+            document.getElementById('activeCount').textContent = students.filter(s => s.status === 'active').length;
+            document.getElementById('renewCount').textContent = students.filter(s => s.status === 'renew').length;
+        }
 
-            if (!childName || !childAge || !parentPhone) {
-                alert('الرجاء ملء جميع الحقول المطلوبة (اسم الطفل، العمر، رقم ولي الأمر)');
-                return;
-            }
+        function renderStudents() {
+            const pendingStudents = students.filter(s => s.status === 'new' || s.status === 'pending');
+            const activeStudents = students.filter(s => s.status === 'active' || s.status === 'renew');
 
-            // إظهار رسالة "قيد الانتظار" وإخفاء أي معلومات سابقة
-            pendingMsg.classList.add('show');
-            hiddenInfo.classList.remove('show');
+            pendingContainer.innerHTML = pendingStudents.map(s => createCard(s)).join('');
+            activeContainer.innerHTML = activeStudents.map(s => createCard(s)).join('');
+            attachEvents();
+        }
 
-            // إخفاء العنوان والمكان في البروفايل (محاكاة)
-            // لكننا نخفي block العنوان بشكل ديناميكي (نضيف class مخفي)
-            // باستخدام style display none مؤقتاً
-            locationBlock.style.display = 'none';
+        function createCard(s) {
+            const statusMap = { 'new': 'جديد', 'pending': 'قيد الانتظار', 'active': 'نشط', 'renew': 'ينتهي قريباً' };
+            const statusClass = { 'new': 'new', 'pending': 'pending', 'active': 'active', 'renew': 'renew' };
+            const typeIcon = s.type === 'فني' ? 'fa-hand-holding-heart' : 
+                            s.type === 'كلاس' ? 'fa-music' : 
+                            s.type === 'لايروبكس' ? 'fa-bolt' : 'fa-star';
 
-            // يمكن إظهار رسالة بأن الطلب قيد الانتظار
-            // كما نقوم بتعطيل الزر مؤقتاً
-            const btn = form.querySelector('.btn-submit');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+            return `
+                <div class="student-card" data-id="${s.id}" data-status="${s.status}">
+                    <div class="top">
+                        <span class="name"><i class="fas ${typeIcon}"></i> ${s.name}</span>
+                        <span class="status ${statusClass[s.status]}">${statusMap[s.status]}</span>
+                    </div>
+                    <div class="detail">
+                        <span><i class="fas fa-calendar-alt"></i> ${s.age} سنة</span>
+                        <span><i class="fas fa-phone"></i> ${s.parent}</span>
+                        <span><i class="fas fa-clock"></i> ${s.months} شهر</span>
+                        <span><i class="fas fa-tag"></i> ${s.type}</span>
+                    </div>
+                    <div class="interaction-bar">
+                        <i class="fas fa-comment"></i> <span>تفاعل: ${s.interaction}</span>
+                    </div>
+                    <div class="actions">
+                        ${s.status === 'new' || s.status === 'pending' ? `
+                            <button class="btn btn-success accept-btn" data-id="${s.id}"><i class="fas fa-check"></i> قبول</button>
+                            <button class="btn btn-danger reject-btn" data-id="${s.id}"><i class="fas fa-times"></i> رفض</button>
+                        ` : ''}
+                        ${s.status === 'active' || s.status === 'renew' ? `
+                            <button class="btn btn-warning remind-btn" data-id="${s.id}"><i class="fas fa-bell"></i> تذكير</button>
+                            <button class="btn btn-info interaction-btn" data-id="${s.id}"><i class="fas fa-comment-dots"></i> تفاعل</button>
+                        ` : ''}
+                        ${s.status === 'renew' ? `<button class="btn btn-success renew-btn" data-id="${s.id}"><i class="fas fa-sync-alt"></i> تجديد</button>` : ''}
+                    </div>
+                </div>
+            `;
+        }
 
-            // محاكاة قبول المدير بعد 4 ثواني (لإظهار العنوان والوقت)
-            setTimeout(function() {
-                // إظهار العنوان والوقت (المعلومات المخفية)
-                hiddenInfo.classList.add('show');
-                // إعادة إظهار locationBlock (العنوان الأساسي)
-                locationBlock.style.display = 'flex';
-                // تغيير رسالة القيد إلى "تم القبول" مع إبقائها ظاهرة
-                pendingMsg.innerHTML = `
-                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
-                    <span>✅ تم قبول الطلب من قبل المدير! يمكنك الآن رؤية العنوان والوقت.</span>
-                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
-                `;
-                // إعادة الزر
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> تقديم الطلب';
-                // إضافة تأثير
-                pendingMsg.style.background = '#d4edda';
-                pendingMsg.style.borderColor = '#28a745';
-            }, 4000); // 4 ثواني محاكاة
-        });
+        function attachEvents() {
+            document.querySelectorAll('.accept-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const student = students.find(s => s.id === id);
+                    if (student) {
+                        student.status = 'active';
+                        addLog(`✅ تم قبول طالب: ${student.name} (${student.type}) بواسطة المدير`);
+                        renderStudents();
+                        updateStats();
+                    }
+                };
+            });
 
-        // إعادة تعيين إذا أراد المستخدم تقديم طلب جديد (يمكن إعادة تحميل الصفحة)
-        // لكننا نضيف زر مخفي لإعادة تعيين الحالة (اختياري)
-        // يمكن إعادة تعيين يدوي عن طريق تحديث الصفحة
+            document.querySelectorAll('.reject-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const student = students.find(s => s.id === id);
+                    if (student) {
+                        students = students.filter(s => s.id !== id);
+                        addLog(`❌ تم رفض طالب: ${student.name} (${student.type})`);
+                        renderStudents();
+                        updateStats();
+                    }
+                };
+            });
+
+            document.querySelectorAll('.remind-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const student = students.find(s => s.id === id);
+                    if (student) {
+                        addLog(`🔔 تم إرسال تذكير بالتجديد لـ ${student.name} (ولي الأمر: ${student.parent})`);
+                        alert(`تم إرسال تذكير للتجديد إلى ولي أمر ${student.name}`);
+                    }
+                };
+            });
+
+            document.querySelectorAll('.interaction-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const student = students.find(s => s.id === id);
+                    if (student) {
+                        const newInteraction = prompt(`سجل تفاعلك مع ${student.name}:`, student.interaction || 'تفاعل جديد');
+                        if (newInteraction !== null && newInteraction.trim() !== '') {
+                            student.interaction = newInteraction.trim();
+                            addLog(`💬 تفاعل المدرب مع ${student.name}: ${student.interaction}`);
+                            renderStudents();
+                        }
+                    }
+                };
+            });
+
+            document.querySelectorAll('.renew-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const student = students.find(s => s.id === id);
+                    if (student) {
+                        student.status = 'active';
+                        student.months = parseInt(student.months) + 3;
+                        addLog(`🔄 تم تجديد اشتراك ${student.name} +3 شهور`);
+                        renderStudents();
+                        updateStats();
+                    }
+                };
+            });
+        }
+
+        function addLog(message) {
+            const logDiv = document.getElementById('interactionLog');
+            const time = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            const entry = document.createElement('p');
+            entry.innerHTML = `<i class="fas fa-circle" style="color:#b85e2b; font-size:0.5rem;"></i> ${time} - ${message}`;
+            logDiv.prepend(entry);
+            while (logDiv.children.length > 10) logDiv.removeChild(logDiv.lastChild);
+        }
+
+        renderStudents();
+        updateStats();
+        addLog('🚀 لوحة التحكم جاهزة - يمكنك مراقبة الطلاب والتفاعل');
     })();
 </script>
-
-<!-- إضافة بعض التعديلات للتوافق -->
 </body>
     </html>
