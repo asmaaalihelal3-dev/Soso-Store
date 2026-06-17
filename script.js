@@ -1,1 +1,1450 @@
+تفضل الكود كاملاً مع JavaScript:
 
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>أكاديمية ليلى المنصور - الجمباز الأكاديمي</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #050508;
+            background-image: 
+                radial-gradient(ellipse at 20% 30%, #1a0a2e 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, #0d1f3c 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, #0a0a12 0%, #000000 100%);
+            min-height: 100vh;
+            padding: 2rem 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 10px 20px, #fff, transparent),
+                radial-gradient(2px 2px at 30px 60px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 50px 150px, #ddd, transparent),
+                radial-gradient(2px 2px at 80px 35px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 120px 90px, #fff, transparent),
+                radial-gradient(2px 2px at 160px 25px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 200px 120px, #eee, transparent),
+                radial-gradient(2px 2px at 250px 45px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 300px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 350px 150px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(3px 3px at 400px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 450px 100px, rgba(255,255,255,0.5), transparent);
+            background-size: 500px 200px;
+            background-repeat: repeat;
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.02); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(1px 1px at 15% 25%, rgba(167, 139, 250, 0.4), transparent),
+                radial-gradient(1px 1px at 85% 65%, rgba(96, 165, 250, 0.3), transparent),
+                radial-gradient(1px 1px at 45% 85%, rgba(251, 191, 36, 0.2), transparent),
+                radial-gradient(1px 1px at 70% 15%, rgba(52, 211, 153, 0.3), transparent);
+            background-size: 100% 100%;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatParticles 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatParticles {
+            0% { transform: translateY(0px) scale(1); opacity: 0.5; }
+            100% { transform: translateY(-20px) scale(1.1); opacity: 0.8; }
+        }
+
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(100, 80, 200, 0.1);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa, #f59e0b);
+            border-radius: 10px;
+            animation: progressAnim 10s ease-in-out infinite;
+        }
+
+        @keyframes progressAnim {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .profile-card {
+            background: rgba(15, 15, 30, 0.9);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 80px 80px 50px 50px;
+            box-shadow: 
+                0 40px 70px rgba(0, 0, 0, 0.7),
+                0 0 0 2px rgba(100, 80, 200, 0.12),
+                0 0 60px rgba(100, 80, 200, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            padding: 2.5rem 2.5rem 3rem;
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            margin-bottom: 2.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(120, 80, 200, 0.04), transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.03), transparent 50%);
+            pointer-events: none;
+            animation: rotateGlow 25s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* ===== زر الحجز ===== */
+        .booking-top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .booking-top-bar .booking-btn {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(167, 139, 250, 0.15);
+            animation: pulseBtn 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2); }
+            50% { box-shadow: 0 4px 40px rgba(124, 58, 237, 0.4); }
+        }
+
+        .booking-top-bar .booking-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .booking-top-bar .booking-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== الهيدر ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .header .badge-container .badge-item {
+            background: rgba(100, 80, 200, 0.1);
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #a78bfa;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(4px);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 3px;
+            background: linear-gradient(90deg, #7c3aed, #f59e0b, #3b82f6, #7c3aed);
+            background-size: 300% 100%;
+            border-radius: 10px;
+            animation: gradientMove 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a78bfa, #f59e0b, #60a5fa, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 4px;
+            display: inline-block;
+            padding: 0 30px;
+            animation: shimmerText 5s ease-in-out infinite;
+        }
+
+        @keyframes shimmerText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header h1 .star-icon {
+            color: #fbbf24;
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
+            display: inline-block;
+            animation: starPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .header .subtitle {
+            font-size: 1.7rem;
+            color: #c4b5d4;
+            background: rgba(100, 80, 200, 0.12);
+            display: inline-block;
+            padding: 0.5rem 3rem;
+            border-radius: 60px;
+            margin-top: 0.5rem;
+            font-weight: 700;
+            border: 1px solid rgba(100, 80, 200, 0.2);
+            box-shadow: 0 4px 30px rgba(100, 80, 200, 0.08);
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle i {
+            color: #fbbf24;
+        }
+
+        .header .tags {
+            margin-top: 0.8rem;
+            color: #94a3b8;
+            font-weight: 500;
+            background: rgba(20, 20, 40, 0.6);
+            display: inline-block;
+            padding: 0.4rem 3rem;
+            border-radius: 60px;
+            font-size: 1.15rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(100, 80, 200, 0.1);
+        }
+
+        .header .tags i {
+            color: #a78bfa;
+        }
+
+        /* ===== إحصائيات ===== */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            background: rgba(20, 20, 40, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            border: 1px solid rgba(100, 80, 200, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 30, 60, 0.6);
+            border-color: rgba(100, 80, 200, 0.15);
+        }
+
+        .stat-item .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a78bfa, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+
+        /* ===== معرض الصور ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 2.8rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-item {
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 50px 20px 50px 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid transparent;
+            backdrop-filter: blur(8px);
+        }
+
+        .gallery-item:nth-child(1) { border-color: rgba(251, 113, 133, 0.3); }
+        .gallery-item:nth-child(2) { border-color: rgba(251, 191, 36, 0.3); }
+        .gallery-item:nth-child(3) { border-color: rgba(96, 165, 250, 0.3); }
+        .gallery-item:nth-child(4) { border-color: rgba(52, 211, 153, 0.3); }
+
+        .gallery-item:hover {
+            transform: translateY(-16px) scale(1.03);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            border-color: rgba(167, 139, 250, 0.5);
+        }
+
+        .gallery-item .image-wrapper {
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+        }
+
+        .gallery-item .image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(5, 5, 10, 0.7), transparent);
+        }
+
+        .gallery-item .image-wrapper .overlay-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 0.8rem;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+
+        .gallery-item .label {
+            padding: 1rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.15rem;
+            background: rgba(15, 15, 30, 0.95);
+            color: #e2d9f3;
+            border-top: 2px solid rgba(100, 80, 200, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gallery-item .label i {
+            color: #a78bfa;
+        }
+
+        /* ===== معلومات المدربة ===== */
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: rgba(15, 15, 30, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 70px 20px 70px 20px;
+            padding: 2.2rem 2.8rem;
+            margin: 2.5rem 0 2rem;
+            border: 1px solid rgba(100, 80, 200, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-text {
+            flex: 2 1 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .info-text h3 {
+            font-size: 2.3rem;
+            color: #e2d9f3;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 3px dotted rgba(100, 80, 200, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-text .info-badge {
+            font-size: 1.15rem;
+            color: #c4b5d4;
+            background: rgba(100, 80, 200, 0.06);
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid rgba(100, 80, 200, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .info-text .info-badge:hover {
+            background: rgba(100, 80, 200, 0.12);
+            transform: translateX(-6px);
+        }
+
+        .info-text .info-badge i {
+            width: 2.2rem;
+            color: #a78bfa;
+            font-size: 1.2rem;
+        }
+
+        .info-text .info-badge.phone {
+            background: rgba(167, 139, 250, 0.08);
+            border-color: rgba(167, 139, 250, 0.12);
+        }
+
+        .info-text .info-badge.phone i {
+            color: #34d399;
+        }
+
+        .info-text .info-badge .badge-tag {
+            background: rgba(167, 139, 250, 0.15);
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: #a78bfa;
+            margin-right: 5px;
+        }
+
+        .info-location {
+            flex: 1 1 250px;
+            background: rgba(15, 15, 30, 0.7);
+            border-radius: 70px 10px 70px 10px;
+            padding: 1.4rem 2.2rem;
+            border: 1px solid rgba(100, 80, 200, 0.12);
+            box-shadow: 0 0 0 4px rgba(100, 80, 200, 0.03);
+            margin-top: 0.3rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .info-location:hover {
+            border-color: rgba(167, 139, 250, 0.25);
+            box-shadow: 0 0 0 5px rgba(100, 80, 200, 0.06);
+        }
+
+        .info-location .address-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e2d9f3;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-location .address-title span {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+
+        .info-location p {
+            color: #c4b5d4;
+        }
+
+        .info-location .location-detail {
+            font-weight: 500;
+            color: #c4b5d4;
+            margin: 0.6rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(100, 80, 200, 0.04);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(100, 80, 200, 0.05);
+        }
+
+        .info-location .location-detail i {
+            color: #a78bfa;
+        }
+
+        .info-location .time-info {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .info-location .time-info i {
+            color: #f59e0b;
+        }
+
+        /* ===== الروابط الاجتماعية ===== */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1.8rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(100, 80, 200, 0.06);
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links a {
+            background: rgba(15, 15, 30, 0.7);
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #c4b5d4;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.1rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .social-links a:nth-child(1) { border-color: rgba(37, 211, 102, 0.15); }
+        .social-links a:nth-child(1):hover {
+            background: rgba(37, 211, 102, 0.08);
+            border-color: #25d366;
+            color: #25d366;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.1);
+        }
+
+        .social-links a:nth-child(2) { border-color: rgba(193, 53, 132, 0.15); }
+        .social-links a:nth-child(2):hover {
+            background: rgba(193, 53, 132, 0.08);
+            border-color: #c13584;
+            color: #c13584;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(193, 53, 132, 0.1);
+        }
+
+        .social-links a:nth-child(3) { border-color: rgba(255, 0, 0, 0.15); }
+        .social-links a:nth-child(3):hover {
+            background: rgba(255, 0, 0, 0.08);
+            border-color: #ff0000;
+            color: #ff0000;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.1);
+        }
+
+        .social-links a:nth-child(4) { border-color: rgba(167, 139, 250, 0.15); }
+        .social-links a:nth-child(4):hover {
+            background: rgba(167, 139, 250, 0.08);
+            border-color: #a78bfa;
+            color: #a78bfa;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(167, 139, 250, 0.1);
+        }
+
+        .social-links a .social-count {
+            font-size: 0.7rem;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .social-links a:hover .social-count {
+            color: inherit;
+            border-color: currentColor;
+        }
+
+        /* ===== شهادة الثقة ===== */
+        .trust-badge {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 0.8rem;
+            border-radius: 40px;
+            background: rgba(15, 15, 30, 0.3);
+            border: 1px solid rgba(100, 80, 200, 0.05);
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .trust-badge .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .trust-badge .trust-item i {
+            color: #34d399;
+            font-size: 1rem;
+        }
+
+        /* ===== نموذج الحجز ===== */
+        .booking-section {
+            background: rgba(15, 15, 30, 0.9);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 80px 20px 80px 20px;
+            padding: 2.8rem 3.2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(100, 80, 200, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .booking-section.show {
+            display: block;
+            animation: fadeSlideIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .booking-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -30%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.02), transparent 70%);
+            pointer-events: none;
+        }
+
+        .booking-section h2 {
+            font-size: 2.5rem;
+            color: #e2d9f3;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 3px dotted rgba(100, 80, 200, 0.15);
+            padding-bottom: 0.8rem;
+            margin-bottom: 2.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-section h2 i {
+            color: #a78bfa;
+            font-size: 2.4rem;
+        }
+
+        .booking-section h2 .form-badge {
+            background: rgba(167, 139, 250, 0.1);
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #a78bfa;
+            font-weight: 600;
+            margin-right: auto;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            flex: 1 1 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: #c4b5d4;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-group label i {
+            color: #a78bfa;
+            width: 1.8rem;
+            font-size: 1.2rem;
+        }
+
+        .form-group .field-hint {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 400;
+            margin-right: 2.8rem;
+            margin-top: -0.2rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 1rem 1.8rem;
+            border-radius: 60px;
+            border: 2px solid rgba(100, 80, 200, 0.1);
+            background: rgba(5, 5, 15, 0.6);
+            color: #e2d9f3;
+            font-size: 1.05rem;
+            transition: all 0.4s ease;
+            outline: none;
+            width: 100%;
+            backdrop-filter: blur(8px);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .form-group input::placeholder {
+            color: #475569;
+            font-weight: 400;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 5px rgba(167, 139, 250, 0.06), 0 0 40px rgba(167, 139, 250, 0.03);
+            background: rgba(10, 10, 25, 0.8);
+            transform: scale(1.005);
+        }
+
+        .form-group select {
+            color: #c4b5d4;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 1.5rem center;
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+            color: #e2d9f3;
+        }
+
+        /* ===== زر الإرسال ===== */
+        .btn-submit {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6);
+            border: none;
+            padding: 1.2rem 4rem;
+            border-radius: 80px;
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.25);
+            border: 1px solid rgba(167, 139, 250, 0.15);
+            margin-top: 0.8rem;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.08), transparent 60%);
+            animation: rotateGlow 8s linear infinite;
+            pointer-events: none;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 22px 55px rgba(124, 58, 237, 0.35);
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== رسالة قيد المراجعة ===== */
+        .review-message {
+            background: rgba(20, 20, 40, 0.85);
+            border-radius: 80px;
+            padding: 1.8rem 3rem;
+            margin-top: 2.5rem;
+            border: 2px solid rgba(251, 191, 36, 0.15);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+            box-shadow: 0 0 0 5px rgba(251, 191, 36, 0.02);
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-message.show {
+            display: flex;
+            animation: fadeSlideIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .review-message .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(251, 191, 36, 0.1);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .review-message i {
+            font-size: 3.2rem;
+            color: #fbbf24;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(0.9); }
+        }
+
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ===== معلومات المواعيد ===== */
+        .schedule-info {
+            display: none;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(16, 185, 129, 0.02));
+            padding: 1.8rem 2.5rem;
+            border-radius: 70px;
+            border: 2px solid rgba(16, 185, 129, 0.12);
+            margin-top: 1.8rem;
+            color: #6ee7b7;
+            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.02);
+            backdrop-filter: blur(15px);
+            animation: fadeSlideIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            z-index: 1;
+        }
+
+        .schedule-info.show {
+            display: block;
+        }
+
+        .schedule-info .info-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #6ee7b7;
+        }
+
+        .schedule-info .info-header i {
+            color: #34d399;
+            font-size: 2.4rem;
+        }
+
+        .schedule-info .info-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 2rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .schedule-info .info-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .schedule-info p {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.15rem;
+            margin: 0.3rem 0;
+            color: #a7f3d0;
+            background: rgba(16, 185, 129, 0.03);
+            border-radius: 30px;
+            padding: 0.5rem 1.2rem;
+        }
+
+        .schedule-info p i {
+            width: 1.8rem;
+            color: #34d399;
+        }
+
+        /* ===== مودال الترحيب ===== */
+        .welcome-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-modal.show {
+            display: flex;
+        }
+
+        .welcome-modal .modal-content {
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 60px;
+            padding: 3rem 3.5rem;
+            max-width: 480px;
+            width: 90%;
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+            position: relative;
+            animation: fadeSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: center;
+        }
+
+        .welcome-modal .modal-content .close-modal {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-modal .modal-content .close-modal:hover {
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .welcome-modal .modal-content .modal-icon {
+            font-size: 5rem;
+            color: #a78bfa;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .welcome-modal .modal-content h2 {
+            color: #e2d9f3;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-modal .modal-content p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-modal .modal-content .start-booking-btn {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .welcome-modal .modal-content .start-booking-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        .welcome-modal .modal-content .start-booking-btn i {
+            font-size: 1.4rem;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 1.5rem;
+                border-radius: 40px 40px 30px 30px;
+            }
+            .header h1 {
+                font-size: 2.6rem;
+            }
+            .header .subtitle {
+                font-size: 1.3rem;
+                padding: 0.3rem 1.5rem;
+            }
+            .header .tags {
+                font-size: 0.95rem;
+                padding: 0.3rem 1.5rem;
+            }
+            .info-section {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 1.5rem;
+                border-radius: 40px 10px 40px 10px;
+            }
+            .booking-section {
+                padding: 1.8rem 1.5rem;
+                border-radius: 40px 10px 40px 10px;
+            }
+            .booking-section h2 {
+                font-size: 1.8rem;
+                flex-wrap: wrap;
+            }
+            .booking-section h2 .form-badge {
+                margin-right: 0;
+                font-size: 0.7rem;
+            }
+            .btn-submit {
+                font-size: 1.3rem;
+                padding: 0.9rem 2.5rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .social-links a {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .stat-item .stat-number {
+                font-size: 1.8rem;
+            }
+            .welcome-modal .modal-content {
+                padding: 2rem 1.5rem;
+            }
+            .booking-top-bar .booking-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+                padding: 0 10px;
+            }
+            .header .subtitle {
+                font-size: 1rem;
+                padding: 0.2rem 1rem;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .gallery-item .image-wrapper {
+                height: 140px;
+            }
+            .booking-section {
+                padding: 1.2rem;
+                border-radius: 30px 10px 30px 10px;
+            }
+            .review-message {
+                font-size: 1.1rem;
+                padding: 1rem 1.2rem;
+                gap: 1rem;
+            }
+            .review-message i {
+                font-size: 2rem;
+            }
+            .info-text h3 {
+                font-size: 1.7rem;
+            }
+            .info-location {
+                padding: 1rem 1.2rem;
+            }
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .stat-item {
+                padding: 0.8rem;
+            }
+            .stat-item .stat-number {
+                font-size: 1.5rem;
+            }
+            .stat-item .stat-label {
+                font-size: 0.8rem;
+            }
+            .trust-badge {
+                gap: 0.8rem;
+                padding: 0.5rem;
+            }
+            .trust-badge .trust-item {
+                font-size: 0.7rem;
+            }
+            .welcome-modal .modal-content {
+                padding: 1.5rem 1rem;
+            }
+            .welcome-modal .modal-content h2 {
+                font-size: 1.5rem;
+            }
+            .welcome-modal .modal-content .start-booking-btn {
+                font-size: 1.1rem;
+                padding: 0.8rem 2rem;
+            }
+            .schedule-info {
+                padding: 1rem 1.2rem;
+            }
+            .schedule-info .info-header {
+                font-size: 1.2rem;
+            }
+            .schedule-info p {
+                font-size: 1rem;
+                padding: 0.3rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+
+        <!-- شريط التقدم -->
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <!-- ===== شريط الحجز العلوي ===== -->
+        <div class="booking-top-bar">
+            <button class="booking-btn" id="bookingBtn">
+                <i class="fas fa-calendar-check"></i>
+                احجز لطفلك الآن
+            </button>
+        </div>
+
+        <!-- ===== بروفايل المدربة ===== -->
+        <div class="profile-card">
+            <div class="header">
+                <div class="badge-container">
+                    <span class="badge-item"><i class="fas fa-check-circle" style="color: #34d399;"></i> معتمدة دولياً</span>
+                    <span class="badge-item"><i class="fas fa-award" style="color: #fbbf24;"></i>金牌 مدرب</span>
+                    <span class="badge-item"><i class="fas fa-users" style="color: #60a5fa;"></i> +500 طالب</span>
+                    <span class="badge-item"><i class="fas fa-star" style="color: #fbbf24;"></i> 4.9 تقييم</span>
+                </div>
+                <h1>
+                    <i class="fas fa-star star-icon"></i>
+                    ليلى المنصور
+                    <i class="fas fa-star star-icon"></i>
+                </h1>
+                <div class="subtitle">
+                    <i class="fas fa-medal"></i> مدربة جمباز أكاديمي معتمدة <i class="fas fa-medal"></i>
+                </div>
+                <div class="tags">
+                    <i class="fas fa-gymnastics"></i> جمباز فني · إيقاعي · كلاس · لايروبكس · تدريب تأهيلي <i class="fas fa-gymnastics"></i>
+                </div>
+            </div>
+
+            <!-- الإحصائيات -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number">12+</span>
+                    <span class="stat-label">سنوات الخبرة</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">طلاب دربوا</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">45+</span>
+                    <span class="stat-label">جوائز وبطولات</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">شهادات معتمدة</span>
+                </div>
+            </div>
+
+            <!-- معرض الصور -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/6112068/pexels-photo-6112068.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز فني" loading="lazy" />
+                        <span class="overlay-icon"><i class="fas fa-camera"></i> 12</span>
+                    </div>
+                    <div class="label"><i class="fas fa-hand-holding-heart"></i> الجمباز الفني</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز كلاس" loading="lazy" />
+                        <span class="overlay-icon"><i class="fas fa-camera"></i> 8</span>
+                    </div>
+                    <div class="label"><i class="fas fa-music"></i> الجمباز الكلاس</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="لايروبكس" loading="lazy" />
+                        <span class="overlay-icon"><i class="fas fa-camera"></i> 15</span>
+                    </div>
+                    <div class="label"><i class="fas fa-bolt"></i> لايروبكس</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="الأكاديمية" loading="lazy" />
+                        <span class="overlay-icon"><i class="fas fa-camera"></i> 20</span>
+                    </div>
+                    <div class="label"><i class="fas fa-location-dot"></i> الأكاديمية</div>
+                </div>
+            </div>
+
+            <!-- معلومات المدربة + العنوان -->
+            <div class="info-section">
+                <div class="info-text">
+                    <h3><i class="fas fa-user-graduate" style="color:#a78bfa;"></i> عن المدربة</h3>
+                    <div class="info-badge"><i class="fas fa-certificate"></i> 12 عاماً من الخبرة في التدريب الأكاديمي <span class="badge-tag">معتمد</span></div>
+                    <div class="info-badge"><i class="fas fa-trophy"></i> مدربة جمباز فني · إيقاعي · كلاس · لايروبكس</div>
+                    <div class="info-badge"><i class="fas fa-people-group"></i> حاصلة على شهادة التدريب الدولية IPT</div>
+                    <div class="info-badge"><i class="fas fa-graduation-cap"></i> بكالوريوس علوم رياضية - جامعة الرياض</div>
+                    <div class="info-badge"><i class="fas fa-heartbeat"></i> متخصصة في التأهيل البدني للأطفال</div>
+                    <div class="info-badge phone"><i class="fas fa-phone-alt"></i> +966 55 123 4567 <span class="badge-tag">واتساب</span></div>
+                </div>
+                <div class="info-location" id="locationBlock">
+                    <div class="address-title">
+                        <i class="fas fa-map-pin" style="color:#a78bfa;"></i> العنوان <span>📍</span>
+                    </div>
+                    <p style="font-weight: 600; margin: 0.6rem 0;">
+                        <i class="fas fa-building" style="color:#a78bfa;"></i> نادي طه حسين الرياضي
+                    </p>
+                    <div class="location-detail">
+                        <i class="fas fa-location-dot"></i>
+                        شارع الأمير سلطان، حي الملقا، الرياض
+                    </div>
+                    <div class="location-detail" style="border-color: rgba(251, 191, 36, 0.1);">
+                        <i class="fas fa-map-marked-alt"></i>
+                        مبنى 12 - الدور الثالث - صالة رقم 5
+                    </div>
+                    <div class="time-info">
+                        <i class="fas fa-clock"></i> يومياً 8ص – 10م (باستثناء الجمعة)
+                    </div>
+                    <div class="time-info" style="margin-top: 0.3rem; color: #a78bfa;">
+                        <i class="fas fa-calendar-check"></i> الحجز المسبق مطلوب
+                    </div>
+                </div>
+            </div>
+
+            <!-- روابط التواصل -->
+            <div class="social-links">
+                <a href="#"><i class="fab fa-whatsapp"></i> واتساب <span class="social-count">30K</span></a>
+                <a href="#"><i class="fab fa-instagram"></i> إنستغرام <span class="social-count">45K</span></a>
+                <a href="#"><i class="fab fa-youtube"></i> يوتيوب <span class="social-count">12K</span></a>
+                <a href="#"><i class="fas fa-envelope"></i> البريد الإلكتروني <span class="social-count">تواصل</span></a>
+            </div>
+
+            <!-- شهادة الثقة -->
+            <div class="trust-badge">
+                <span class="trust-item"><i class="fas fa-shield-alt"></i> ضمان الجودة</span>
+                <span class="trust-item"><i class="fas fa-lock"></i> معلومات آمنة</span>
+                <span class="trust-item"><i class="fas fa-credit-card"></i> دفع آمن</span>
+                <span class="trust-item"><i class="fas fa-headset"></i> دعم 24/7</span>
+            </div>
+        </div>
+
+        <!-- ===== نموذج الحجز ===== -->
+        <div class="booking-section" id="bookingSection">
+            <h2>
+                <i class="fas fa-child"></i> تسجيل الطفل للاشتراك
+                <span class="form-badge"><i class="fas fa-edit"></i> تعبئة سريعة</span>
+            </h2>
+            <form id="bookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> اسم الطفل</label>
+                        <input type="text" id="childName" placeholder="أدخل اسم الطفل رباعياً" required />
+                        <span class="field-hint">مثال: محمد أحمد السالم</span>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> عمر الطفل</label>
+                        <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required />
+                        <span class="field-hint">العمر من 3 إلى 18 سنة</span>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> رقم ولي الأمر</label>
+                        <input type="tel" id="parentPhone" placeholder="05xxxxxxxx" required />
+                        <span class="field-hint">للتواصل والإشعارات</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> نوع الجمباز</label>
+                        <select id="gymType">
+                            <option value="فني">جمباز فني</option>
+                            <option value="كلاس">جمباز كلاس</option>
+                            <option value="لايروبكس">لايروبكس</option>
+                            <option value="مدمج" selected>مدمج (فني + كلاس)</option>
+                            <option value="تأهيلي">تأهيلي بدني</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> عدد الأشهر</label>
+                        <select id="monthsCount">
+                            <option value="1">شهر واحد - 300 ريال</option>
+                            <option value="3">3 أشهر - 800 ريال (خصم 11%)</option>
+                            <option value="6" selected>6 أشهر - 1500 ريال (خصم 17%)</option>
+                            <option value="12">12 شهر - 2800 ريال (خصم 22%)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-day"></i> اليوم المفضل</label>
+                        <select id="preferredDay">
+                            <option value="السبت">السبت</option>
+                            <option value="الأحد">الأحد</option>
+                            <option value="الإثنين">الإثنين</option>
+                            <option value="الثلاثاء">الثلاثاء</option>
+                            <option value="الأربعاء">الأربعاء</option>
+                            <option value="الخميس">الخميس</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn"
