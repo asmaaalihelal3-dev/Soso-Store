@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>بروفايل مدربة جمباز أكاديمي - تسجيل الأطفال</title>
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        /* ===== Reset & Base ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
         }
 
         body {
-            background: linear-gradient(145deg, #f9f2e7 0%, #ffe6d5 100%);
+            background: linear-gradient(145deg, #fbf3ea 0%, #ffe8d9 100%);
             min-height: 100vh;
-            padding: 2rem 1rem;
+            padding: 2rem 1.2rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,601 +29,864 @@
             width: 100%;
         }
 
-        /* بطاقة البروفايل الرئيسية */
+        /* ===== بطاقة البروفايل ===== */
         .profile-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 60px 60px 40px 40px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 215, 150, 0.3);
-            padding: 2rem 2rem 2.5rem;
-            border: 1px solid rgba(255, 200, 150, 0.5);
-            margin-bottom: 2.5rem;
+            background: rgba(255, 248, 240, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 70px 70px 50px 50px;
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.18), 0 0 0 3px rgba(255, 210, 150, 0.35);
+            padding: 2.2rem 2.2rem 2.8rem;
+            border: 1px solid rgba(255, 210, 160, 0.5);
+            margin-bottom: 2.8rem;
+            transition: all 0.3s ease;
         }
 
-        /* رأس البروفايل */
+        /* ===== الهيدر ===== */
         .header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.8rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #d43b6b, #f39c12, #2e86c1, #8e44ad);
+            border-radius: 10px;
         }
 
         .header h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 3.8rem;
+            font-weight: 900;
             background: linear-gradient(135deg, #d43b6b, #f39c12, #2e86c1, #8e44ad);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 4px 4px 12px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
+            text-shadow: 6px 6px 20px rgba(0, 0, 0, 0.08);
+            letter-spacing: 3px;
             display: inline-block;
-            padding: 0 20px;
+            padding: 0 25px;
+            position: relative;
+        }
+
+        .header h1 .star-icon {
+            color: #f1c40f;
+            text-shadow: 0 0 20px #f1c40f55;
         }
 
         .header .subtitle {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #4a2c1e;
-            background: rgba(255, 215, 150, 0.5);
+            background: rgba(255, 215, 150, 0.6);
             display: inline-block;
-            padding: 0.3rem 2rem;
-            border-radius: 50px;
+            padding: 0.4rem 2.5rem;
+            border-radius: 60px;
             backdrop-filter: blur(4px);
-            margin-top: 0.3rem;
-            font-weight: 500;
-            border: 1px solid #f1b87b;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            border: 2px solid #f1b87b;
+            box-shadow: 0 4px 12px rgba(241, 184, 123, 0.3);
         }
 
-        /* شبكة الصور */
+        .header .tags {
+            margin-top: 0.7rem;
+            color: #5a3b26;
+            font-weight: 600;
+            background: rgba(255, 230, 200, 0.7);
+            display: inline-block;
+            padding: 0.3rem 2.5rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid #f5cba0;
+        }
+
+        /* ===== شبكة الصور ===== */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.8rem;
-            margin: 2.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 2.8rem 0;
         }
 
         .gallery-item {
             background: white;
-            border-radius: 40px 20px 40px 20px;
+            border-radius: 45px 20px 45px 20px;
             overflow: hidden;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-            transition: transform 0.25s ease, box-shadow 0.3s;
-            border: 3px solid transparent;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 4px solid transparent;
+            position: relative;
         }
 
-        .gallery-item:nth-child(1) { border-color: #ff6b81; }
-        .gallery-item:nth-child(2) { border-color: #f1c40f; }
-        .gallery-item:nth-child(3) { border-color: #3498db; }
-        .gallery-item:nth-child(4) { border-color: #2ecc71; }
+        .gallery-item:nth-child(1) {
+            border-color: #ff6b81;
+        }
+        .gallery-item:nth-child(2) {
+            border-color: #f1c40f;
+        }
+        .gallery-item:nth-child(3) {
+            border-color: #3498db;
+        }
+        .gallery-item:nth-child(4) {
+            border-color: #2ecc71;
+        }
 
         .gallery-item:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+            transform: translateY(-14px) scale(1.03);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.22);
+        }
+
+        .gallery-item .image-wrapper {
+            overflow: hidden;
+            height: 200px;
         }
 
         .gallery-item img {
             width: 100%;
-            height: 180px;
+            height: 100%;
             object-fit: cover;
             display: block;
             background: #fce4d6;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
         }
 
         .gallery-item .label {
-            padding: 0.8rem 0.5rem;
+            padding: 0.9rem 0.5rem;
             text-align: center;
             font-weight: 700;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.9);
+            font-size: 1.15rem;
+            background: rgba(255, 255, 255, 0.95);
             color: #2d1f14;
-            border-top: 2px dashed #f1b87b;
+            border-top: 3px dashed #f1b87b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .gallery-item .label i {
-            margin-left: 8px;
             color: #d35400;
         }
 
-        /* معلومات المدربة + العنوان */
+        /* ===== معلومات المدربة ===== */
         .info-section {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            background: rgba(255, 235, 210, 0.6);
+            background: rgba(255, 235, 210, 0.7);
             backdrop-filter: blur(6px);
-            border-radius: 50px 20px 50px 20px;
-            padding: 1.8rem 2.2rem;
-            margin: 2rem 0 1.5rem;
-            border: 1px solid #f7cba0;
+            border-radius: 60px 20px 60px 20px;
+            padding: 2rem 2.5rem;
+            margin: 2.2rem 0 1.8rem;
+            border: 2px solid #f7cba0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
         }
 
         .info-text {
-            flex: 2 1 280px;
+            flex: 2 1 300px;
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
+            gap: 0.7rem;
         }
 
         .info-text h3 {
-            font-size: 2rem;
-            color: #3e2a1b;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 3px dotted #d68b5c;
-            padding-bottom: 5px;
-        }
-
-        .info-text p {
-            font-size: 1.2rem;
-            color: #2c1e13;
-            background: rgba(255, 215, 170, 0.3);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            display: inline-block;
-            border: 1px solid #efb68a;
-        }
-
-        .info-text p i {
-            width: 2rem;
-            color: #b85e2b;
-        }
-
-        .info-location {
-            flex: 1 1 200px;
-            background: #fce2ce;
-            border-radius: 50px 10px 50px 10px;
-            padding: 1rem 1.8rem;
-            border: 2px solid #e8a87c;
-            box-shadow: 0 0 0 3px #fad6b3;
-            margin-top: 0.5rem;
-        }
-
-        .info-location .address {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #492f1e;
-        }
-
-        .info-location .address span {
-            background: #d35400;
-            color: white;
-            padding: 0.2rem 1rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            margin-right: 8px;
-        }
-
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 2px dashed #dba67a;
-        }
-
-        .social-links a {
-            background: white;
-            padding: 0.7rem 1.8rem;
-            border-radius: 60px;
-            text-decoration: none;
-            font-weight: 600;
-            color: #2d1a0c;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: 0.2s;
-            border: 2px solid transparent;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .social-links a:nth-child(1) { background: #ffe5d0; border-color: #e67e22; }
-        .social-links a:nth-child(2) { background: #d5f0ff; border-color: #2980b9; }
-        .social-links a:nth-child(3) { background: #fcd5ce; border-color: #c0392b; }
-        .social-links a:nth-child(4) { background: #d4f0d4; border-color: #27ae60; }
-
-        .social-links a:hover {
-            transform: scale(1.05) translateY(-3px);
-            background: #fff4e6;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        /* ===== نموذج التسجيل ===== */
-        .registration-section {
-            background: rgba(255, 245, 235, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 60px 20px 60px 20px;
-            padding: 2rem 2.5rem;
-            margin-top: 2.5rem;
-            border: 2px solid #f5cba0;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .registration-section h2 {
             font-size: 2.2rem;
             color: #3e2a1b;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
             border-bottom: 4px dotted #d68b5c;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.8rem;
+            padding-bottom: 8px;
         }
 
-        .registration-section h2 i {
-            color: #d35400;
+        .info-text .info-badge {
+            font-size: 1.15rem;
+            color: #2c1e13;
+            background: rgba(255, 215, 170, 0.5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #efb68a;
+            transition: 0.2s;
         }
 
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem 2rem;
-            margin-bottom: 1.5rem;
+        .info-text .info-badge i {
+            width: 2rem;
+            color: #b85e2b;
+            font-size: 1.2rem;
         }
 
-        .form-group {
-            flex: 1 1 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
+        .info-text .info-badge.phone {
+            background: #fad6b0;
+            border-color: #e67e22;
         }
 
-        .form-group label {
-            font-weight: 600;
-            color: #4a2f1d;
-            font-size: 1rem;
+        .info-location {
+            flex: 1 1 230px;
+            background: #fce2ce;
+            border-radius: 60px 10px 60px 10px;
+            padding: 1.2rem 2rem;
+            border: 2px solid #e8a87c;
+            box-shadow: 0 0 0 4px #fad6b3;
+            margin-top: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-location .address-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #492f1e;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
+        .info-location .address-title span {
+            background: #d35400;
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+
+        .info-location .location-detail {
+            font-weight: 500;
+            color: #2c1e13;
+            margin: 0.6rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fce8d6;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #e8a87c;
+        }
+
+        .info-location .time-info {
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #5a3b26;
+            font-weight: 500;
+        }
+
+        /* ===== الروابط الاجتماعية ===== */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            padding-top: 1.2rem;
+            border-top: 3px dashed #dba67a;
+        }
+
+        .social-links a {
+            background: white;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2d1a0c;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+            transition: all 0.25s ease;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+
+        .social-links a:nth-child(1) {
+            background: #ffe5d0;
+            border-color: #e67e22;
+        }
+        .social-links a:nth-child(2) {
+            background: #d5f0ff;
+            border-color: #2980b9;
+        }
+        .social-links a:nth-child(3) {
+            background: #fcd5ce;
+            border-color: #c0392b;
+        }
+        .social-links a:nth-child(4) {
+            background: #d4f0d4;
+            border-color: #27ae60;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.08) translateY(-4px);
+            background: #fff4e6;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== نموذج التسجيل ===== */
+        .registration-section {
+            background: rgba(255, 245, 235, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 70px 20px 70px 20px;
+            padding: 2.5rem 3rem;
+            margin-top: 2.8rem;
+            border: 2px solid #f5cba0;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .registration-section h2 {
+            font-size: 2.4rem;
+            color: #3e2a1b;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-bottom: 5px dotted #d68b5c;
+            padding-bottom: 0.7rem;
+            margin-bottom: 2rem;
+        }
+
+        .registration-section h2 i {
+            color: #d35400;
+            font-size: 2.2rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem 2.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group {
+            flex: 1 1 210px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: #4a2f1d;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .form-group label i {
             color: #d35400;
-            width: 1.4rem;
+            width: 1.6rem;
+            font-size: 1.2rem;
         }
 
-        .form-group input, .form-group select {
-            padding: 0.8rem 1.2rem;
-            border-radius: 50px;
-            border: 2px solid #e8b68e;
+        .form-group input,
+        .form-group select {
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            border: 2.5px solid #e8b68e;
             background: white;
-            font-size: 1rem;
-            transition: 0.25s;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
             outline: none;
             width: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: #d35400;
-            box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.2);
+            box-shadow: 0 0 0 6px rgba(211, 84, 0, 0.15);
+            transform: scale(1.01);
         }
 
-        .form-group select {
-            appearance: auto;
+        .form-group input::placeholder {
+            color: #b8957a;
+            font-weight: 400;
         }
 
+        /* ===== صندوق الأسعار ===== */
         .price-box {
-            background: #fce2ce;
-            border-radius: 30px;
-            padding: 1.2rem 2rem;
+            background: linear-gradient(135deg, #fce2ce, #fad6b3);
+            border-radius: 40px;
+            padding: 1.4rem 2.2rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            border: 2px solid #e8a87c;
+            justify-content: center;
+            gap: 1.2rem 2rem;
+            margin: 1.8rem 0;
+            border: 2.5px solid #e8a87c;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .price-item {
             background: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
+            padding: 0.5rem 1.8rem;
+            border-radius: 50px;
             font-weight: 700;
             color: #2d1a0c;
             border: 2px solid #f1b87b;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+        }
+
+        .price-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
         .price-item i {
             color: #d35400;
+            font-size: 1.2rem;
         }
 
+        .price-item.highlight {
+            background: #d35400;
+            color: white;
+            border-color: #d35400;
+        }
+
+        .price-item.highlight i {
+            color: white;
+        }
+
+        /* ===== زر الإرسال ===== */
         .btn-submit {
             background: linear-gradient(135deg, #f39c12, #e67e22);
             border: none;
-            padding: 1rem 3rem;
-            border-radius: 60px;
-            font-size: 1.5rem;
-            font-weight: 700;
+            padding: 1.1rem 3.5rem;
+            border-radius: 70px;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: white;
             display: inline-flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 8px 18px rgba(211, 84, 0, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(211, 84, 0, 0.35);
             border: 2px solid #f5cba0;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+            letter-spacing: 1px;
         }
 
         .btn-submit:hover {
-            transform: scale(1.03) translateY(-3px);
-            box-shadow: 0 14px 28px rgba(211, 84, 0, 0.4);
+            transform: scale(1.04) translateY(-4px);
+            box-shadow: 0 18px 38px rgba(211, 84, 0, 0.4);
             background: linear-gradient(135deg, #e67e22, #d35400);
         }
 
-        /* رسالة القيد الانتظار */
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== رسالة القيد ===== */
         .pending-message {
             background: #fcebd9;
-            border-radius: 60px;
-            padding: 1.5rem 2rem;
-            margin-top: 2rem;
-            border: 3px solid #f39c12;
+            border-radius: 70px;
+            padding: 1.6rem 2.5rem;
+            margin-top: 2.2rem;
+            border: 4px solid #f39c12;
             display: none;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             flex-wrap: wrap;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #7e4a1f;
-            box-shadow: 0 0 0 4px #ffe0b5;
-        }
-
-        .pending-message i {
-            font-size: 2.8rem;
-            color: #d35400;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0.6; transform: scale(0.95); }
+            box-shadow: 0 0 0 6px #ffe0b5;
+            transition: all 0.4s ease;
         }
 
         .pending-message.show {
             display: flex;
+            animation: fadeSlideIn 0.5s ease;
         }
 
+        .pending-message i {
+            font-size: 3rem;
+            color: #d35400;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+            100% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+        }
+
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== المعلومات المخفية ===== */
         .hidden-info {
             display: none;
-            background: #fcebd9;
-            padding: 1rem;
-            border-radius: 40px;
-            border: 2px dashed #d35400;
-            margin-top: 1rem;
-            color: #6b3f1f;
+            background: linear-gradient(135deg, #d4edda, #b7e4c7);
+            padding: 1.5rem 2.2rem;
+            border-radius: 60px;
+            border: 3px solid #28a745;
+            margin-top: 1.5rem;
+            color: #155724;
+            box-shadow: 0 0 0 5px #d4edda88;
+            animation: fadeSlideIn 0.5s ease;
         }
 
         .hidden-info.show {
             display: block;
         }
 
-        .badge {
-            background: #f39c12;
-            color: white;
-            border-radius: 40px;
-            padding: 0.2rem 1rem;
-            font-weight: 600;
+        .hidden-info .info-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
         }
 
-        @media (max-width: 650px) {
-            .profile-card { padding: 1.5rem; }
-            .header h1 { font-size: 2.5rem; }
-            .info-section { flex-direction: column; gap: 1.5rem; }
-            .registration-section { padding: 1.5rem; }
+        .hidden-info .info-header i {
+            color: #28a745;
+            font-size: 2.2rem;
         }
 
-        @media (max-width: 450px) {
-            .header h1 { font-size: 2rem; }
-            .form-row { flex-direction: column; }
+        .hidden-info p {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.15rem;
+            margin: 0.4rem 0;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .hidden-info p i {
+            width: 1.8rem;
+            color: #1e7e34;
+        }
+
+        /* ===== حالة الإخفاء ===== */
+        .hidden-info.show {
+            display: block;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 1.5rem;
+            }
+            .header h1 {
+                font-size: 2.6rem;
+            }
+            .header .subtitle {
+                font-size: 1.3rem;
+                padding: 0.3rem 1.5rem;
+            }
+            .info-section {
+                flex-direction: column;
+                gap: 1.8rem;
+                padding: 1.5rem;
+            }
+            .registration-section {
+                padding: 1.8rem 1.5rem;
+            }
+            .registration-section h2 {
+                font-size: 1.8rem;
+            }
+            .price-box {
+                padding: 1.2rem 1.2rem;
+                gap: 0.8rem;
+            }
+            .price-item {
+                font-size: 0.95rem;
+                padding: 0.4rem 1.2rem;
+            }
+            .btn-submit {
+                font-size: 1.3rem;
+                padding: 0.9rem 2.5rem;
+            }
+            .social-links a {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header .subtitle {
+                font-size: 1rem;
+                padding: 0.2rem 1rem;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .gallery-item .image-wrapper {
+                height: 140px;
+            }
+            .registration-section {
+                padding: 1.2rem;
+                border-radius: 40px 10px 40px 10px;
+            }
+            .pending-message {
+                font-size: 1.1rem;
+                padding: 1rem 1.2rem;
+            }
+            .pending-message i {
+                font-size: 2rem;
+            }
+            .info-text h3 {
+                font-size: 1.7rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="main-container">
-    <!-- بروفايل المدربة -->
-    <div class="profile-card">
-        <div class="header">
-            <h1><i class="fas fa-star" style="color: #f1c40f;"></i> ليلى المنصور <i class="fas fa-star" style="color: #f1c40f;"></i></h1>
-            <div class="subtitle">
-                <i class="fas fa-medal"></i> مدربة جمباز أكاديمي معتمدة <i class="fas fa-medal"></i>
-            </div>
-            <p style="margin-top: 0.5rem; color: #5a3b26; font-weight: 500; background: rgba(255,230,200,0.6); display: inline-block; padding: 0.2rem 2rem; border-radius: 50px;">
-                <i class="fas fa-gymnastics"></i> جمباز فني · إيقاعي · كلاس · لايروبكس <i class="fas fa-gymnastics"></i>
-            </p>
-        </div>
+    <div class="main-container">
 
-        <!-- الصور -->
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/6112068/pexels-photo-6112068.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز فني" loading="lazy">
-                <div class="label"><i class="fas fa-hand-holding-heart"></i> الجمباز الفني</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز كلاس" loading="lazy">
-                <div class="label"><i class="fas fa-music"></i> الجمباز الكلاس</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="لايروبكس" loading="lazy">
-                <div class="label"><i class="fas fa-bolt"></i> لايروبكس</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="الأكاديمية" loading="lazy">
-                <div class="label"><i class="fas fa-location-dot"></i> الأكاديمية</div>
-            </div>
-        </div>
-
-        <!-- معلومات + عنوان -->
-        <div class="info-section">
-            <div class="info-text">
-                <h3><i class="fas fa-user-graduate" style="color:#8e44ad;"></i> عن المدربة</h3>
-                <p><i class="fas fa-certificate" style="color:#d35400;"></i> 12 عاماً من الخبرة في التدريب الأكاديمي</p>
-                <p><i class="fas fa-trophy" style="color:#f39c12;"></i> مدربة جمباز فني · إيقاعي · كلاس · لايروبكس</p>
-                <p><i class="fas fa-people-group" style="color:#2980b9;"></i> حاصلة على شهادة التدريب الدولية IPT</p>
-                <p style="background: #fad6b0; border: 1px solid #e67e22;"><i class="fas fa-phone-alt" style="color:#27ae60;"></i> +966 55 123 4567</p>
-            </div>
-            <div class="info-location" id="locationBlock">
-                <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
-                    <i class="fas fa-map-pin"></i>
-                    <span class="address"><span>📍</span> العنوان</span>
+        <!-- ===== بروفايل المدربة ===== -->
+        <div class="profile-card">
+            <div class="header">
+                <h1>
+                    <i class="fas fa-star star-icon"></i>
+                    ليلى المنصور
+                    <i class="fas fa-star star-icon"></i>
+                </h1>
+                <div class="subtitle">
+                    <i class="fas fa-medal"></i> مدربة جمباز أكاديمي معتمدة <i class="fas fa-medal"></i>
                 </div>
-                <p style="font-weight: 500; color:#2c1e13; margin: 0.5rem 0;">
-                    <i class="fas fa-building" style="color:#d35400;"></i> أكاديمية الرياض الأولمبية
-                </p>
-                <p style="display: flex; align-items: center; gap: 8px; background: #fce8d6; padding: 0.2rem 1rem; border-radius: 40px;">
-                    <i class="fas fa-location-dot" style="color:#c0392b;"></i> 
-                    <span>شارع الأمير سلطان، حي الملقا، الرياض</span>
-                </p>
-                <p style="margin-top: 0.3rem;"><i class="fas fa-clock" style="color:#e67e22;"></i> يومياً 8ص – 10م</p>
+                <div class="tags">
+                    <i class="fas fa-gymnastics"></i> جمباز فني · إيقاعي · كلاس · لايروبكس <i class="fas fa-gymnastics"></i>
+                </div>
+            </div>
+
+            <!-- معرض الصور -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/6112068/pexels-photo-6112068.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز فني" loading="lazy" />
+                    </div>
+                    <div class="label"><i class="fas fa-hand-holding-heart"></i> الجمباز الفني</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/7031700/pexels-photo-7031700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="جمباز كلاس" loading="lazy" />
+                    </div>
+                    <div class="label"><i class="fas fa-music"></i> الجمباز الكلاس</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="لايروبكس" loading="lazy" />
+                    </div>
+                    <div class="label"><i class="fas fa-bolt"></i> لايروبكس</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-wrapper">
+                        <img src="https://images.pexels.com/photos/260447/pexels-photo-260447.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="الأكاديمية" loading="lazy" />
+                    </div>
+                    <div class="label"><i class="fas fa-location-dot"></i> الأكاديمية</div>
+                </div>
+            </div>
+
+            <!-- معلومات المدربة + العنوان -->
+            <div class="info-section">
+                <div class="info-text">
+                    <h3><i class="fas fa-user-graduate" style="color:#8e44ad;"></i> عن المدربة</h3>
+                    <div class="info-badge"><i class="fas fa-certificate" style="color:#d35400;"></i> 12 عاماً من الخبرة في التدريب الأكاديمي</div>
+                    <div class="info-badge"><i class="fas fa-trophy" style="color:#f39c12;"></i> مدربة جمباز فني · إيقاعي · كلاس · لايروبكس</div>
+                    <div class="info-badge"><i class="fas fa-people-group" style="color:#2980b9;"></i> حاصلة على شهادة التدريب الدولية IPT</div>
+                    <div class="info-badge phone"><i class="fas fa-phone-alt" style="color:#27ae60;"></i> +966 55 123 4567</div>
+                </div>
+                <div class="info-location" id="locationBlock">
+                    <div class="address-title">
+                        <i class="fas fa-map-pin"></i> العنوان <span>📍</span>
+                    </div>
+                    <p style="font-weight: 600; color:#2c1e13; margin: 0.5rem 0;">
+                        <i class="fas fa-building" style="color:#d35400;"></i> أكاديمية الرياض الأولمبية
+                    </p>
+                    <div class="location-detail">
+                        <i class="fas fa-location-dot" style="color:#c0392b;"></i>
+                        شارع الأمير سلطان، حي الملقا، الرياض
+                    </div>
+                    <div class="time-info">
+                        <i class="fas fa-clock" style="color:#e67e22;"></i> يومياً 8ص – 10م
+                    </div>
+                </div>
+            </div>
+
+            <!-- روابط التواصل -->
+            <div class="social-links">
+                <a href="#"><i class="fab fa-whatsapp" style="color:#25d366;"></i> واتساب</a>
+                <a href="#"><i class="fab fa-instagram" style="color:#c13584;"></i> إنستغرام</a>
+                <a href="#"><i class="fab fa-youtube" style="color:#ff0000;"></i> يوتيوب</a>
+                <a href="#"><i class="fas fa-envelope" style="color:#d35400;"></i> البريد الإلكتروني</a>
             </div>
         </div>
 
-        <div class="social-links">
-            <a href="#"><i class="fab fa-whatsapp" style="color:#25d366;"></i> واتساب</a>
-            <a href="#"><i class="fab fa-instagram" style="color:#c13584;"></i> إنستغرام</a>
-            <a href="#"><i class="fab fa-youtube" style="color:#ff0000;"></i> يوتيوب</a>
-            <a href="#"><i class="fas fa-envelope" style="color:#d35400;"></i> البريد الإلكتروني</a>
+        <!-- ===== نموذج التسجيل ===== -->
+        <div class="registration-section" id="registrationSection">
+            <h2><i class="fas fa-child"></i> تسجيل الطفل للاشتراك</h2>
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> اسم الطفل</label>
+                        <input type="text" id="childName" placeholder="أدخل اسم الطفل" required />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> عمر الطفل</label>
+                        <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> رقم ولي الأمر</label>
+                        <input type="tel" id="parentPhone" placeholder="05xxxxxxxx" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> عدد الأشهر</label>
+                        <select id="monthsCount">
+                            <option value="1">شهر واحد</option>
+                            <option value="3">3 أشهر</option>
+                            <option value="6">6 أشهر</option>
+                            <option value="12">12 شهر</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> نوع الحصة</label>
+                        <select id="sessionType">
+                            <option value="فني">جمباز فني</option>
+                            <option value="كلاس">جمباز كلاس</option>
+                            <option value="لايروبكس">لايروبكس</option>
+                            <option value="مدمج">مدمج (فني + كلاس)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- الأسعار -->
+                <div class="price-box">
+                    <span class="price-item"><i class="fas fa-dollar-sign"></i> 300 ريال / شهر</span>
+                    <span class="price-item"><i class="fas fa-dollar-sign"></i> 800 ريال / 3 شهور</span>
+                    <span class="price-item highlight"><i class="fas fa-dollar-sign"></i> 1500 ريال / 6 شهور</span>
+                    <span class="price-item"><i class="fas fa-dollar-sign"></i> 2800 ريال / 12 شهر</span>
+                    <span class="price-item"><i class="fas fa-calendar-check"></i> حصص: مرتين أسبوعياً</span>
+                </div>
+
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> تقديم الطلب</button>
+            </form>
+
+            <!-- رسالة قيد الانتظار -->
+            <div id="pendingMessage" class="pending-message">
+                <i class="fas fa-hourglass-half"></i>
+                <span>⏳ قيد الانتظار ... سيتم إرسال العنوان والوقت بعد قبول المدير</span>
+                <i class="fas fa-hourglass-half"></i>
+            </div>
+
+            <!-- معلومات مخفية (العنوان والوقت) تظهر بعد القبول -->
+            <div id="hiddenInfo" class="hidden-info">
+                <div class="info-header">
+                    <i class="fas fa-check-circle"></i>
+                    <span>✅ تم القبول! التفاصيل:</span>
+                </div>
+                <p><i class="fas fa-location-dot"></i> العنوان: شارع الأمير سلطان، حي الملقا، الرياض (الصالة الرئيسية)</p>
+                <p><i class="fas fa-clock"></i> الوقت: السبت / الإثنين 5:00 عصراً – 6:30 مساءً</p>
+            </div>
         </div>
     </div>
 
-    <!-- ===== نموذج التسجيل ===== -->
-    <div class="registration-section" id="registrationSection">
-        <h2><i class="fas fa-child"></i> تسجيل الطفل للاشتراك</h2>
-        <form id="registerForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> اسم الطفل</label>
-                    <input type="text" id="childName" placeholder="أدخل اسم الطفل" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-calendar-alt"></i> عمر الطفل</label>
-                    <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-phone"></i> رقم ولي الأمر</label>
-                    <input type="tel" id="parentPhone" placeholder="05xxxxxxxx" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label><i class="fas fa-clock"></i> عدد الأشهر</label>
-                    <select id="monthsCount">
-                        <option value="1">شهر واحد</option>
-                        <option value="3">3 أشهر</option>
-                        <option value="6">6 أشهر</option>
-                        <option value="12">12 شهر</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-tag"></i> نوع الحصة</label>
-                    <select id="sessionType">
-                        <option value="فني">جمباز فني</option>
-                        <option value="كلاس">جمباز كلاس</option>
-                        <option value="لايروبكس">لايروبكس</option>
-                        <option value="مدمج">مدمج (فني + كلاس)</option>
-                    </select>
-                </div>
-            </div>
+    <script>
+        (function() {
+            const form = document.getElementById('registerForm');
+            const pendingMsg = document.getElementById('pendingMessage');
+            const hiddenInfo = document.getElementById('hiddenInfo');
+            const locationBlock = document.getElementById('locationBlock');
 
-            <!-- الأسعار والحصص -->
-            <div class="price-box">
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 300 ريال / شهر</span>
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 800 ريال / 3 شهور</span>
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 1500 ريال / 6 شهور</span>
-                <span class="price-item"><i class="fas fa-dollar-sign"></i> 2800 ريال / 12 شهر</span>
-                <span class="price-item"><i class="fas fa-calendar-check"></i> حصص: مرتين أسبوعياً</span>
-            </div>
+            // عند تقديم النموذج
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> تقديم الطلب</button>
-        </form>
+                // التحقق من الحقول
+                const childName = document.getElementById('childName').value.trim();
+                const childAge = document.getElementById('childAge').value.trim();
+                const parentPhone = document.getElementById('parentPhone').value.trim();
 
-        <!-- رسالة قيد الانتظار -->
-        <div id="pendingMessage" class="pending-message">
-            <i class="fas fa-hourglass-half"></i>
-            <span>⏳ قيد الانتظار ... سيتم إرسال العنوان والوقت بعد قبول المدير</span>
-            <i class="fas fa-hourglass-half"></i>
-        </div>
+                if (!childName || !childAge || !parentPhone) {
+                    alert('⚠️ الرجاء ملء جميع الحقول المطلوبة (اسم الطفل، العمر، رقم ولي الأمر)');
+                    return;
+                }
 
-        <!-- معلومات مخفية (العنوان والوقت) تظهر فقط بعد القبول (محاكاة) -->
-        <div id="hiddenInfo" class="hidden-info">
-            <i class="fas fa-check-circle" style="color: #27ae60; font-size: 1.8rem;"></i>
-            <span style="font-weight: 700; font-size: 1.2rem;">تم القبول! التفاصيل:</span>
-            <p><i class="fas fa-location-dot"></i> العنوان: شارع الأمير سلطان، حي الملقا، الرياض (الصالة الرئيسية)</p>
-            <p><i class="fas fa-clock"></i> الوقت: السبت / الإثنين 5:00 عصراً – 6:30 مساءً</p>
-        </div>
-    </div>
-</div>
+                // إظهار رسالة "قيد الانتظار"
+                pendingMsg.classList.add('show');
+                hiddenInfo.classList.remove('show');
+                locationBlock.style.display = 'none';
 
-<script>
-    (function() {
-        const form = document.getElementById('registerForm');
-        const pendingMsg = document.getElementById('pendingMessage');
-        const hiddenInfo = document.getElementById('hiddenInfo');
-        const locationBlock = document.getElementById('locationBlock');
+                // تعطيل الزر مؤقتاً
+                const btn = form.querySelector('.btn-submit');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
 
-        // عند تقديم النموذج
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+                // محاكاة قبول المدير بعد 4 ثواني
+                setTimeout(function() {
+                    // إظهار العنوان والوقت
+                    hiddenInfo.classList.add('show');
+                    // إعادة إظهار العنوان الأساسي
+                    locationBlock.style.display = 'flex';
 
-            // التحقق من الحقول الأساسية
-            const childName = document.getElementById('childName').value.trim();
-            const childAge = document.getElementById('childAge').value.trim();
-            const parentPhone = document.getElementById('parentPhone').value.trim();
+                    // تحديث رسالة القيد إلى "تم القبول"
+                    pendingMsg.innerHTML = `
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <span>✅ تم قبول الطلب من قبل المدير! يمكنك الآن رؤية العنوان والوقت.</span>
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                        `;
+                    pendingMsg.style.background = '#d4edda';
+                    pendingMsg.style.borderColor = '#28a745';
 
-            if (!childName || !childAge || !parentPhone) {
-                alert('الرجاء ملء جميع الحقول المطلوبة (اسم الطفل، العمر، رقم ولي الأمر)');
-                return;
-            }
-
-            // إظهار رسالة "قيد الانتظار" وإخفاء أي معلومات سابقة
-            pendingMsg.classList.add('show');
-            hiddenInfo.classList.remove('show');
-
-            // إخفاء العنوان والمكان في البروفايل (محاكاة)
-            // لكننا نخفي block العنوان بشكل ديناميكي (نضيف class مخفي)
-            // باستخدام style display none مؤقتاً
-            locationBlock.style.display = 'none';
-
-            // يمكن إظهار رسالة بأن الطلب قيد الانتظار
-            // كما نقوم بتعطيل الزر مؤقتاً
-            const btn = form.querySelector('.btn-submit');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-
-            // محاكاة قبول المدير بعد 4 ثواني (لإظهار العنوان والوقت)
-            setTimeout(function() {
-                // إظهار العنوان والوقت (المعلومات المخفية)
-                hiddenInfo.classList.add('show');
-                // إعادة إظهار locationBlock (العنوان الأساسي)
-                locationBlock.style.display = 'flex';
-                // تغيير رسالة القيد إلى "تم القبول" مع إبقائها ظاهرة
-                pendingMsg.innerHTML = `
-                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
-                    <span>✅ تم قبول الطلب من قبل المدير! يمكنك الآن رؤية العنوان والوقت.</span>
-                    <i class="fas fa-check-circle" style="color: #27ae60;"></i>
-                `;
-                // إعادة الزر
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> تقديم الطلب';
-                // إضافة تأثير
-                pendingMsg.style.background = '#d4edda';
-                pendingMsg.style.borderColor = '#28a745';
-            }, 4000); // 4 ثواني محاكاة
-        });
-
-        // إعادة تعيين إذا أراد المستخدم تقديم طلب جديد (يمكن إعادة تحميل الصفحة)
-        // لكننا نضيف زر مخفي لإعادة تعيين الحالة (اختياري)
-        // يمكن إعادة تعيين يدوي عن طريق تحديث الصفحة
-    })();
-</script>
-
-<!-- إضافة بعض التعديلات للتوافق -->
+                    // إعادة الزر
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> تقديم الطلب';
+                }, 4000);
+            });
+        })();
+    </script>
 </body>
     </html>
