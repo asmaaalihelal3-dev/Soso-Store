@@ -31,7 +31,7 @@
             position: relative;
         }
 
-        /* خلفية متحركة بنجوم */
+        /* خلفية متحركة بنجوم محسنة */
         body::before {
             content: '';
             position: fixed;
@@ -96,7 +96,7 @@
             z-index: 1;
         }
 
-        /* ===== شريط التقدم ===== */
+        /* ===== شريط التقدم المحسن ===== */
         .progress-bar {
             width: 100%;
             height: 4px;
@@ -121,7 +121,7 @@
             100% { width: 100%; }
         }
 
-        /* ===== بطاقة البروفايل ===== */
+        /* ===== بطاقة البروفايل المحسنة ===== */
         .profile-card {
             background: rgba(15, 15, 30, 0.9);
             backdrop-filter: blur(25px);
@@ -160,7 +160,7 @@
             100% { transform: rotate(360deg) scale(1); }
         }
 
-        /* ===== زر الحجز ===== */
+        /* ===== زر الحجز المحسن ===== */
         .login-top-bar {
             display: flex;
             justify-content: flex-end;
@@ -201,7 +201,7 @@
             font-size: 1.2rem;
         }
 
-        /* ===== الهيدر ===== */
+        /* ===== الهيدر المحسن ===== */
         .header {
             text-align: center;
             margin-bottom: 3rem;
@@ -228,6 +228,12 @@
             align-items: center;
             gap: 6px;
             backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .header .badge-container .badge-item:hover {
+            background: rgba(100, 80, 200, 0.2);
+            transform: translateY(-2px);
         }
 
         .header::after {
@@ -315,7 +321,7 @@
             color: #a78bfa;
         }
 
-        /* ===== إحصائيات ===== */
+        /* ===== إحصائيات محسنة ===== */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -333,12 +339,14 @@
             text-align: center;
             border: 1px solid rgba(100, 80, 200, 0.08);
             transition: all 0.3s ease;
+            cursor: default;
         }
 
         .stat-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             background: rgba(30, 30, 60, 0.6);
             border-color: rgba(100, 80, 200, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .stat-item .stat-number {
@@ -358,7 +366,7 @@
             margin-top: 0.2rem;
         }
 
-        /* ===== معرض الصور ===== */
+        /* ===== معرض الصور المحسن ===== */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -376,6 +384,7 @@
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 2px solid transparent;
             backdrop-filter: blur(8px);
+            cursor: pointer;
         }
 
         .gallery-item:nth-child(1) { border-color: rgba(251, 113, 133, 0.3); }
@@ -450,7 +459,7 @@
             color: #a78bfa;
         }
 
-        /* ===== معلومات المدربة ===== */
+        /* ===== معلومات المدربة المحسنة ===== */
         .info-section {
             display: flex;
             flex-wrap: wrap;
@@ -500,6 +509,7 @@
         .info-text .info-badge:hover {
             background: rgba(100, 80, 200, 0.12);
             transform: translateX(-6px);
+            border-color: rgba(100, 80, 200, 0.15);
         }
 
         .info-text .info-badge i {
@@ -541,6 +551,7 @@
         .info-location:hover {
             border-color: rgba(167, 139, 250, 0.25);
             box-shadow: 0 0 0 5px rgba(100, 80, 200, 0.06);
+            transform: translateY(-3px);
         }
 
         .info-location .address-title {
@@ -594,7 +605,7 @@
             color: #f59e0b;
         }
 
-        /* ===== الروابط الاجتماعية ===== */
+        /* ===== الروابط الاجتماعية المحسنة ===== */
         .social-links {
             display: flex;
             flex-wrap: wrap;
@@ -622,9 +633,24 @@
             gap: 14px;
             font-size: 1.1rem;
             backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 60px;
         }
 
         .social-links a:nth-child(1) { border-color: rgba(37, 211, 102, 0.15); }
+        .social-links a:nth-child(1)::before { background: rgba(37, 211, 102, 0.05); }
         .social-links a:nth-child(1):hover {
             background: rgba(37, 211, 102, 0.08);
             border-color: #25d366;
@@ -634,6 +660,7 @@
         }
 
         .social-links a:nth-child(2) { border-color: rgba(193, 53, 132, 0.15); }
+        .social-links a:nth-child(2)::before { background: rgba(193, 53, 132, 0.05); }
         .social-links a:nth-child(2):hover {
             background: rgba(193, 53, 132, 0.08);
             border-color: #c13584;
@@ -643,6 +670,7 @@
         }
 
         .social-links a:nth-child(3) { border-color: rgba(255, 0, 0, 0.15); }
+        .social-links a:nth-child(3)::before { background: rgba(255, 0, 0, 0.05); }
         .social-links a:nth-child(3):hover {
             background: rgba(255, 0, 0, 0.08);
             border-color: #ff0000;
@@ -652,6 +680,7 @@
         }
 
         .social-links a:nth-child(4) { border-color: rgba(167, 139, 250, 0.15); }
+        .social-links a:nth-child(4)::before { background: rgba(167, 139, 250, 0.05); }
         .social-links a:nth-child(4):hover {
             background: rgba(167, 139, 250, 0.08);
             border-color: #a78bfa;
@@ -674,7 +703,7 @@
             border-color: currentColor;
         }
 
-        /* ===== شهادة الثقة ===== */
+        /* ===== شهادة الثقة المحسنة ===== */
         .trust-badge {
             display: flex;
             flex-wrap: wrap;
@@ -697,14 +726,25 @@
             color: #64748b;
             font-size: 0.85rem;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .trust-badge .trust-item:hover {
+            color: #a78bfa;
+            transform: translateY(-2px);
         }
 
         .trust-badge .trust-item i {
             color: #34d399;
             font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        /* ===== نظام تسجيل الدخول (مربعات - بدون سحب) ===== */
+        .trust-badge .trust-item:hover i {
+            transform: scale(1.2);
+        }
+
+        /* ===== نظام تسجيل الدخول المحسن ===== */
         .registration-section {
             background: rgba(15, 15, 30, 0.9);
             backdrop-filter: blur(25px);
@@ -829,6 +869,7 @@
             border-color: #a78bfa;
             box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.06);
             background: rgba(10, 10, 25, 0.8);
+            transform: scale(1.005);
         }
 
         .form-group select {
@@ -846,7 +887,7 @@
             color: #e2d9f3;
         }
 
-        /* ===== زر التسجيل (مصغر) ===== */
+        /* ===== زر التسجيل المحسن ===== */
         .btn-submit {
             background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6);
             border: none;
@@ -899,7 +940,7 @@
             font-size: 1rem;
         }
 
-        /* ===== خزانة الانتظار - تظهر عند تسجيل العميل ===== */
+        /* ===== خزانة الانتظار المحسنة ===== */
         .waiting-room {
             background: rgba(20, 20, 40, 0.85);
             border-radius: 30px;
@@ -964,49 +1005,7 @@
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ===== رسالة "جاري قيد المراجعة" (مصغرة) ===== */
-        .pending-message {
-            background: rgba(20, 20, 40, 0.85);
-            border-radius: 30px;
-            padding: 1rem 2rem;
-            margin-top: 1.5rem;
-            border: 2px solid rgba(251, 191, 36, 0.15);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fbbf24;
-            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.02);
-            backdrop-filter: blur(15px);
-            transition: all 0.5s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .pending-message.show {
-            display: flex;
-            animation: fadeSlideIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .pending-message .loading-spinner {
-            width: 30px;
-            height: 30px;
-            border: 3px solid rgba(251, 191, 36, 0.1);
-            border-top-color: #fbbf24;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .pending-message i {
-            font-size: 2rem;
-            color: #fbbf24;
-            animation: pulse 1.8s infinite;
-        }
-
-        /* ===== معلومات المواعيد والعنوان (مصغرة) ===== */
+        /* ===== معلومات المواعيد والعنوان المحسنة ===== */
         .hidden-info {
             display: none;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(16, 185, 129, 0.02));
@@ -1064,6 +1063,12 @@
             background: rgba(16, 185, 129, 0.03);
             border-radius: 20px;
             padding: 0.3rem 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .hidden-info p:hover {
+            background: rgba(16, 185, 129, 0.08);
+            transform: translateX(-3px);
         }
 
         .hidden-info p i {
@@ -1072,7 +1077,7 @@
             font-size: 0.9rem;
         }
 
-        /* ===== مودال الترحيب (مصغر) ===== */
+        /* ===== مودال الترحيب المحسن ===== */
         .quick-login-modal {
             display: none;
             position: fixed;
@@ -1089,6 +1094,7 @@
 
         .quick-login-modal.show {
             display: flex;
+            animation: fadeSlideIn 0.5s ease;
         }
 
         .quick-login-modal .modal-content {
@@ -1126,6 +1132,7 @@
             color: #a78bfa;
             margin-bottom: 0.3rem;
             display: block;
+            animation: starPulse 2s ease-in-out infinite;
         }
 
         .quick-login-modal .modal-content h2 {
@@ -1175,6 +1182,72 @@
         .quick-login-modal .modal-content .modal-footer i {
             color: #34d399;
         }
+
+        /* ===== مؤشر التحميل العالمي ===== */
+        .global-loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .global-loader.show {
+            display: flex;
+        }
+
+        .global-loader .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(167, 139, 250, 0.1);
+            border-top-color: #a78bfa;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* ===== إشعارات toast ===== */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            min-width: 250px;
+            animation: fadeSlideIn 0.5s ease;
+        }
+
+        .toast-notification.show {
+            display: flex;
+        }
+
+        .toast-notification .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-notification .toast-text {
+            color: #e2d9f3;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .toast-notification.success .toast-icon { color: #34d399; }
+        .toast-notification.error .toast-icon { color: #ef4444; }
+        .toast-notification.warning .toast-icon { color: #fbbf24; }
+        .toast-notification.info .toast-icon { color: #60a5fa; }
 
         /* ===== التجاوب ===== */
         @media (max-width: 768px) {
@@ -1244,6 +1317,12 @@
             .waiting-room .waiting-icon {
                 font-size: 2.5rem;
             }
+            .toast-notification {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                min-width: auto;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1265,14 +1344,6 @@
             .registration-section {
                 padding: 1rem;
                 border-radius: 20px;
-            }
-            .pending-message {
-                font-size: 0.9rem;
-                padding: 0.8rem 1rem;
-                gap: 0.8rem;
-            }
-            .pending-message i {
-                font-size: 1.5rem;
             }
             .info-text h3 {
                 font-size: 1.7rem;
@@ -1337,11 +1408,28 @@
                 width: 28px;
                 height: 28px;
             }
+            .toast-notification .toast-text {
+                font-size: 0.85rem;
+            }
+            .toast-notification .toast-icon {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
+
+        <!-- ===== مؤشر تحميل عالمي ===== -->
+        <div class="global-loader" id="globalLoader">
+            <div class="loader-spinner"></div>
+        </div>
+
+        <!-- ===== إشعارات Toast ===== -->
+        <div class="toast-notification" id="toastNotification">
+            <i class="fas fa-check-circle toast-icon"></i>
+            <span class="toast-text" id="toastText">تم بنجاح!</span>
+        </div>
 
         <!-- شريط التقدم -->
         <div class="progress-bar">
@@ -1488,33 +1576,33 @@
                 <i class="fas fa-child"></i> تسجيل الطفل
                 <span class="form-badge"><i class="fas fa-edit"></i> تعبئة سريعة</span>
             </h2>
-            <form id="registerForm">
+            <form id="registerForm" novalidate>
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> اسم الطفل</label>
-                        <input type="text" id="childName" placeholder="اسم الطفل رباعياً" required />
+                        <input type="text" id="childName" placeholder="اسم الطفل رباعياً" required autocomplete="name" />
                         <span class="field-hint">مثال: محمد أحمد السالم</span>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-calendar-alt"></i> العمر</label>
-                        <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required />
+                        <input type="number" id="childAge" placeholder="مثال: 7" min="3" max="18" required autocomplete="age" />
                         <span class="field-hint">من 3 إلى 18 سنة</span>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-phone"></i> رقم ولي الأمر</label>
-                        <input type="tel" id="parentPhone" placeholder="رقم الجوال" required />
+                        <input type="tel" id="parentPhone" placeholder="رقم الجوال" required autocomplete="tel" />
                         <span class="field-hint">11 رقم (مثال: 01012345678)</span>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-gymnastics"></i> نوع الجمباز</label>
                         <select id="sessionType">
-                            <option value="فني">جمباز فني</option>
-                            <option value="كلاس">جمباز كلاس</option>
-                            <option value="لايروبكس">لايروبكس</option>
-                            <option value="مدمج">مدمج (فني + كلاس)</option>
-                            <option value="تأهيلي">تأهيلي بدني</option>
+                            <option value="فني">🤸 جمباز فني</option>
+                            <option value="كلاس">💃 جمباز كلاس</option>
+                            <option value="لايروبكس">🏃 لايروبكس</option>
+                            <option value="مدمج">🔄 مدمج (فني + كلاس)</option>
+                            <option value="تأهيلي">💪 تأهيلي بدني</option>
                         </select>
                     </div>
                 </div>
@@ -1532,23 +1620,23 @@
                 <i class="fas fa-hourglass-half waiting-icon"></i>
             </div>
 
-            <!-- ===== معلومات المواعيد والعنوان (تظهر بعد قبول المدير) ===== -->
+            <!-- ===== معلومات المواعيد والعنوان ===== -->
             <div id="hiddenInfo" class="hidden-info">
                 <div class="info-header">
                     <i class="fas fa-check-circle"></i>
                     <span>✅ تم قبول الطلب من قبل المدير!</span>
                 </div>
                 <div class="info-details">
-                    <p><i class="fas fa-location-dot"></i> <strong>العنوان:</strong> نادي طه حسين الرياضي - شارع الأمير سلطان، حي الملقا، الرياض (الصالة الرئيسية)</p>
+                    <p><i class="fas fa-location-dot"></i> <strong>العنوان:</strong> نادي طه حسين الرياضي</p>
                     <p><i class="fas fa-clock"></i> <strong>مواعيد العمل:</strong></p>
                     <p style="grid-column: 1 / -1; background: rgba(16, 185, 129, 0.05); font-size: 0.85rem;">
-                        <i class="fas fa-calendar-day"></i> السبت - الأربعاء: 8:00 صباحاً – 10:00 مساءً
+                        <i class="fas fa-calendar-day"></i> السبت - الأربعاء: 8:00 ص – 10:00 م
                     </p>
                     <p style="grid-column: 1 / -1; background: rgba(16, 185, 129, 0.05); font-size: 0.85rem;">
-                        <i class="fas fa-calendar-day"></i> الخميس: 8:00 صباحاً – 6:00 مساءً
+                        <i class="fas fa-calendar-day"></i> الخميس: 8:00 ص – 6:00 م
                     </p>
                     <p style="grid-column: 1 / -1; background: rgba(16, 185, 129, 0.05); font-size: 0.85rem;">
-                        <i class="fas fa-calendar-day"></i> الجمعة: مغلق
+                        <i class="fas fa-calendar-day"></i> الجمعة: 🚫 مغلق
                     </p>
                     <p><i class="fas fa-user-tie"></i> <strong>المدربة:</strong> ليلى المنصور</p>
                     <p><i class="fas fa-phone-alt"></i> <strong>للتواصل:</strong> +966 55 123 4567</p>
@@ -1577,9 +1665,11 @@
         </div>
     </div>
 
-    <!-- ===== جافا سكريبت ===== -->
+    <!-- ===== جافا سكريبت المتطورة ===== -->
     <script>
         (function() {
+            'use strict';
+
             // ===== عناصر الصفحة =====
             const loginBtn = document.getElementById('loginBtn');
             const quickLoginModal = document.getElementById('quickLoginModal');
@@ -1592,6 +1682,36 @@
             const waitingRoom = document.getElementById('waitingRoom');
             const hiddenInfo = document.getElementById('hiddenInfo');
             const locationBlock = document.getElementById('locationBlock');
+            const globalLoader = document.getElementById('globalLoader');
+            const toastNotification = document.getElementById('toastNotification');
+            const toastText = document.getElementById('toastText');
+
+            // ===== دالة عرض الإشعارات =====
+            function showToast(message, type = 'success') {
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+                toastNotification.className = 'toast-notification ' + type;
+                toastNotification.querySelector('.toast-icon').className = 'fas ' + icons[type] + ' toast-icon';
+                toastText.textContent = message;
+                toastNotification.classList.add('show');
+                clearTimeout(toastNotification._timeout);
+                toastNotification._timeout = setTimeout(() => {
+                    toastNotification.classList.remove('show');
+                }, 4000);
+            }
+
+            // ===== دالة عرض/إخفاء التحميل =====
+            function showLoader(show) {
+                if (show) {
+                    globalLoader.classList.add('show');
+                } else {
+                    globalLoader.classList.remove('show');
+                }
+            }
 
             // ===== 1. فتح مودال الترحيب =====
             loginBtn.addEventListener('click', function() {
@@ -1621,9 +1741,17 @@
                 waitingRoom.classList.remove('show');
                 hiddenInfo.classList.remove('show');
                 locationBlock.style.display = 'flex';
+
+                // إعادة ضبط النموذج
+                registerForm.reset();
+                const btn = registerForm.querySelector('.btn-submit');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> تسجيل الآن';
+
+                showToast('📝 املأ البيانات لتسجيل طفلك', 'info');
             });
 
-            // ===== 4. معالجة نموذج التسجيل =====
+            // ===== 4. معالجة نموذج التسجيل مع تحسينات =====
             registerForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -1631,27 +1759,49 @@
                 const childAge = document.getElementById('childAge').value.trim();
                 const parentPhone = document.getElementById('parentPhone').value.trim();
 
-                if (!childName || !childAge || !parentPhone) {
-                    alert('⚠️ الرجاء ملء جميع الحقول المطلوبة');
+                // ===== تحسينات التحقق =====
+                // التحقق من اسم الطفل
+                if (!childName) {
+                    showToast('⚠️ الرجاء إدخال اسم الطفل', 'error');
+                    document.getElementById('childName').focus();
                     return;
                 }
 
                 if (childName.length < 3) {
-                    alert('⚠️ اسم الطفل يجب أن يكون 3 أحرف على الأقل');
+                    showToast('⚠️ اسم الطفل يجب أن يكون 3 أحرف على الأقل', 'error');
+                    document.getElementById('childName').focus();
                     return;
                 }
 
-                if (parseInt(childAge) < 3 || parseInt(childAge) > 18) {
-                    alert('⚠️ عمر الطفل يجب أن يكون بين 3 و 18 سنة');
+                // التحقق من العمر
+                if (!childAge) {
+                    showToast('⚠️ الرجاء إدخال عمر الطفل', 'error');
+                    document.getElementById('childAge').focus();
+                    return;
+                }
+
+                const ageNum = parseInt(childAge);
+                if (isNaN(ageNum) || ageNum < 3 || ageNum > 18) {
+                    showToast('⚠️ عمر الطفل يجب أن يكون بين 3 و 18 سنة', 'error');
+                    document.getElementById('childAge').focus();
+                    return;
+                }
+
+                // التحقق من رقم الجوال
+                if (!parentPhone) {
+                    showToast('⚠️ الرجاء إدخال رقم ولي الأمر', 'error');
+                    document.getElementById('parentPhone').focus();
                     return;
                 }
 
                 if (!/^\d{11}$/.test(parentPhone)) {
-                    alert('⚠️ رقم الجوال يجب أن يكون 11 رقم (مثال: 01012345678)');
+                    showToast('⚠️ رقم الجوال يجب أن يكون 11 رقم (مثال: 01012345678)', 'error');
+                    document.getElementById('parentPhone').focus();
                     return;
                 }
 
                 // ===== 5. العميل يدخل إلى خزانة الانتظار =====
+                showLoader(true);
                 waitingRoom.classList.add('show');
                 hiddenInfo.classList.remove('show');
                 locationBlock.style.display = 'none';
@@ -1661,7 +1811,7 @@
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
 
-                // ===== 6. محاكاة قبول المدير بعد 4 ثواني =====
+                // ===== 6. محاكاة قبول المدير بعد 4 ثواني مع تحسينات =====
                 setTimeout(function() {
                     // إخفاء خزانة الانتظار وإظهار المواعيد
                     waitingRoom.classList.remove('show');
@@ -1682,6 +1832,13 @@
                     setTimeout(() => {
                         hiddenInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 300);
+
+                    // إظهار إشعار نجاح
+                    showToast('✅ تم قبول الطلب من قبل المدير! 🎉', 'success');
+
+                    // إخفاء التحميل
+                    showLoader(false);
+
                 }, 4000);
             });
 
@@ -1689,6 +1846,27 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') closeQuickModalFunc();
             });
+
+            // ===== 8. تحسينات إضافية: مسح الأخطاء عند الكتابة =====
+            document.querySelectorAll('#registerForm input').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.style.borderColor = 'rgba(100, 80, 200, 0.1)';
+                });
+            });
+
+            // ===== 9. منع إرسال النموذج بالضغط على Enter في الحقول =====
+            document.querySelectorAll('#registerForm input, #registerForm select').forEach(field => {
+                field.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        registerForm.dispatchEvent(new Event('submit'));
+                    }
+                });
+            });
+
+            console.log('🚀 أكاديمية ليلى المنصور - تم تحميل الصفحة بنجاح!');
+            console.log('💡 بيانات تجريبية: اسم الطفل: محمد, العمر: 7, الجوال: 01012345678');
+
         })();
     </script>
 </body>
