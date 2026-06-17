@@ -184,6 +184,12 @@
             gap: 12px;
             box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
             border: 1px solid rgba(167, 139, 250, 0.15);
+            animation: pulseBtn 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2); }
+            50% { box-shadow: 0 4px 40px rgba(124, 58, 237, 0.4); }
         }
 
         .login-top-bar .login-btn:hover {
@@ -602,6 +608,10 @@
             padding: 0.2rem 1.2rem;
             border-radius: 40px;
             font-size: 0.8rem;
+        }
+
+        .info-location p {
+            color: #c4b5d4;
         }
 
         .info-location .location-detail {
@@ -1108,39 +1118,39 @@
             color: #34d399;
         }
 
-        /* ===== مودال تسجيل الدخول ===== */
-        .login-modal {
+        /* ===== مودال الترحيب السريع ===== */
+        .quick-login-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(20px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            animation: fadeSlideIn 0.5s ease;
         }
 
-        .login-modal.show {
+        .quick-login-modal.show {
             display: flex;
         }
 
-        .login-modal .modal-content {
+        .quick-login-modal .modal-content {
             background: rgba(20, 20, 40, 0.95);
             border-radius: 60px;
             padding: 3rem 3.5rem;
-            max-width: 450px;
+            max-width: 480px;
             width: 90%;
             border: 1px solid rgba(100, 80, 200, 0.15);
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
             position: relative;
             animation: fadeSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: center;
         }
 
-        .login-modal .modal-content .close-modal {
+        .quick-login-modal .modal-content .close-modal {
             position: absolute;
             top: 20px;
             left: 25px;
@@ -1152,118 +1162,64 @@
             transition: all 0.3s ease;
         }
 
-        .login-modal .modal-content .close-modal:hover {
+        .quick-login-modal .modal-content .close-modal:hover {
             color: #ef4444;
             transform: rotate(90deg);
         }
 
-        .login-modal .modal-content .modal-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .login-modal .modal-content .modal-header .modal-icon {
-            font-size: 4rem;
+        .quick-login-modal .modal-content .modal-icon {
+            font-size: 5rem;
             color: #a78bfa;
             margin-bottom: 0.5rem;
             display: block;
         }
 
-        .login-modal .modal-content .modal-header h2 {
+        .quick-login-modal .modal-content h2 {
             color: #e2d9f3;
             font-size: 2rem;
             font-weight: 800;
+            margin-bottom: 0.5rem;
         }
 
-        .login-modal .modal-content .modal-header p {
+        .quick-login-modal .modal-content p {
             color: #94a3b8;
-            font-size: 1rem;
-            margin-top: 0.3rem;
-        }
-
-        .login-modal .modal-content .login-form .form-group-modal {
+            font-size: 1.1rem;
             margin-bottom: 1.5rem;
         }
 
-        .login-modal .modal-content .login-form .form-group-modal label {
-            color: #c4b5d4;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
-        }
-
-        .login-modal .modal-content .login-form .form-group-modal input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 60px;
-            border: 2px solid rgba(100, 80, 200, 0.1);
-            background: rgba(5, 5, 15, 0.6);
-            color: #e2d9f3;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .login-modal .modal-content .login-form .form-group-modal input:focus {
-            border-color: #a78bfa;
-            box-shadow: 0 0 0 5px rgba(167, 139, 250, 0.06);
-        }
-
-        .login-modal .modal-content .login-form .login-submit-btn {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 60px;
+        .quick-login-modal .modal-content .quick-login-btn {
             background: linear-gradient(135deg, #7c3aed, #6d28d9);
             color: white;
             border: none;
-            font-size: 1.2rem;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            font-size: 1.3rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 0.5rem;
-        }
-
-        .login-modal .modal-content .login-form .login-submit-btn:hover {
-            transform: scale(1.03);
+            gap: 15px;
             box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
         }
 
-        .login-modal .modal-content .login-form .login-error {
-            color: #ef4444;
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 1rem;
-            display: none;
+        .quick-login-modal .modal-content .quick-login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
         }
 
-        .login-modal .modal-content .login-form .login-error.show {
-            display: block;
+        .quick-login-modal .modal-content .quick-login-btn i {
+            font-size: 1.4rem;
         }
 
-        .login-modal .modal-content .login-footer {
-            text-align: center;
+        .quick-login-modal .modal-content .modal-footer {
             margin-top: 1.5rem;
             color: #64748b;
             font-size: 0.9rem;
         }
 
-        .login-modal .modal-content .login-footer .demo-credentials {
-            background: rgba(100, 80, 200, 0.05);
-            padding: 0.8rem 1.2rem;
-            border-radius: 40px;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(100, 80, 200, 0.05);
-        }
-
-        .login-modal .modal-content .login-footer .demo-credentials code {
-            color: #a78bfa;
-            font-family: 'Cairo', monospace;
-            font-size: 0.9rem;
+        .quick-login-modal .modal-content .modal-footer i {
+            color: #34d399;
         }
 
         /* ===== التجاوب ===== */
@@ -1326,7 +1282,7 @@
             .stat-item .stat-number {
                 font-size: 1.8rem;
             }
-            .login-modal .modal-content {
+            .quick-login-modal .modal-content {
                 padding: 2rem 1.5rem;
             }
             .login-top-bar .login-btn {
@@ -1393,11 +1349,15 @@
             .trust-badge .trust-item {
                 font-size: 0.7rem;
             }
-            .login-modal .modal-content {
+            .quick-login-modal .modal-content {
                 padding: 1.5rem 1rem;
             }
-            .login-modal .modal-content .modal-header h2 {
+            .quick-login-modal .modal-content h2 {
                 font-size: 1.5rem;
+            }
+            .quick-login-modal .modal-content .quick-login-btn {
+                font-size: 1.1rem;
+                padding: 0.8rem 2rem;
             }
         }
     </style>
@@ -1413,11 +1373,11 @@
         <!-- ===== شريط تسجيل الدخول العلوي ===== -->
         <div class="login-top-bar">
             <button class="login-btn" id="loginBtn">
-                <i class="fas fa-user-lock"></i>
-                تسجيل الدخول
+                <i class="fas fa-calendar-check"></i>
+                احجز لطفلك الآن
             </button>
             <div class="user-info" id="userInfo">
-                <div class="user-avatar" id="userAvatar">ل</div>
+                <div class="user-avatar" id="userAvatar">و</div>
                 <span class="user-name" id="userNameDisplay">ولي الأمر</span>
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> خروج
@@ -1515,6 +1475,27 @@
                         <i class="fas fa-map-pin" style="color:#a78bfa;"></i> العنوان <span>📍</span>
                     </div>
                     <p style="font-weight: 600; margin: 0.6rem 0;">
-                        <i class="fas fa-building" style="color:#a78bfa;"></i> أكاديمية الرياض الأولمبية
+                        <i class="fas fa-building" style="color:#a78bfa;"></i> نادي طه حسين الرياضي
                     </p>
-       
+                    <div class="location-detail">
+                        <i class="fas fa-location-dot"></i>
+                        شارع الأمير سلطان، حي الملقا، الرياض
+                    </div>
+                    <div class="location-detail" style="border-color: rgba(251, 191, 36, 0.1);">
+                        <i class="fas fa-map-marked-alt"></i>
+                        مبنى 12 - الدور الثالث - صالة رقم 5
+                    </div>
+                    <div class="time-info">
+                        <i class="fas fa-clock"></i> يومياً 8ص – 10م (باستثناء الجمعة)
+                    </div>
+                    <div class="time-info" style="margin-top: 0.3rem; color: #a78bfa;">
+                        <i class="fas fa-calendar-check"></i> الحجز المسبق مطلوب
+                    </div>
+                </div>
+            </div>
+
+            <!-- روابط التواصل -->
+            <div class="social-links">
+                <a href="#"><i class="fab fa-whatsapp"></i> واتساب <span class="social-count">30K</span></a>
+                <a href="#"><i class="fab fa-instagram"></i> إنستغرام <span class="social-count">45K</span></a>
+                <a href="#"><i class="fab fa-youtube"></i> يوتيوب <span class="social-count">12K</span
