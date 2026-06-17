@@ -15,54 +15,141 @@
         }
 
         body {
-            background: linear-gradient(145deg, #f0ebe3 0%, #fcf3e9 100%);
+            background: #0a0a12;
+            background-image: 
+                radial-gradient(ellipse at 20% 30%, #1a0a2e 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, #0d1f3c 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, #0a0a12 0%, #000000 100%);
             min-height: 100vh;
             padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        /* خلفية نجوم متحركة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 10px 20px, #fff, transparent),
+                radial-gradient(2px 2px at 30px 60px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 50px 150px, #ddd, transparent),
+                radial-gradient(2px 2px at 80px 35px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 120px 90px, #fff, transparent),
+                radial-gradient(2px 2px at 160px 25px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 200px 120px, #eee, transparent),
+                radial-gradient(2px 2px at 250px 45px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 300px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 350px 150px, rgba(255,255,255,0.7), transparent);
+            background-size: 500px 200px;
+            background-repeat: repeat;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.02); }
+            100% { opacity: 0.3; transform: scale(1); }
         }
 
         .dashboard {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* header */
+        /* header محسن */
         .dash-header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2.5rem;
-            background: rgba(255, 248, 240, 0.7);
-            backdrop-filter: blur(6px);
+            background: rgba(15, 15, 30, 0.85);
+            backdrop-filter: blur(20px);
             padding: 1.2rem 2.5rem;
             border-radius: 80px;
-            border: 1px solid #f3d5b0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
 
         .dash-header h1 {
             font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #b94a6f, #e67e22, #2e86c1);
+            font-weight: 900;
+            background: linear-gradient(135deg, #a78bfa, #f59e0b, #60a5fa, #a78bfa);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             display: flex;
             align-items: center;
             gap: 12px;
+            animation: shimmerText 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmerText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .dash-header .badge-admin {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
             color: white;
             padding: 0.4rem 1.6rem;
             border-radius: 60px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.9rem;
-            border: 2px solid #f1c40f;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
         }
 
-        /* stats cards */
+        .dash-header .header-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .dash-header .header-right .notification-btn {
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.15);
+            padding: 0.5rem 0.8rem;
+            border-radius: 50px;
+            color: #a78bfa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .dash-header .header-right .notification-btn:hover {
+            background: rgba(167, 139, 250, 0.2);
+            transform: scale(1.05);
+        }
+
+        .dash-header .header-right .notification-btn .badge-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 12px;
+            height: 12px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #0a0a12;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        /* stats cards محسنة */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -71,21 +158,29 @@
         }
 
         .stat-card {
-            background: white;
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(15px);
             border-radius: 40px 12px 40px 12px;
             padding: 1.5rem 1.2rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-            border: 2px solid #f5dcc8;
-            transition: 0.2s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(100, 80, 200, 0.08);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 1rem;
+            cursor: default;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(167, 139, 250, 0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         .stat-card i {
             font-size: 2.8rem;
-            color: #d35400;
-            background: #fdebd0;
+            color: #a78bfa;
+            background: rgba(167, 139, 250, 0.08);
             padding: 0.6rem;
             border-radius: 30px;
         }
@@ -93,48 +188,54 @@
         .stat-card .info h3 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #2d1a0c;
+            color: #e2d9f3;
         }
 
         .stat-card .info p {
-            color: #6b4f38;
+            color: #94a3b8;
             font-weight: 500;
         }
 
-        /* بطاقات الطلاب */
+        /* section title محسن */
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #3e2a1b;
+            color: #e2d9f3;
             margin: 2rem 0 1.2rem;
             display: flex;
             align-items: center;
             gap: 14px;
-            border-right: 8px solid #e67e22;
+            border-right: 8px solid #a78bfa;
             padding-right: 1rem;
         }
 
+        .section-title i {
+            color: #a78bfa;
+        }
+
+        /* students grid محسن */
         .students-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
         }
 
         .student-card {
-            background: white;
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(15px);
             border-radius: 40px 12px 40px 12px;
             padding: 1.8rem 1.5rem;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-            border: 2px solid #f1d7c0;
-            transition: 0.25s;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(100, 80, 200, 0.08);
+            transition: all 0.3s ease;
             position: relative;
         }
 
         .student-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 18px 35px rgba(0,0,0,0.08);
-            border-color: #dba67a;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+            border-color: rgba(167, 139, 250, 0.15);
         }
 
         .student-card .top {
@@ -147,7 +248,7 @@
         .student-card .name {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #2d1a0c;
+            color: #e2d9f3;
         }
 
         .student-card .status {
@@ -157,33 +258,50 @@
             border-radius: 60px;
         }
 
-        .status.new { background: #d4edda; color: #155724; }
-        .status.pending { background: #fff3cd; color: #856404; }
-        .status.active { background: #cce5ff; color: #004085; }
-        .status.renew { background: #f8d7da; color: #721c24; }
+        .status.new { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); }
+        .status.pending { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.2); }
+        .status.active { background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.2); }
+        .status.renew { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .status.rejected { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15); }
 
         .student-card .detail {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem 1.2rem;
             margin: 0.8rem 0;
-            color: #4d3522;
+            color: #c4b5d4;
         }
 
         .student-card .detail i {
             width: 1.6rem;
-            color: #b85e2b;
+            color: #a78bfa;
         }
+
+        .student-card .interaction-bar {
+            background: rgba(167, 139, 250, 0.05);
+            border-radius: 30px;
+            padding: 0.4rem 1.2rem;
+            margin-top: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(100, 80, 200, 0.05);
+            color: #94a3b8;
+        }
+
+        .student-card .interaction-bar i { color: #a78bfa; }
 
         .student-card .actions {
             display: flex;
             flex-wrap: wrap;
             gap: 0.7rem;
             margin-top: 1.2rem;
-            border-top: 2px dashed #e8c8b0;
+            border-top: 2px dashed rgba(100, 80, 200, 0.1);
             padding-top: 1rem;
         }
 
+        /* أزرار محسنة */
         .btn {
             padding: 0.4rem 1.3rem;
             border-radius: 60px;
@@ -194,54 +312,77 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            transition: 0.2s;
-            background: #f1e0d0;
-            color: #2d1a0c;
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            color: #c4b5d4;
+            border: 1px solid rgba(100, 80, 200, 0.08);
         }
 
-        .btn-success { background: #27ae60; color: white; border-color: #1e8449; }
-        .btn-danger { background: #e74c3c; color: white; border-color: #b03a2e; }
-        .btn-warning { background: #f39c12; color: white; border-color: #d68910; }
-        .btn-info { background: #3498db; color: white; border-color: #217dbb; }
-        .btn-outline { background: transparent; border: 2px solid #b85e2b; }
+        .btn:hover { transform: scale(1.05) translateY(-2px); }
 
-        .btn:hover { transform: scale(1.04); opacity: 0.9; }
-        .btn:disabled { opacity: 0.5; transform: none; }
+        .btn-success { background: linear-gradient(135deg, #059669, #047857); color: white; border-color: rgba(52, 211, 153, 0.2); }
+        .btn-success:hover { box-shadow: 0 8px 25px rgba(5, 150, 105, 0.3); }
 
-        .interaction-bar {
-            background: #fdf6ef;
-            border-radius: 30px;
-            padding: 0.4rem 1.2rem;
-            margin-top: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 0.9rem;
-            border: 1px solid #eacab0;
-        }
+        .btn-danger { background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border-color: rgba(239, 68, 68, 0.2); }
+        .btn-danger:hover { box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3); }
 
-        .interaction-bar i { color: #d35400; }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border-color: rgba(251, 191, 36, 0.2); }
+        .btn-warning:hover { box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3); }
 
+        .btn-info { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-color: rgba(96, 165, 250, 0.2); }
+        .btn-info:hover { box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3); }
+
+        .btn-outline { background: transparent; border: 2px solid #a78bfa; color: #a78bfa; }
+        .btn-outline:hover { background: rgba(167, 139, 250, 0.1); }
+
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+        /* log area محسن */
         .log-area {
-            background: #fcf7f0;
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(15px);
             border-radius: 30px;
             padding: 1.5rem 2rem;
-            border: 2px solid #edd7c4;
+            border: 1px solid rgba(100, 80, 200, 0.08);
             margin: 2rem 0;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .log-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .log-area::-webkit-scrollbar-track {
+            background: rgba(100, 80, 200, 0.05);
+            border-radius: 10px;
+        }
+
+        .log-area::-webkit-scrollbar-thumb {
+            background: rgba(167, 139, 250, 0.2);
+            border-radius: 10px;
         }
 
         .log-area p {
-            padding: 0.4rem 0;
-            border-bottom: 1px dashed #e6cfbb;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(100, 80, 200, 0.05);
             display: flex;
             gap: 1rem;
+            color: #c4b5d4;
+            font-size: 0.95rem;
+            align-items: center;
         }
 
-        .log-area i { color: #b85e2b; width: 1.8rem; }
+        .log-area p i { color: #a78bfa; width: 1.8rem; }
 
+        .log-area .log-time {
+            color: #64748b;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        /* filters محسنة */
         .filters {
             display: flex;
             flex-wrap: wrap;
@@ -252,267 +393,591 @@
         .filters select, .filters input {
             padding: 0.6rem 1.8rem;
             border-radius: 60px;
-            border: 2px solid #e8b68e;
-            background: white;
+            border: 2px solid rgba(100, 80, 200, 0.1);
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(8px);
+            color: #e2d9f3;
             font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
         }
+
+        .filters select:focus, .filters input:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.06);
+        }
+
+        .filters select option {
+            background: #1a1a2e;
+            color: #e2d9f3;
+        }
+
+        .filters input::placeholder {
+            color: #64748b;
+        }
+
+        /* مودال تأكيد */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .confirm-modal.show {
+            display: flex;
+            animation: fadeSlideIn 0.5s ease;
+        }
+
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .confirm-modal .modal-content {
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 30px;
+            padding: 2.5rem 3rem;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .confirm-modal .modal-content .modal-icon {
+            font-size: 4rem;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirm-modal .modal-content h3 {
+            color: #e2d9f3;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirm-modal .modal-content p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .confirm-modal .modal-content .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .confirm-modal .modal-content .modal-actions .btn {
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        /* toast notification */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 80, 200, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+            animation: fadeSlideIn 0.5s ease;
+        }
+
+        .toast-notification.show {
+            display: flex;
+        }
+
+        .toast-notification .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-notification .toast-text {
+            color: #e2d9f3;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .toast-notification.success .toast-icon { color: #34d399; }
+        .toast-notification.error .toast-icon { color: #ef4444; }
+        .toast-notification.warning .toast-icon { color: #fbbf24; }
+        .toast-notification.info .toast-icon { color: #60a5fa; }
 
         /* responsive */
         @media (max-width: 650px) {
-            .dash-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .dash-header { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1rem 1.5rem; border-radius: 40px; }
+            .dash-header h1 { font-size: 1.6rem; }
+            .students-grid { grid-template-columns: 1fr; }
+            .confirm-modal .modal-content { padding: 1.5rem; }
+            .confirm-modal .modal-content .modal-actions { flex-direction: column; }
+            .confirm-modal .modal-content .modal-actions .btn { width: 100%; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* تلوين إضافي */
-        .bg-soft { background: #fcf3e9; }
-        .badge-soft { background: #fae5d6; padding: 0.2rem 1.2rem; border-radius: 40px; }
+        @media (max-width: 480px) {
+            .dash-header h1 { font-size: 1.3rem; }
+            .stat-card { padding: 1rem; }
+            .stat-card i { font-size: 2rem; padding: 0.4rem; }
+            .stat-card .info h3 { font-size: 1.4rem; }
+            .section-title { font-size: 1.3rem; }
+            .student-card { padding: 1.2rem; }
+        }
     </style>
 </head>
 <body>
-<div class="dashboard">
-    <!-- Header -->
-    <div class="dash-header">
-        <h1><i class="fas fa-chalkboard-user" style="color:#d35400;"></i> لوحة تحكم المدرب</h1>
-        <div style="display: flex; gap: 1.5rem; align-items: center;">
-            <span class="badge-admin"><i class="fas fa-user-tie"></i> مدير / مدرب</span>
-            <span><i class="fas fa-bell" style="color:#e67e22; font-size:1.4rem;"></i></span>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="dash-header">
+            <h1><i class="fas fa-chalkboard-user" style="color:#a78bfa;"></i> لوحة تحكم المدرب</h1>
+            <div class="header-right">
+                <span class="badge-admin"><i class="fas fa-user-tie"></i> مدير / مدرب</span>
+                <button class="notification-btn" onclick="showToast('📬 لديك 3 طلبات جديدة في انتظار المراجعة', 'info')">
+                    <i class="fas fa-bell" style="color:#a78bfa; font-size:1.2rem;"></i>
+                    <span class="badge-dot"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- إحصائيات سريعة -->
+        <div class="stats-grid">
+            <div class="stat-card"><i class="fas fa-user-plus"></i><div class="info"><h3 id="newCount">0</h3><p>جدد جديد</p></div></div>
+            <div class="stat-card"><i class="fas fa-clock"></i><div class="info"><h3 id="pendingCount">0</h3><p>بانتظار القبول</p></div></div>
+            <div class="stat-card"><i class="fas fa-user-check"></i><div class="info"><h3 id="activeCount">0</h3><p>طلاب نشطاء</p></div></div>
+            <div class="stat-card"><i class="fas fa-hourglass-end"></i><div class="info"><h3 id="renewCount">0</h3><p>قربوا يخلصوا</p></div></div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <select id="filterStatus" onchange="applyFilters()">
+                <option value="all">كل الطلاب</option>
+                <option value="new">جدد</option>
+                <option value="pending">قيد الانتظار</option>
+                <option value="active">نشطاء</option>
+                <option value="renew">ينتهي قريباً</option>
+                <option value="rejected">مرفوضين</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="🔍 بحث باسم الطفل" oninput="applyFilters()">
+        </div>
+
+        <!-- قسم الطلاب الجدد + قيد الانتظار -->
+        <h2 class="section-title"><i class="fas fa-user-plus" style="color:#34d399;"></i> طلبات جديدة / قيد الانتظار</h2>
+        <div class="students-grid" id="pendingStudents">
+            <!-- يتم ملؤها بواسطة JS -->
+        </div>
+
+        <!-- قسم الطلاب النشطاء + قربوا يخلصوا -->
+        <h2 class="section-title"><i class="fas fa-users" style="color:#60a5fa;"></i> الطلاب النشطاء & قربوا يخلصوا</h2>
+        <div class="students-grid" id="activeStudents">
+            <!-- يتم ملؤها بواسطة JS -->
+        </div>
+
+        <!-- سجل التفاعل -->
+        <h2 class="section-title"><i class="fas fa-comment-dots" style="color:#a78bfa;"></i> سجل التفاعل (مدرب ← طالب)</h2>
+        <div class="log-area" id="interactionLog">
+            <p><i class="fas fa-check-circle" style="color:#34d399;"></i> <span>تم قبول طالب: يوسف (فني)</span> <span class="log-time">10:30</span></p>
+            <p><i class="fas fa-bell" style="color:#fbbf24;"></i> <span>تذكير بالتجديد أرسل لأم محمد</span> <span class="log-time">09:15</span></p>
+            <p><i class="fas fa-user-check"></i> <span>تفاعل المدرب مع سارة: استفسار عن الحصة</span> <span class="log-time">08:45</span></p>
+            <p><i class="fas fa-times-circle" style="color:#ef4444;"></i> <span>رفض طلب: خالد (عمر غير مناسب)</span> <span class="log-time">07:20</span></p>
         </div>
     </div>
 
-    <!-- إحصائيات سريعة -->
-    <div class="stats-grid">
-        <div class="stat-card"><i class="fas fa-user-plus"></i><div class="info"><h3 id="newCount">3</h3><p>جدد جديد</p></div></div>
-        <div class="stat-card"><i class="fas fa-clock"></i><div class="info"><h3 id="pendingCount">2</h3><p>بانتظار القبول</p></div></div>
-        <div class="stat-card"><i class="fas fa-user-check"></i><div class="info"><h3 id="activeCount">5</h3><p>طلاب نشطاء</p></div></div>
-        <div class="stat-card"><i class="fas fa-hourglass-end"></i><div class="info"><h3 id="renewCount">2</h3><p>قربوا يخلصوا</p></div></div>
+    <!-- ===== مودال تأكيد ===== -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-triangle modal-icon"></i>
+            <h3 id="confirmTitle">تأكيد القبول</h3>
+            <p id="confirmMessage">هل أنت متأكد من قبول هذا الطالب؟</p>
+            <div class="modal-actions">
+                <button class="btn btn-danger" onclick="closeConfirmModal()"><i class="fas fa-times"></i> إلغاء</button>
+                <button class="btn btn-success" id="confirmActionBtn"><i class="fas fa-check"></i> تأكيد</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Filters (mock) -->
-    <div class="filters">
-        <select><option>كل الطلاب</option><option>جدد</option><option>نشطاء</option><option>قيد الانتظار</option></select>
-        <input type="text" placeholder="🔍 بحث باسم الطفل">
+    <!-- ===== Toast Notification ===== -->
+    <div class="toast-notification" id="toastNotification">
+        <i class="fas fa-check-circle toast-icon"></i>
+        <span class="toast-text" id="toastText">تم بنجاح!</span>
     </div>
 
-    <!-- قسم الطلاب الجدد + قيد الانتظار -->
-    <h2 class="section-title"><i class="fas fa-user-plus" style="color:#27ae60;"></i> طلبات جديدة / قيد الانتظار</h2>
-    <div class="students-grid" id="pendingStudents">
-        <!-- يتم ملؤها بواسطة JS -->
-    </div>
+    <script>
+        (function() {
+            'use strict';
 
-    <!-- قسم الطلاب النشطاء + قربوا يخلصوا -->
-    <h2 class="section-title"><i class="fas fa-users" style="color:#2e86c1;"></i> الطلاب النشطاء & قربوا يخلصوا</h2>
-    <div class="students-grid" id="activeStudents">
-        <!-- يتم ملؤها بواسطة JS -->
-    </div>
+            // ===== بيانات الطلاب =====
+            let students = [
+                { id: 1, name: 'أحمد', age: 8, parent: '0501234567', months: 3, type: 'فني', status: 'new', interaction: 'استفسار عن موعد' },
+                { id: 2, name: 'سارة', age: 7, parent: '0509876543', months: 6, type: 'كلاس', status: 'pending', interaction: 'انتظار قبول' },
+                { id: 3, name: 'ليلى', age: 9, parent: '0551112233', months: 1, type: 'لايروبكس', status: 'new', interaction: 'تسجيل جديد' },
+                { id: 4, name: 'عمر', age: 10, parent: '0552223344', months: 12, type: 'مدمج', status: 'active', interaction: 'تفاعل جيد' },
+                { id: 5, name: 'مريم', age: 6, parent: '0563334455', months: 6, type: 'فني', status: 'active', interaction: 'حضور منتظم' },
+                { id: 6, name: 'خالد', age: 5, parent: '0564445566', months: 3, type: 'كلاس', status: 'renew', interaction: 'ينتهي الشهر القادم' },
+                { id: 7, name: 'نور', age: 8, parent: '0575556677', months: 3, type: 'لايروبكس', status: 'active', interaction: 'تقدم ملحوظ' },
+                { id: 8, name: 'جود', age: 7, parent: '0576667788', months: 1, type: 'فني', status: 'pending', interaction: 'بانتظار الموافقة' },
+                { id: 9, name: 'فاطمة', age: 9, parent: '0587778899', months: 6, type: 'مدمج', status: 'renew', interaction: 'قرب يخلص' },
+                { id: 10, name: 'سلمان', age: 11, parent: '0588889900', months: 12, type: 'فني', status: 'active', interaction: 'متميز' }
+            ];
 
-    <!-- سجل التفاعل (المدرب يراقب التفاعل) -->
-    <h2 class="section-title"><i class="fas fa-comment-dots" style="color:#8e44ad;"></i> سجل التفاعل (مدرب ← طالب)</h2>
-    <div class="log-area" id="interactionLog">
-        <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> 10:30 - تم قبول طالب: يوسف (فني)</p>
-        <p><i class="fas fa-bell" style="color:#f39c12;"></i> 09:15 - تذكير بالتجديد أرسل لأم محمد</p>
-        <p><i class="fas fa-user-check"></i> 08:45 - تفاعل المدرب مع سارة: استفسار عن الحصة</p>
-        <p><i class="fas fa-times-circle" style="color:#e74c3c;"></i> 07:20 - رفض طلب: خالد (عمر غير مناسب)</p>
-    </div>
-</div>
+            let pendingAction = null;
+            let pendingStudentId = null;
 
-<script>
-    (function() {
-        // بيانات وهمية تشبه المشروع
-        let students = [
-            { id: 1, name: 'أحمد', age: 8, parent: '0501234567', months: 3, type: 'فني', status: 'new', interaction: 'استفسار عن موعد' },
-            { id: 2, name: 'سارة', age: 7, parent: '0509876543', months: 6, type: 'كلاس', status: 'pending', interaction: 'انتظار قبول' },
-            { id: 3, name: 'ليلى', age: 9, parent: '0551112233', months: 1, type: 'لايروبكس', status: 'new', interaction: 'تسجيل جديد' },
-            { id: 4, name: 'عمر', age: 10, parent: '0552223344', months: 12, type: 'مدمج', status: 'active', interaction: 'تفاعل جيد' },
-            { id: 5, name: 'مريم', age: 6, parent: '0563334455', months: 6, type: 'فني', status: 'active', interaction: 'حضور منتظم' },
-            { id: 6, name: 'خالد', age: 5, parent: '0564445566', months: 3, type: 'كلاس', status: 'renew', interaction: 'ينتهي الشهر القادم' },
-            { id: 7, name: 'نور', age: 8, parent: '0575556677', months: 3, type: 'لايروبكس', status: 'active', interaction: 'تقدم ملحوظ' },
-            { id: 8, name: 'جود', age: 7, parent: '0576667788', months: 1, type: 'فني', status: 'pending', interaction: 'بانتظار الموافقة' },
-            { id: 9, name: 'فاطمة', age: 9, parent: '0587778899', months: 6, type: 'مدمج', status: 'renew', interaction: 'قرب يخلص' },
-            { id: 10, name: 'سلمان', age: 11, parent: '0588889900', months: 12, type: 'فني', status: 'active', interaction: 'متميز' }
-        ];
+            // ===== عناصر DOM =====
+            const pendingContainer = document.getElementById('pendingStudents');
+            const activeContainer = document.getElementById('activeStudents');
+            const logArea = document.getElementById('interactionLog');
+            const confirmModal = document.getElementById('confirmModal');
+            const confirmTitle = document.getElementById('confirmTitle');
+            const confirmMessage = document.getElementById('confirmMessage');
+            const confirmActionBtn = document.getElementById('confirmActionBtn');
+            const toastNotification = document.getElementById('toastNotification');
+            const toastText = document.getElementById('toastText');
 
-        // عناصر DOM
-        const pendingContainer = document.getElementById('pendingStudents');
-        const activeContainer = document.getElementById('activeStudents');
-        const logArea = document.getElementById('interactionLog');
-
-        // تحديث الإحصائيات
-        function updateStats() {
-            const newCount = students.filter(s => s.status === 'new').length;
-            const pendingCount = students.filter(s => s.status === 'pending').length;
-            const activeCount = students.filter(s => s.status === 'active').length;
-            const renewCount = students.filter(s => s.status === 'renew').length;
-            document.getElementById('newCount').textContent = newCount;
-            document.getElementById('pendingCount').textContent = pendingCount;
-            document.getElementById('activeCount').textContent = activeCount;
-            document.getElementById('renewCount').textContent = renewCount;
-        }
-
-        // عرض البطاقات
-        function renderStudents() {
-            // pending: new + pending
-            const pendingStudents = students.filter(s => s.status === 'new' || s.status === 'pending');
-            // active + renew
-            const activeStudents = students.filter(s => s.status === 'active' || s.status === 'renew');
-
-            pendingContainer.innerHTML = pendingStudents.map(s => createCard(s)).join('');
-            activeContainer.innerHTML = activeStudents.map(s => createCard(s)).join('');
-
-            // إعادة ربط الأحداث
-            attachEvents();
-        }
-
-        function createCard(s) {
-            const statusMap = {
-                'new': 'جديد',
-                'pending': 'قيد الانتظار',
-                'active': 'نشط',
-                'renew': 'ينتهي قريباً'
-            };
-            const statusClass = {
-                'new': 'new',
-                'pending': 'pending',
-                'active': 'active',
-                'renew': 'renew'
-            };
-            // أيقونة حسب النوع
-            const typeIcon = s.type === 'فني' ? 'fa-hand-holding-heart' : 
-                            s.type === 'كلاس' ? 'fa-music' : 
-                            s.type === 'لايروبكس' ? 'fa-bolt' : 'fa-star';
-
-            return `
-                <div class="student-card" data-id="${s.id}" data-status="${s.status}">
-                    <div class="top">
-                        <span class="name"><i class="fas ${typeIcon}" style="color:#d35400;"></i> ${s.name}</span>
-                        <span class="status ${statusClass[s.status]}">${statusMap[s.status]}</span>
-                    </div>
-                    <div class="detail">
-                        <span><i class="fas fa-calendar-alt"></i> ${s.age} سنة</span>
-                        <span><i class="fas fa-phone"></i> ${s.parent}</span>
-                        <span><i class="fas fa-clock"></i> ${s.months} شهر</span>
-                        <span><i class="fas fa-tag"></i> ${s.type}</span>
-                    </div>
-                    <div class="interaction-bar">
-                        <i class="fas fa-comment"></i> <span>تفاعل: ${s.interaction}</span>
-                    </div>
-                    <div class="actions">
-                        ${s.status === 'new' || s.status === 'pending' ? `
-                            <button class="btn btn-success accept-btn" data-id="${s.id}"><i class="fas fa-check"></i> قبول</button>
-                            <button class="btn btn-danger reject-btn" data-id="${s.id}"><i class="fas fa-times"></i> رفض</button>
-                        ` : ''}
-                        ${s.status === 'active' || s.status === 'renew' ? `
-                            <button class="btn btn-warning remind-btn" data-id="${s.id}"><i class="fas fa-bell"></i> تذكير بالتجديد</button>
-                            <button class="btn btn-info interaction-btn" data-id="${s.id}"><i class="fas fa-comment-dots"></i> تفاعل</button>
-                        ` : ''}
-                        ${s.status === 'renew' ? `<button class="btn btn-success renew-btn" data-id="${s.id}"><i class="fas fa-sync-alt"></i> تجديد</button>` : ''}
-                    </div>
-                </div>
-            `;
-        }
-
-        // ربط الأحداث
-        function attachEvents() {
-            // قبول
-            document.querySelectorAll('.accept-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        student.status = 'active';
-                        // سجل التفاعل
-                        addLog(`✅ تم قبول طالب: ${student.name} (${student.type}) بواسطة المدير`);
-                        renderStudents();
-                        updateStats();
-                    }
+            // ===== دالة عرض الإشعارات =====
+            function showToast(message, type = 'success') {
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
                 };
-            });
-
-            // رفض
-            document.querySelectorAll('.reject-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        student.status = 'renew'; // نجعله مرفوضاً (نقوم بإزالته من الواجهة ولكن نحتفظ به كـ "مرفوض" في البيانات)
-                        // لكننا نفضل حذفه من العرض مع إشعار
-                        students = students.filter(s => s.id !== id);
-                        addLog(`❌ تم رفض طالب: ${student.name} (${student.type})`);
-                        renderStudents();
-                        updateStats();
-                    }
-                };
-            });
-
-            // تذكير بالتجديد
-            document.querySelectorAll('.remind-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        addLog(`🔔 تم إرسال تذكير بالتجديد لـ ${student.name} (ولي الأمر: ${student.parent})`);
-                        alert(`تم إرسال تذكير للتجديد إلى ولي أمر ${student.name}`);
-                    }
-                };
-            });
-
-            // تفاعل (محاكاة)
-            document.querySelectorAll('.interaction-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        const newInteraction = prompt(`سجل تفاعلك مع ${student.name}:`, student.interaction || 'تفاعل جديد');
-                        if (newInteraction !== null && newInteraction.trim() !== '') {
-                            student.interaction = newInteraction.trim();
-                            addLog(`💬 تفاعل المدرب مع ${student.name}: ${student.interaction}`);
-                            renderStudents();
-                        }
-                    }
-                };
-            });
-
-            // تجديد (لحالة renew)
-            document.querySelectorAll('.renew-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const id = parseInt(this.dataset.id);
-                    const student = students.find(s => s.id === id);
-                    if (student) {
-                        student.status = 'active';
-                        student.months = parseInt(student.months) + 3; // إضافة 3 شهور
-                        addLog(`🔄 تم تجديد اشتراك ${student.name} +3 شهور`);
-                        renderStudents();
-                        updateStats();
-                    }
-                };
-            });
-        }
-
-        // إضافة سجل
-        function addLog(message) {
-            const logDiv = document.getElementById('interactionLog');
-            const time = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-            const entry = document.createElement('p');
-            entry.innerHTML = `<i class="fas fa-circle" style="color:#b85e2b; font-size:0.6rem;"></i> ${time} - ${message}`;
-            logDiv.prepend(entry);
-            // حد أقصى 10 رسائل
-            while (logDiv.children.length > 10) {
-                logDiv.removeChild(logDiv.lastChild);
+                toastNotification.className = 'toast-notification ' + type;
+                toastNotification.querySelector('.toast-icon').className = 'fas ' + icons[type] + ' toast-icon';
+                toastText.textContent = message;
+                toastNotification.classList.add('show');
+                clearTimeout(toastNotification._timeout);
+                toastNotification._timeout = setTimeout(() => {
+                    toastNotification.classList.remove('show');
+                }, 4000);
             }
-        }
 
-        // تحميل أولي
-        renderStudents();
-        updateStats();
+            // ===== دالة تحديث الإحصائيات =====
+            function updateStats() {
+                const newCount = students.filter(s => s.status === 'new').length;
+                const pendingCount = students.filter(s => s.status === 'pending').length;
+                const activeCount = students.filter(s => s.status === 'active').length;
+                const renewCount = students.filter(s => s.status === 'renew').length;
+                document.getElementById('newCount').textContent = newCount;
+                document.getElementById('pendingCount').textContent = pendingCount;
+                document.getElementById('activeCount').textContent = activeCount;
+                document.getElementById('renewCount').textContent = renewCount;
+            }
 
-        // إضافة سجل ترحيب
-        addLog('🚀 لوحة التحكم جاهزة - يمكنك مراقبة الطلاب والتفاعل');
-    })();
-</script>
+            // ===== دالة إضافة سجل =====
+            function addLog(message, type = 'info') {
+                const logDiv = document.getElementById('interactionLog');
+                const time = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                const entry = document.createElement('p');
+                const iconMap = {
+                    success: '<i class="fas fa-check-circle" style="color:#34d399;"></i>',
+                    error: '<i class="fas fa-times-circle" style="color:#ef4444;"></i>',
+                    warning: '<i class="fas fa-bell" style="color:#fbbf24;"></i>',
+                    info: '<i class="fas fa-circle" style="color:#a78bfa; font-size:0.6rem;"></i>'
+                };
+                entry.innerHTML = `${iconMap[type] || iconMap.info} <span>${message}</span> <span class="log-time">${time}</span>`;
+                logDiv.prepend(entry);
+                while (logDiv.children.length > 15) {
+                    logDiv.removeChild(logDiv.lastChild);
+                }
+            }
 
-<!-- إضافة بعض التعديلات -->
+            // ===== دالة عرض الطلاب مع فلترة =====
+            function renderStudents(filterStatus = 'all', searchQuery = '') {
+                const pendingStudents = students.filter(s => 
+                    (s.status === 'new' || s.status === 'pending' || s.status === 'rejected') &&
+                    (filterStatus === 'all' || s.status === filterStatus) &&
+                    (s.name.includes(searchQuery) || searchQuery === '')
+                );
+                const activeStudents = students.filter(s => 
+                    (s.status === 'active' || s.status === 'renew') &&
+                    (filterStatus === 'all' || s.status === filterStatus) &&
+                    (s.name.includes(searchQuery) || searchQuery === '')
+                );
+
+                pendingContainer.innerHTML = pendingStudents.length > 0 ? 
+                    pendingStudents.map(s => createCard(s)).join('') :
+                    '<p style="color:#64748b; grid-column: 1 / -1; text-align: center; padding: 2rem;">📭 لا توجد طلبات في هذه الفئة</p>';
+
+                activeContainer.innerHTML = activeStudents.length > 0 ? 
+                    activeStudents.map(s => createCard(s)).join('') :
+                    '<p style="color:#64748b; grid-column: 1 / -1; text-align: center; padding: 2rem;">📭 لا يوجد طلاب نشطاء في هذه الفئة</p>';
+
+                attachEvents();
+            }
+
+            // ===== دالة إنشاء بطاقة طالب =====
+            function createCard(s) {
+                const statusMap = {
+                    'new': 'جديد',
+                    'pending': 'قيد الانتظار',
+                    'active': 'نشط',
+                    'renew': 'ينتهي قريباً',
+                    'rejected': 'مرفوض'
+                };
+                const statusClass = {
+                    'new': 'new',
+                    'pending': 'pending',
+                    'active': 'active',
+                    'renew': 'renew',
+                    'rejected': 'rejected'
+                };
+                const typeIcon = s.type === 'فني' ? 'fa-hand-holding-heart' : 
+                                s.type === 'كلاس' ? 'fa-music' : 
+                                s.type === 'لايروبكس' ? 'fa-bolt' : 'fa-star';
+
+                // تحديد الأزرار حسب الحالة
+                let actionsHtml = '';
+                if (s.status === 'new' || s.status === 'pending') {
+                    actionsHtml = `
+                        <button class="btn btn-success accept-btn" data-id="${s.id}"><i class="fas fa-check"></i> قبول</button>
+                        <button class="btn btn-danger reject-btn" data-id="${s.id}"><i class="fas fa-times"></i> رفض</button>
+                    `;
+                } else if (s.status === 'active') {
+                    actionsHtml = `
+                        <button class="btn btn-warning remind-btn" data-id="${s.id}"><i class="fas fa-bell"></i> تذكير بالتجديد</button>
+                        <button class="btn btn-info interaction-btn" data-id="${s.id}"><i class="fas fa-comment-dots"></i> تفاعل</button>
+                    `;
+                } else if (s.status === 'renew') {
+                    actionsHtml = `
+                        <button class="btn btn-warning remind-btn" data-id="${s.id}"><i class="fas fa-bell"></i> تذكير بالتجديد</button>
+                        <button class="btn btn-info interaction-btn" data-id="${s.id}"><i class="fas fa-comment-dots"></i> تفاعل</button>
+                        <button class="btn btn-success renew-btn" data-id="${s.id}"><i class="fas fa-sync-alt"></i> تجديد</button>
+                    `;
+                } else if (s.status === 'rejected') {
+                    actionsHtml = `
+                        <button class="btn btn-outline accept-btn" data-id="${s.id}"><i class="fas fa-undo"></i> إعادة النظر</button>
+                        <button class="btn btn-danger delete-btn" data-id="${s.id}"><i class="fas fa-trash"></i> حذف</button>
+                    `;
+                }
+
+                return `
+                    <div class="student-card" data-id="${s.id}" data-status="${s.status}">
+                        <div class="top">
+                            <span class="name"><i class="fas ${typeIcon}" style="color:#a78bfa;"></i> ${s.name}</span>
+                            <span class="status ${statusClass[s.status]}">${statusMap[s.status]}</span>
+                        </div>
+                        <div class="detail">
+                            <span><i class="fas fa-calendar-alt"></i> ${s.age} سنة</span>
+                            <span><i class="fas fa-phone"></i> ${s.parent}</span>
+                            <span><i class="fas fa-clock"></i> ${s.months} شهر</span>
+                            <span><i class="fas fa-tag"></i> ${s.type}</span>
+                        </div>
+                        <div class="interaction-bar">
+                            <i class="fas fa-comment"></i> <span>تفاعل: ${s.interaction}</span>
+                        </div>
+                        <div class="actions">
+                            ${actionsHtml}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ===== فتح مودال التأكيد =====
+            function openConfirmModal(title, message, action, studentId) {
+                confirmTitle.textContent = title;
+                confirmMessage.textContent = message;
+                pendingAction = action;
+                pendingStudentId = studentId;
+                confirmModal.classList.add('show');
+            }
+
+            // ===== إغلاق مودال التأكيد =====
+            function closeConfirmModal() {
+                confirmModal.classList.remove('show');
+                pendingAction = null;
+                pendingStudentId = null;
+            }
+
+            // ===== ربط الأحداث =====
+            function attachEvents() {
+                // قبول
+                document.querySelectorAll('.accept-btn').forEach(btn => {
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const student = students.find(s => s.id === id);
+                        if (student) {
+                            const isRejected = student.status === 'rejected';
+                            openConfirmModal(
+                                isRejected ? '🔄 إعادة النظر' : '✅ قبول الطالب',
+                                isRejected ? `هل تريد إعادة النظر في طلب ${student.name}؟` : `هل أنت متأكد من قبول ${student.name} في الأكاديمية؟`,
+                                isRejected ? 'reconsider' : 'accept',
+                                id
+                            );
+                        }
+                    };
+                });
+
+                // رفض
+                document.querySelectorAll('.reject-btn').forEach(btn => {
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const student = students.find(s => s.id === id);
+                        if (student) {
+                            openConfirmModal(
+                                '❌ رفض الطلب',
+                                `هل أنت متأكد من رفض طلب ${student.name}؟`,
+                                'reject',
+                                id
+                            );
+                        }
+                    };
+                });
+
+                // تذكير بالتجديد
+                document.querySelectorAll('.remind-btn').forEach(btn => {
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const student = students.find(s => s.id === id);
+                        if (student) {
+                            addLog(`🔔 تم إرسال تذكير بالتجديد لـ ${student.name} (ولي الأمر: ${student.parent})`, 'warning');
+                            showToast(`📲 تم إرسال تذكير بالتجديد إلى ولي أمر ${student.name}`, 'warning');
+                        }
+                    };
+                });
+
+                // تفاعل
+                document.querySelectorAll('.interaction-btn').forEach(btn => {
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const student = students.find(s => s.id === id);
+                        if (student) {
+                            const newInteraction = prompt(`✏️ سجل تفاعلك مع ${student.name}:`, student.interaction || 'تفاعل جديد');
+                            if (newInteraction !== null && newInteraction.trim() !== '') {
+                                student.interaction = newInteraction.trim();
+                                addLog(`💬 تفاعل المدرب مع ${student.name}: ${student.interaction}`, 'info');
+                                showToast(`💬 تم تسجيل تفاعل مع ${student.name}`, 'info');
+                                renderStudents(document.getElementById('filterStatus').value, document.getElementById('searchInput').value);
+                            }
+                        }
+                    };
+                });
+
+                // تجديد
+                document.querySelectorAll('.renew-btn').forEach(btn => {
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const student = students.find(s => s.id === id);
+                        if (student) {
+                            openConfirmModal(
+                                '🔄 تجديد الاشتراك',
+                                `هل تريد تجديد اشتراك ${student.name} لمدة 3 أشهر إضافية؟`,
+                                'renew',
+                                id
+                            );
+                        }
+                    };
+                });
+
+                // حذف (للمرفوضين)
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        const id = parseInt(this.dataset.id);
+                        const student = students.find(s => s.id === id);
+                        if (student) {
+                            if (confirm(`⚠️ هل أنت متأكد من حذف ${student.name} نهائياً؟`)) {
+                                students = students.filter(s => s.id !== id);
+                                addLog(`🗑️ تم حذف ${student.name} من النظام`, 'error');
+                                showToast(`🗑️ تم حذف ${student.name}`, 'error');
+                                renderStudents(document.getElementById('filterStatus').value, document.getElementById('searchInput').value);
+                                updateStats();
+                            }
+                        }
+                    };
+                });
+            }
+
+            // ===== زر التأكيد في المودال =====
+            confirmActionBtn.onclick = function() {
+                if (!pendingAction || pendingStudentId === null) return;
+
+                const student = students.find(s => s.id === pendingStudentId);
+                if (!student) return;
+
+                switch(pendingAction) {
+                    case 'accept':
+                        student.status = 'active';
+                        addLog(`✅ تم قبول طالب: ${student.name} (${student.type}) بواسطة المدير`, 'success');
+                        showToast(`🎉 تم قبول ${student.name} في الأكاديمية`, 'success');
+                        break;
+                    case 'reject':
+                        student.status = 'rejected';
+                        addLog(`❌ تم رفض طالب: ${student.name} (سبب: غير محدد)`, 'error');
+                        showToast(`❌ تم رفض طلب ${student.name}`, 'error');
+                        break;
+                    case 'renew':
+                        student.status = 'active';
+                        student.months = parseInt(student.months) + 3;
+                        addLog(`🔄 تم تجديد اشتراك ${student.name} +3 شهور`, 'success');
+                        showToast(`🔄 تم تجديد اشتراك ${student.name}`, 'success');
+                        break;
+                    case 'reconsider':
+                        student.status = 'pending';
+                        addLog(`🔄 تم إعادة النظر في طلب ${student.name}`, 'warning');
+                        showToast(`🔄 تم إعادة النظر في طلب ${student.name}`, 'warning');
+                        break;
+                }
+
+                closeConfirmModal();
+                renderStudents(document.getElementById('filterStatus').value, document.getElementById('searchInput').value);
+                updateStats();
+            };
+
+            // ===== فلترة البحث =====
+            window.applyFilters = function() {
+                const filterStatus = document.getElementById('filterStatus').value;
+                const searchQuery = document.getElementById('searchInput').value.trim();
+                renderStudents(filterStatus, searchQuery);
+            };
+
+            // ===== إغلاق المودال بالضغط على ESC =====
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeConfirmModal();
+            });
+
+            // ===== إغلاق المودال بالنقر خارجها =====
+            confirmModal.addEventListener('click', function(e) {
+                if (e.target === this) closeConfirmModal();
+            });
+
+            // ===== تحميل أولي =====
+            renderStudents('all', '');
+            updateStats();
+            addLog('🚀 لوحة التحكم جاهزة - يمكنك مراقبة الطلاب والتفاعل', 'info');
+
+            // ===== جعل الدوال عامة =====
+            window.showToast = showToast;
+            window.closeConfirmModal = closeConfirmModal;
+            window.openConfirmModal = openConfirmModal;
+
+            console.log('🎯 لوحة تحكم المدرب - تم التحميل بنجاح');
+            console.log('📊 عدد الطلاب: ' + students.length);
+            console.log('💡 نصيحة: لا يمكن للطلاب قبول طلباتهم بأنفسهم، فقط المدير');
+
+        })();
+    </script>
 </body>
     </html>
