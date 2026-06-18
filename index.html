@@ -31,6 +31,8 @@
       --glass: rgba(255,255,255,0.6);
       --step-bg: #eef2f7;
       --gold: #f59e0b;
+      --red: #dc2626;
+      --orange: #f97316;
     }
 
     body.dark {
@@ -55,16 +57,19 @@
       font-family: 'Cairo', sans-serif;
       background: linear-gradient(145deg, var(--bg1), var(--bg2));
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 2rem 1.5rem;
       transition: 0.4s;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .main-wrapper {
       max-width: 860px;
       width: 100%;
+      margin: 0 auto;
       animation: floatIn 0.8s ease;
     }
 
@@ -119,9 +124,31 @@
     .theme-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 20px var(--glow); }
     .theme-toggle i { color: var(--blue); font-size: 1rem; }
 
-    .status-badge {
+    .admin-toggle {
       position: absolute;
       top: 22px; right: 26px;
+      background: var(--glass);
+      border: 1px solid var(--card-border);
+      border-radius: 60px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      backdrop-filter: blur(8px);
+      transition: 0.3s;
+      z-index: 10;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .admin-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 20px var(--glow); }
+    .admin-toggle i { color: var(--gold); font-size: 1rem; }
+
+    .status-badge {
+      position: absolute;
+      top: 70px; right: 26px;
       background: var(--glass);
       border: 1px solid var(--card-border);
       border-radius: 60px;
@@ -355,6 +382,8 @@
     .btn-outline:hover { background: var(--blue); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px var(--glow); }
     .btn-gold { background: linear-gradient(135deg, var(--gold), #d97706); color: #fff; }
     .btn-gold:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 32px rgba(245,158,11,0.4); }
+    .btn-danger { background: linear-gradient(135deg, var(--red), #b91c1c); color: #fff; }
+    .btn-danger:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 32px rgba(220,38,38,0.4); }
     .btn-block { width: 100%; }
     .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 1.4rem; }
     .btn-group .btn { flex: 1; min-width: 120px; }
@@ -476,6 +505,24 @@
       font-size: 0.8rem;
       letter-spacing: 0.5px;
     }
+    .badge-pending {
+      background: var(--orange);
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.3rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+    .badge-rejected {
+      background: var(--red);
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.3rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
 
     .summary-chip {
       display: inline-block;
@@ -488,6 +535,78 @@
       font-weight: 600;
       color: var(--text-primary);
     }
+
+    /* لوحة التحكم */
+    .admin-panel {
+      display: none;
+      margin-top: 2rem;
+    }
+    .admin-panel.show { display: block; }
+
+    .admin-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 48px;
+      padding: 2.4rem 2.8rem;
+      box-shadow: 0 30px 60px var(--shadow), 0 10px 30px rgba(0,0,0,0.04);
+      border: 1px solid var(--card-border);
+      transition: 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-card h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.5rem;
+    }
+    .admin-card h2 i { color: var(--gold); }
+
+    .booking-item {
+      background: var(--input-bg);
+      border-radius: 24px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      border: 2px solid var(--input-border);
+      transition: 0.3s;
+    }
+    .booking-item:hover { border-color: var(--blue); }
+    .booking-item .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .booking-item .header .name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+    .booking-item .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .booking-item .details span { display: flex; align-items: center; gap: 6px; }
+    .booking-item .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .booking-item .actions .btn { padding: 8px 20px; font-size: 0.85rem; min-width: 80px; }
+
+    .status-approved { border-right: 4px solid var(--green); }
+    .status-pending { border-right: 4px solid var(--orange); }
+    .status-rejected { border-right: 4px solid var(--red); }
 
     .footer-note {
       text-align: center;
@@ -533,8 +652,10 @@
 
     @media (max-width: 650px) {
       .main-card { padding: 1.5rem; }
+      .admin-card { padding: 1.5rem; }
       .theme-toggle { top: 14px; left: 14px; padding: 5px 14px; font-size: 0.7rem; }
-      .status-badge { top: 14px; right: 14px; padding: 4px 12px; font-size: 0.65rem; }
+      .admin-toggle { top: 14px; right: 14px; padding: 5px 14px; font-size: 0.7rem; }
+      .status-badge { top: 60px; right: 14px; padding: 4px 12px; font-size: 0.65rem; }
       .firebase-badge { display: none; }
       h1 { font-size: 1.4rem; }
       .btn { padding: 12px 16px; font-size: 0.85rem; min-width: 80px; }
@@ -542,182 +663,225 @@
       .step .circle { width: 30px; height: 30px; font-size: 0.7rem; }
       .step .label { font-size: 0.55rem; }
       .page-title { font-size: 1.2rem; }
+      .booking-item .details { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-  <div class="main-card" id="mainCard">
+<div class="container">
+  <div class="main-wrapper" id="clientWrapper">
+    <div class="main-card" id="mainCard">
 
-    <div class="theme-toggle" id="themeToggle">
-      <i class="fas fa-moon" id="themeIcon"></i>
-      <span id="themeLabel">داك مود</span>
-    </div>
+      <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span id="themeLabel">داك مود</span>
+      </div>
 
-    <div class="status-badge" id="statusBadge">
-      <i class="fas fa-circle" style="font-size:0.5rem;"></i>
-      <span id="statusText">غير متصل</span>
-    </div>
+      <div class="admin-toggle" id="adminToggle">
+        <i class="fas fa-user-cog"></i>
+        <span>لوحة التحكم</span>
+      </div>
 
-    <div class="firebase-badge">
-      <i class="fas fa-fire"></i> Firebase
-    </div>
+      <div class="status-badge" id="statusBadge">
+        <i class="fas fa-circle" style="font-size:0.5rem;"></i>
+        <span id="statusText">غير متصل</span>
+      </div>
 
-    <h1><i class="fas fa-graduation-cap"></i> منصة الامتحانات · 3 ثانوي</h1>
-    <div class="sub-head">
-      <i class="fas fa-chevron-left" style="margin-left: 8px;"></i> 
-      تسجيل دخول · حجز مواد · تأكيد الدفع والحجز
-    </div>
+      <div class="firebase-badge">
+        <i class="fas fa-fire"></i> Firebase
+      </div>
 
-    <div class="progress-steps">
-      <div class="step active" id="step1"><div class="circle">1</div><span class="label">دخول</span></div>
-      <div class="step-line" id="line1"></div>
-      <div class="step" id="step2"><div class="circle">2</div><span class="label">معلومات</span></div>
-      <div class="step-line" id="line2"></div>
-      <div class="step" id="step3"><div class="circle">3</div><span class="label">حجز</span></div>
-      <div class="step-line" id="line3"></div>
-      <div class="step" id="step4"><div class="circle">4</div><span class="label">دفع</span></div>
-      <div class="step-line" id="line4"></div>
-      <div class="step" id="step5"><div class="circle">5</div><span class="label">تأكيد</span></div>
-    </div>
+      <h1><i class="fas fa-graduation-cap"></i> منصة الامتحانات · 3 ثانوي</h1>
+      <div class="sub-head">
+        <i class="fas fa-chevron-left" style="margin-left: 8px;"></i> 
+        تسجيل دخول · حجز مواد · تأكيد الدفع والحجز
+      </div>
 
-    <!-- ===== الصفحة 1: تسجيل الدخول ===== -->
-    <div class="page active" id="page1">
-      <div class="page-title"><i class="fas fa-user-lock"></i> تسجيل الدخول</div>
-      
-      <div class="input-group">
-        <label><i class="fas fa-user" style="margin-left:8px;"></i> الاسم الكامل</label>
-        <input type="text" id="loginName" placeholder="أدخل اسمك الكامل" value="أحمد محمد" />
-        <i class="fas fa-user"></i>
+      <div class="progress-steps">
+        <div class="step active" id="step1"><div class="circle">1</div><span class="label">دخول</span></div>
+        <div class="step-line" id="line1"></div>
+        <div class="step" id="step2"><div class="circle">2</div><span class="label">معلومات</span></div>
+        <div class="step-line" id="line2"></div>
+        <div class="step" id="step3"><div class="circle">3</div><span class="label">حجز</span></div>
+        <div class="step-line" id="line3"></div>
+        <div class="step" id="step4"><div class="circle">4</div><span class="label">دفع</span></div>
+        <div class="step-line" id="line4"></div>
+        <div class="step" id="step5"><div class="circle">5</div><span class="label">تأكيد</span></div>
       </div>
-      
-      <div class="input-group">
-        <label><i class="fas fa-phone" style="margin-left:8px;"></i> رقم الهاتف</label>
-        <input type="tel" id="loginPhone" placeholder="مثال: 01012345678" value="01012345678" />
-        <i class="fas fa-phone"></i>
-      </div>
-      
-      <div class="input-group">
-        <label><i class="fas fa-id-card" style="margin-left:8px;"></i> رقم الجلوس</label>
-        <input type="text" id="loginSeat" placeholder="أدخل رقم الجلوس" value="20241234" />
-        <i class="fas fa-id-card"></i>
-      </div>
-      
-      <button class="btn btn-primary btn-block" id="loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
-      
-      <div style="margin-top: 1rem; font-size:0.85rem; color:var(--text-secondary); text-align:center; opacity:0.7;">
-        <i class="fas fa-info-circle"></i> تجريبي: اسم: أحمد محمد · هاتف: 01012345678 · جلوس: 20241234
-      </div>
-    </div>
 
-    <!-- ===== الصفحة 2: معلومات العميل ===== -->
-    <div class="page" id="page2">
-      <div class="page-title"><i class="fas fa-id-card"></i> معلومات العميل</div>
-      <div class="welcome-msg" id="welcomeMsg">
-        <i class="fas fa-hand-peace"></i>
-        <span id="welcomeText">مرحباً بك في منصة الامتحانات</span>
-      </div>
-      <div class="info-box">
-        <p><i class="fas fa-user"></i> <span id="displayName">أحمد محمد</span></p>
-        <p><i class="fas fa-phone"></i> <span id="displayPhone">01012345678</span></p>
-        <p><i class="fas fa-id-card"></i> <span id="displaySeat">20241234</span></p>
-        <p><i class="fas fa-calendar-alt"></i> <span id="displayGrade">الصف الثالث الثانوي</span></p>
-        <p><i class="fas fa-database" style="color:var(--gold);"></i> <span id="displayFirebase" style="font-size:0.8rem; color:var(--gold);">✅ محفوظ في Firebase</span></p>
-      </div>
-      <div style="background:rgba(42,125,225,0.05); padding:14px 20px; border-radius:30px; border-right:4px solid var(--blue);">
-        <i class="fas fa-check-circle" style="color:var(--blue);"></i> 
-        <span style="font-weight:600; color:var(--text-primary);">تم تسجيل الدخول بنجاح – تابع لحجز المواد</span>
-      </div>
-      <div class="btn-group">
-        <button class="btn btn-outline" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
-        <button class="btn btn-primary" id="gotoStep3"><i class="fas fa-arrow-left"></i> حجز المواد</button>
-      </div>
-    </div>
-
-    <!-- ===== الصفحة 3: حجز المواد ===== -->
-    <div class="page" id="page3">
-      <div class="page-title"><i class="fas fa-book-open"></i> حجز المواد</div>
-      <div id="subjectList">
-        <div class="subject-item" data-subject="الرياضيات" data-price="250">
-          <span><i class="fas fa-calculator"></i> الرياضيات</span>
-          <span class="price-tag">250 ج.م</span>
+      <!-- ===== الصفحة 1: تسجيل الدخول ===== -->
+      <div class="page active" id="page1">
+        <div class="page-title"><i class="fas fa-user-lock"></i> تسجيل الدخول</div>
+        
+        <div class="input-group">
+          <label><i class="fas fa-user" style="margin-left:8px;"></i> الاسم الكامل</label>
+          <input type="text" id="loginName" placeholder="أدخل اسمك الكامل" value="أحمد محمد" />
+          <i class="fas fa-user"></i>
         </div>
-        <div class="subject-item" data-subject="الفيزياء" data-price="220">
-          <span><i class="fas fa-atom"></i> الفيزياء</span>
-          <span class="price-tag">220 ج.م</span>
+        
+        <div class="input-group">
+          <label><i class="fas fa-phone" style="margin-left:8px;"></i> رقم الهاتف</label>
+          <input type="tel" id="loginPhone" placeholder="مثال: 01012345678" value="01012345678" />
+          <i class="fas fa-phone"></i>
         </div>
-        <div class="subject-item" data-subject="الكيمياء" data-price="200">
-          <span><i class="fas fa-flask"></i> الكيمياء</span>
-          <span class="price-tag">200 ج.م</span>
+        
+        <div class="input-group">
+          <label><i class="fas fa-id-card" style="margin-left:8px;"></i> رقم الجلوس</label>
+          <input type="text" id="loginSeat" placeholder="أدخل رقم الجلوس" value="20241234" />
+          <i class="fas fa-id-card"></i>
         </div>
-        <div class="subject-item" data-subject="الأحياء" data-price="190">
-          <span><i class="fas fa-dna"></i> الأحياء</span>
-          <span class="price-tag">190 ج.م</span>
+        
+        <button class="btn btn-primary btn-block" id="loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+        
+        <div style="margin-top: 1rem; font-size:0.85rem; color:var(--text-secondary); text-align:center; opacity:0.7;">
+          <i class="fas fa-info-circle"></i> تجريبي: اسم: أحمد محمد · هاتف: 01012345678 · جلوس: 20241234
         </div>
       </div>
 
-      <div class="total-row">
-        <span><i class="fas fa-coins"></i> المبلغ الإجمالي</span>
-        <span class="price" id="totalPriceDisplay">0 ج.م</span>
-      </div>
-
-      <button class="btn btn-primary btn-block" id="confirmSubscriptionBtn">
-        <i class="fas fa-check-circle"></i> تأكيد الاشتراك
-      </button>
-
-      <div class="btn-group">
-        <button class="btn btn-outline" id="backToStep2"><i class="fas fa-arrow-right"></i> رجوع</button>
-        <button class="btn btn-success" id="gotoStep4"><i class="fas fa-arrow-left"></i> تأكيد الدفع</button>
-      </div>
-    </div>
-
-    <!-- ===== الصفحة 4: تأكيد الدفع ===== -->
-    <div class="page" id="page4">
-      <div class="page-title"><i class="fas fa-credit-card"></i> تأكيد الدفع</div>
-      <div style="background:var(--input-bg); border-radius:24px; padding:1.4rem 1.6rem; border:2px solid var(--input-border); transition:0.3s;">
-        <p style="font-weight:700; color:var(--text-primary); font-size:1.1rem; margin-bottom:0.5rem;">
-          <i class="fas fa-file-invoice"></i> ملخص الحجز
-        </p>
-        <div id="summarySubjects" style="margin:0.6rem 0; color:var(--text-secondary);"></div>
-        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.2rem; border-top:2px solid var(--input-border); padding-top:0.8rem; margin-top:0.2rem;">
-          <span>الإجمالي</span>
-          <span style="color:var(--blue);" id="summaryTotal">0 ج.م</span>
+      <!-- ===== الصفحة 2: معلومات العميل ===== -->
+      <div class="page" id="page2">
+        <div class="page-title"><i class="fas fa-id-card"></i> معلومات العميل</div>
+        <div class="welcome-msg" id="welcomeMsg">
+          <i class="fas fa-hand-peace"></i>
+          <span id="welcomeText">مرحباً بك في منصة الامتحانات</span>
+        </div>
+        <div class="info-box">
+          <p><i class="fas fa-user"></i> <span id="displayName">أحمد محمد</span></p>
+          <p><i class="fas fa-phone"></i> <span id="displayPhone">01012345678</span></p>
+          <p><i class="fas fa-id-card"></i> <span id="displaySeat">20241234</span></p>
+          <p><i class="fas fa-calendar-alt"></i> <span id="displayGrade">الصف الثالث الثانوي</span></p>
+          <p><i class="fas fa-database" style="color:var(--gold);"></i> <span id="displayFirebase" style="font-size:0.8rem; color:var(--gold);">✅ محفوظ في Firebase</span></p>
+        </div>
+        <div style="background:rgba(42,125,225,0.05); padding:14px 20px; border-radius:30px; border-right:4px solid var(--blue);">
+          <i class="fas fa-check-circle" style="color:var(--blue);"></i> 
+          <span style="font-weight:600; color:var(--text-primary);">تم تسجيل الدخول بنجاح – تابع لحجز المواد</span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outline" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
+          <button class="btn btn-primary" id="gotoStep3"><i class="fas fa-arrow-left"></i> حجز المواد</button>
         </div>
       </div>
-      <button class="btn btn-success btn-block" id="confirmPaymentBtn">
-        <i class="fas fa-check-circle"></i> تأكيد الدفع
-      </button>
-      <div class="btn-group">
-        <button class="btn btn-outline" id="backToStep3"><i class="fas fa-arrow-right"></i> رجوع</button>
+
+      <!-- ===== الصفحة 3: حجز المواد ===== -->
+      <div class="page" id="page3">
+        <div class="page-title"><i class="fas fa-book-open"></i> حجز المواد</div>
+        <div id="subjectList">
+          <div class="subject-item" data-subject="الرياضيات" data-price="250">
+            <span><i class="fas fa-calculator"></i> الرياضيات</span>
+            <span class="price-tag">250 ج.م</span>
+          </div>
+          <div class="subject-item" data-subject="الفيزياء" data-price="220">
+            <span><i class="fas fa-atom"></i> الفيزياء</span>
+            <span class="price-tag">220 ج.م</span>
+          </div>
+          <div class="subject-item" data-subject="الكيمياء" data-price="200">
+            <span><i class="fas fa-flask"></i> الكيمياء</span>
+            <span class="price-tag">200 ج.م</span>
+          </div>
+          <div class="subject-item" data-subject="الأحياء" data-price="190">
+            <span><i class="fas fa-dna"></i> الأحياء</span>
+            <span class="price-tag">190 ج.م</span>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span><i class="fas fa-coins"></i> المبلغ الإجمالي</span>
+          <span class="price" id="totalPriceDisplay">0 ج.م</span>
+        </div>
+
+        <button class="btn btn-primary btn-block" id="confirmSubscriptionBtn">
+          <i class="fas fa-check-circle"></i> تأكيد الاشتراك
+        </button>
+
+        <div class="btn-group">
+          <button class="btn btn-outline" id="backToStep2"><i class="fas fa-arrow-right"></i> رجوع</button>
+          <button class="btn btn-success" id="gotoStep4"><i class="fas fa-arrow-left"></i> تأكيد الدفع</button>
+        </div>
+      </div>
+
+      <!-- ===== الصفحة 4: تأكيد الدفع بالتحويل ===== -->
+      <div class="page" id="page4">
+        <div class="page-title"><i class="fas fa-credit-card"></i> تأكيد الدفع بالتحويل</div>
+        
+        <div style="background:rgba(245,158,11,0.06); border-radius:24px; padding:1.2rem 1.5rem; border:2px solid rgba(245,158,11,0.2); margin-bottom:1.2rem;">
+          <p style="font-weight:600; color:var(--text-primary);"><i class="fas fa-university" style="color:var(--gold);"></i> بيانات التحويل البنكي</p>
+          <p style="font-size:0.9rem; color:var(--text-secondary);">📌 البنك: البنك الأهلي المصري</p>
+          <p style="font-size:0.9rem; color:var(--text-secondary);">📌 رقم الحساب: 1234567890123</p>
+          <p style="font-size:0.9rem; color:var(--text-secondary);">📌 المستفيد: منصة الامتحانات</p>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-exchange-alt" style="margin-left:8px;"></i> رقم التحويل</label>
+          <input type="text" id="transferNumber" placeholder="أدخل رقم التحويل البنكي" />
+          <i class="fas fa-exchange-alt"></i>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-coins" style="margin-left:8px;"></i> المبلغ المحول</label>
+          <input type="number" id="transferAmount" placeholder="أدخل المبلغ المحول" />
+          <i class="fas fa-coins"></i>
+        </div>
+
+        <button class="btn btn-gold btn-block" id="confirmTransferBtn">
+          <i class="fas fa-paper-plane"></i> تأكيد التحويل
+        </button>
+
+        <div class="btn-group">
+          <button class="btn btn-outline" id="backToStep3"><i class="fas fa-arrow-right"></i> رجوع</button>
+        </div>
+      </div>
+
+      <!-- ===== الصفحة 5: تأكيد الحجز النهائي ===== -->
+      <div class="page" id="page5">
+        <div class="page-title" style="color:var(--green);"><i class="fas fa-clipboard-check"></i> تأكيد الحجز النهائي</div>
+        <div class="confirm-box" style="display:flex;">
+          <i class="fas fa-check-circle"></i>
+          <div class="msg" id="finalConfirmMsg">✅ تم تأكيد حجزك بنجاح!</div>
+          <span class="badge-success"><i class="fas fa-check"></i> مؤكد</span>
+        </div>
+        <div style="background:rgba(30,139,94,0.04); border-radius:20px; padding:1.2rem; margin-top:1rem; border:1px solid rgba(30,139,94,0.12);">
+          <p style="font-weight:600; color:var(--text-primary);">
+            <i class="fas fa-database" style="color:var(--gold);"></i> 
+            تم حفظ بيانات الحجز في Firebase بنجاح
+          </p>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.3rem;">
+            <i class="fas fa-clock"></i> سيتم مراجعة طلبك من قبل الإدارة خلال 24 ساعة.
+          </p>
+          <div id="transferInfo" style="margin-top:0.8rem; background:var(--input-bg); padding:12px 18px; border-radius:16px; font-size:0.9rem; color:var(--text-secondary);"></div>
+        </div>
+        <button class="btn btn-gold btn-block" id="resetAllBtn">
+          <i class="fas fa-redo"></i> حجز جديد
+        </button>
+      </div>
+
+      <div class="footer-note">
+        <i class="fas fa-shield-alt" style="margin-left:6px;"></i> 
+        نظام حجز متكامل · تأكيد الدفع والحجز للعميل
       </div>
     </div>
+  </div>
 
-    <!-- ===== الصفحة 5: تأكيد الحجز النهائي ===== -->
-    <div class="page" id="page5">
-      <div class="page-title" style="color:var(--green);"><i class="fas fa-clipboard-check"></i> تأكيد الحجز النهائي</div>
-      <div class="confirm-box" style="display:flex;">
-        <i class="fas fa-check-circle"></i>
-        <div class="msg" id="finalConfirmMsg">✅ تم تأكيد حجزك بنجاح!</div>
-        <span class="badge-success"><i class="fas fa-check"></i> مؤكد</span>
+  <!-- ===== لوحة التحكم ===== -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-card">
+      <h2><i class="fas fa-user-cog"></i> لوحة التحكم · إدارة الطلبات</h2>
+      
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <button class="btn btn-primary" id="filterAll">كل الطلبات</button>
+        <button class="btn btn-gold" id="filterPending">قيد الانتظار</button>
+        <button class="btn btn-success" id="filterApproved">مقبولة</button>
+        <button class="btn btn-danger" id="filterRejected">مرفوضة</button>
+        <button class="btn btn-outline" id="refreshAdmin">تحديث</button>
       </div>
-      <div style="background:rgba(30,139,94,0.04); border-radius:20px; padding:1.2rem; margin-top:1rem; border:1px solid rgba(30,139,94,0.12);">
-        <p style="font-weight:600; color:var(--text-primary);">
-          <i class="fas fa-database" style="color:var(--gold);"></i> 
-          تم حفظ بيانات الحجز في Firebase بنجاح
-        </p>
-        <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.3rem;">
-          <i class="fas fa-clock"></i> يمكنك مراجعة التفاصيل في أي وقت من خلال حسابك.
-        </p>
-      </div>
-      <button class="btn btn-gold btn-block" id="resetAllBtn">
-        <i class="fas fa-redo"></i> حجز جديد
-      </button>
-    </div>
 
-    <div class="footer-note">
-      <i class="fas fa-shield-alt" style="margin-left:6px;"></i> 
-      نظام حجز متكامل · تأكيد الدفع والحجز للعميل
+      <div id="bookingsList">
+        <p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">جاري تحميل الطلبات...</p>
+      </div>
+
+      <div style="margin-top:1.5rem;">
+        <button class="btn btn-outline" id="closeAdminBtn"><i class="fas fa-times"></i> إغلاق لوحة التحكم</button>
+      </div>
     </div>
   </div>
 </div>
@@ -794,6 +958,10 @@
     const finalConfirmMsg = document.getElementById('finalConfirmMsg');
     const summarySubjects = document.getElementById('summarySubjects');
     const summaryTotal = document.getElementById('summaryTotal');
+    const transferNumber = document.getElementById('transferNumber');
+    const transferAmount = document.getElementById('transferAmount');
+    const confirmTransferBtn = document.getElementById('confirmTransferBtn');
+    const transferInfo = document.getElementById('transferInfo');
 
     // أزرار التنقل
     const gotoStep3 = document.getElementById('gotoStep3');
@@ -802,9 +970,22 @@
     const backToStep3 = document.getElementById('backToStep3');
     const resetAllBtn = document.getElementById('resetAllBtn');
 
+    // لوحة التحكم
+    const adminToggle = document.getElementById('adminToggle');
+    const adminPanel = document.getElementById('adminPanel');
+    const clientWrapper = document.getElementById('clientWrapper');
+    const bookingsList = document.getElementById('bookingsList');
+    const filterAll = document.getElementById('filterAll');
+    const filterPending = document.getElementById('filterPending');
+    const filterApproved = document.getElementById('filterApproved');
+    const filterRejected = document.getElementById('filterRejected');
+    const refreshAdmin = document.getElementById('refreshAdmin');
+    const closeAdminBtn = document.getElementById('closeAdminBtn');
+
     let currentPage = 1;
     let isLoggedIn = false;
     let currentUserId = null;
+    let currentFilter = 'all';
     let clientData = {
       name: '',
       phone: '',
@@ -816,6 +997,7 @@
     let subscriptionConfirmed = false;
     let paymentConfirmed = false;
     let bookingFinalized = false;
+    let transferData = null;
 
     function showToast(msg, type = 'info', icon = 'fa-info-circle') {
       const container = document.getElementById('toastContainer');
@@ -929,6 +1111,7 @@
       subscriptionConfirmed = false;
       paymentConfirmed = false;
       bookingFinalized = false;
+      transferData = null;
       updateTotalPrice();
       updateSubjectSelection();
       updateSummary();
@@ -946,14 +1129,20 @@
     }
 
     // ===== حفظ الحجز في Firebase =====
-    function saveBookingToFirebase(userId, subjects, total, confirmed) {
+    function saveBookingToFirebase(userId, subjects, total, confirmed, transferInfoData) {
       return database.ref('bookings/' + userId).set({
         subjects: subjects,
         total: total,
         subscriptionConfirmed: true,
         paymentConfirmed: confirmed,
         bookingFinalized: confirmed,
-        bookingDate: firebase.database.ServerValue.TIMESTAMP
+        bookingDate: firebase.database.ServerValue.TIMESTAMP,
+        status: confirmed ? 'pending' : 'pending',
+        transferNumber: transferInfoData ? transferInfoData.number : '',
+        transferAmount: transferInfoData ? transferInfoData.amount : '',
+        clientName: clientData.name,
+        clientPhone: clientData.phone,
+        clientSeat: clientData.seat
       });
     }
 
@@ -967,6 +1156,19 @@
       return database.ref('bookings/' + userId).once('value');
     }
 
+    // ===== جلب جميع الطلبات للوحة التحكم =====
+    function loadAllBookings() {
+      return database.ref('bookings').once('value');
+    }
+
+    // ===== تحديث حالة الطلب =====
+    function updateBookingStatus(userId, status) {
+      return database.ref('bookings/' + userId).update({
+        status: status,
+        reviewedAt: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
+
     // ===== تسجيل الدخول =====
     function performLogin() {
       const name = loginName.value.trim();
@@ -978,7 +1180,6 @@
         return;
       }
       
-      // استخدام رقم الهاتف كـ userId فريد
       const userId = phone.replace(/[^0-9]/g, '');
       if (!userId) {
         showToast('⚠️ رقم الهاتف غير صحيح', 'error', 'fa-exclamation-circle');
@@ -991,7 +1192,6 @@
       clientData.seat = seat;
       clientData.grade = 'الصف الثالث الثانوي';
 
-      // حفظ في Firebase
       saveClientToFirebase(userId, clientData)
         .then(() => {
           showToast('✅ تم حفظ بياناتك في Firebase', 'firebase', 'fa-database');
@@ -1000,12 +1200,15 @@
         .then((snapshot) => {
           const bookingData = snapshot.val();
           if (bookingData) {
-            // استعادة البيانات السابقة إذا وجدت
             if (bookingData.subjects && bookingData.subjects.length > 0) {
               selectedSubjects = bookingData.subjects;
               subscriptionConfirmed = bookingData.subscriptionConfirmed || false;
               paymentConfirmed = bookingData.paymentConfirmed || false;
               bookingFinalized = bookingData.bookingFinalized || false;
+              transferData = {
+                number: bookingData.transferNumber || '',
+                amount: bookingData.transferAmount || ''
+              };
               updateSubjectSelection();
               updateTotalPrice();
               updateSummary();
@@ -1015,7 +1218,6 @@
           return true;
         })
         .then(() => {
-          // تحديث الواجهة
           displayName.textContent = clientData.name;
           displayPhone.textContent = clientData.phone;
           displaySeat.textContent = clientData.seat;
@@ -1061,15 +1263,22 @@
       }
 
       bookingFinalized = true;
-      const subjectNames = selectedSubjects.map(s => s.name);
       
-      // حفظ الحجز في Firebase
-      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true)
+      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true, transferData)
         .then(() => {
           showToast('✅ تم حفظ الحجز في Firebase', 'firebase', 'fa-database');
           const names = selectedSubjects.map(s => s.name).join('، ');
           finalConfirmMsg.innerHTML = `✅ تم تأكيد الحجز النهائي · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م`;
-          showToast(`🎉 تهانينا! تم تأكيد حجزك النهائي`, 'success', 'fa-clipboard-check');
+          
+          if (transferData) {
+            transferInfo.innerHTML = `
+              <i class="fas fa-exchange-alt" style="color:var(--gold);"></i> 
+              رقم التحويل: <strong>${transferData.number}</strong> · المبلغ المحول: <strong>${transferData.amount} ج.م</strong>
+              <br><span style="font-size:0.8rem; color:var(--orange);">⏳ في انتظار مراجعة الإدارة</span>
+            `;
+          }
+          
+          showToast(`🎉 تم إرسال طلب الحجز للمراجعة`, 'success', 'fa-clipboard-check');
           goToPage(5);
         })
         .catch((error) => {
@@ -1077,6 +1286,119 @@
           showToast('⚠️ حدث خطأ في حفظ الحجز', 'error', 'fa-exclamation-circle');
         });
     }
+
+    // ===== تأكيد التحويل =====
+    function confirmTransfer() {
+      const number = transferNumber.value.trim();
+      const amount = transferAmount.value.trim();
+      
+      if (!number || !amount) {
+        showToast('⚠️ يرجى إدخال رقم التحويل والمبلغ', 'warning', 'fa-exclamation-triangle');
+        return;
+      }
+
+      if (parseFloat(amount) < totalPrice) {
+        showToast(`⚠️ المبلغ المحول (${amount} ج.م) أقل من المطلوب (${totalPrice} ج.م)`, 'warning', 'fa-exclamation-triangle');
+        return;
+      }
+
+      transferData = { number, amount };
+      paymentConfirmed = true;
+      showToast(`✅ تم تأكيد التحويل برقم ${number}`, 'success', 'fa-check-circle');
+      finalizeBooking();
+    }
+
+    // ===== عرض لوحة التحكم =====
+    function renderAdminPanel(filter = 'all') {
+      bookingsList.innerHTML = '<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">جاري تحميل الطلبات...</p>';
+      
+      loadAllBookings()
+        .then((snapshot) => {
+          const data = snapshot.val();
+          if (!data) {
+            bookingsList.innerHTML = '<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">لا توجد طلبات حالياً</p>';
+            return;
+          }
+
+          let html = '';
+          let count = 0;
+          Object.keys(data).forEach((userId) => {
+            const booking = data[userId];
+            let status = booking.status || 'pending';
+            
+            if (filter !== 'all' && status !== filter) return;
+            
+            count++;
+            const statusClass = status === 'approved' ? 'status-approved' : 
+                              status === 'rejected' ? 'status-rejected' : 'status-pending';
+            const statusBadge = status === 'approved' ? '<span class="badge-success">✅ مقبول</span>' :
+                               status === 'rejected' ? '<span class="badge-rejected">❌ مرفوض</span>' :
+                               '<span class="badge-pending">⏳ قيد الانتظار</span>';
+            
+            const subjectsList = booking.subjects ? booking.subjects.map(s => s.name).join('، ') : 'لا يوجد';
+            
+            html += `
+              <div class="booking-item ${statusClass}">
+                <div class="header">
+                  <span class="name"><i class="fas fa-user"></i> ${booking.clientName || 'غير معروف'}</span>
+                  ${statusBadge}
+                </div>
+                <div class="details">
+                  <span><i class="fas fa-phone"></i> ${booking.clientPhone || 'لا يوجد'}</span>
+                  <span><i class="fas fa-id-card"></i> جلوس: ${booking.clientSeat || 'لا يوجد'}</span>
+                  <span><i class="fas fa-book"></i> المواد: ${subjectsList}</span>
+                  <span><i class="fas fa-coins"></i> المبلغ: ${booking.total || 0} ج.م</span>
+                  ${booking.transferNumber ? `<span><i class="fas fa-exchange-alt"></i> تحويل: ${booking.transferNumber}</span>` : ''}
+                  ${booking.transferAmount ? `<span><i class="fas fa-money-bill"></i> محول: ${booking.transferAmount} ج.م</span>` : ''}
+                </div>
+                ${status === 'pending' ? `
+                  <div class="actions">
+                    <button class="btn btn-success" onclick="window.approveBooking('${userId}')">
+                      <i class="fas fa-check"></i> قبول
+                    </button>
+                    <button class="btn btn-danger" onclick="window.rejectBooking('${userId}')">
+                      <i class="fas fa-times"></i> رفض
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          });
+
+          if (count === 0) {
+            bookingsList.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">لا توجد طلبات ${filter === 'all' ? '' : filter === 'pending' ? 'قيد الانتظار' : filter === 'approved' ? 'مقبولة' : 'مرفوضة'}</p>`;
+          } else {
+            bookingsList.innerHTML = html;
+          }
+        })
+        .catch((error) => {
+          console.error('Error loading bookings:', error);
+          bookingsList.innerHTML = '<p style="text-align:center; color:var(--red); padding:2rem 0;">⚠️ حدث خطأ في تحميل الطلبات</p>';
+        });
+    }
+
+    // ===== دوال القبول والرفض (تُستدعى من onclick) =====
+    window.approveBooking = function(userId) {
+      updateBookingStatus(userId, 'approved')
+        .then(() => {
+          showToast('✅ تم قبول الطلب بنجاح', 'success', 'fa-check-circle');
+          renderAdminPanel(currentFilter);
+        })
+        .catch((error) => {
+          showToast('⚠️ حدث خطأ', 'error', 'fa-exclamation-circle');
+        });
+    };
+
+    window.rejectBooking = function(userId) {
+      updateBookingStatus(userId, 'rejected')
+        .then(() => {
+          showToast('❌ تم رفض الطلب', 'info', 'fa-times-circle');
+          renderAdminPanel(currentFilter);
+        })
+        .catch((error) => {
+          showToast('⚠️ حدث خطأ', 'error', 'fa-exclamation-circle');
+        });
+    };
 
     // ===== أحداث المواد =====
     subjectItems.forEach(item => {
@@ -1125,9 +1447,8 @@
       subscriptionConfirmed = true;
       updateSummary();
       
-      // حفظ الاشتراك في Firebase
       if (currentUserId) {
-        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false)
+        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false, null)
           .then(() => {
             showToast('✅ تم حفظ الاشتراك في Firebase', 'firebase', 'fa-database');
           })
@@ -1140,28 +1461,8 @@
       goToPage(4);
     });
 
-    // ===== تأكيد الدفع =====
-    confirmPaymentBtn.addEventListener('click', function() {
-      if (!isLoggedIn) {
-        showToast('⛔ يجب تسجيل الدخول', 'warning', 'fa-exclamation-triangle');
-        return;
-      }
-      if (selectedSubjects.length === 0) {
-        showToast('⚠️ اختر مادة أولاً', 'warning', 'fa-exclamation-triangle');
-        return;
-      }
-      if (!subscriptionConfirmed) {
-        showToast('⚠️ يرجى تأكيد الاشتراك أولاً', 'warning', 'fa-exclamation-triangle');
-        return;
-      }
-      if (bookingFinalized) {
-        showToast('✅ الحجز مؤكد بالفعل', 'info', 'fa-info-circle');
-        return;
-      }
-      paymentConfirmed = true;
-      showToast(`💰 تم تأكيد دفع ${totalPrice} ج.م`, 'success', 'fa-credit-card');
-      finalizeBooking();
-    });
+    // ===== تأكيد التحويل =====
+    confirmTransferBtn.addEventListener('click', confirmTransfer);
 
     // ===== أزرار التنقل =====
     gotoStep3.addEventListener('click', () => goToPage(3));
@@ -1180,8 +1481,48 @@
       loginBtn.style.background = '';
       statusBadge.classList.remove('show');
       statusText.textContent = 'غير متصل';
+      transferNumber.value = '';
+      transferAmount.value = '';
       showToast('🔄 تم إعادة تعيين الحجز', 'info', 'fa-redo');
       goToPage(1);
+    });
+
+    // ===== لوحة التحكم =====
+    adminToggle.addEventListener('click', function() {
+      adminPanel.classList.toggle('show');
+      if (adminPanel.classList.contains('show')) {
+        clientWrapper.style.display = 'none';
+        renderAdminPanel(currentFilter);
+        showToast('📊 لوحة التحكم', 'info', 'fa-user-cog');
+      } else {
+        clientWrapper.style.display = 'block';
+      }
+    });
+
+    closeAdminBtn.addEventListener('click', function() {
+      adminPanel.classList.remove('show');
+      clientWrapper.style.display = 'block';
+    });
+
+    filterAll.addEventListener('click', function() {
+      currentFilter = 'all';
+      renderAdminPanel('all');
+    });
+    filterPending.addEventListener('click', function() {
+      currentFilter = 'pending';
+      renderAdminPanel('pending');
+    });
+    filterApproved.addEventListener('click', function() {
+      currentFilter = 'approved';
+      renderAdminPanel('approved');
+    });
+    filterRejected.addEventListener('click', function() {
+      currentFilter = 'rejected';
+      renderAdminPanel('rejected');
+    });
+    refreshAdmin.addEventListener('click', function() {
+      renderAdminPanel(currentFilter);
+      showToast('🔄 تم التحديث', 'info', 'fa-sync');
     });
 
     // ===== الوضع الليلي =====
