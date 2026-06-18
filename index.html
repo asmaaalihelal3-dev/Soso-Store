@@ -12,7 +12,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   
   <style>
-    /* جميع الأنماط كما هي - تم حفظها */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -483,6 +482,21 @@
       border-radius: 30px;
     }
 
+    .cash-box {
+      background: rgba(30,139,94,0.06);
+      border-radius: 30px;
+      padding: 1.5rem 2rem;
+      border-right: 6px solid var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+      animation: fadeSlide 0.6s ease;
+    }
+    .cash-box i { font-size: 2.5rem; color: var(--gold); }
+    .cash-box .msg { font-weight: 600; color: var(--text-primary); flex: 1; font-size: 1.05rem; }
+
     .confirm-box {
       background: rgba(30,139,94,0.06);
       border-radius: 30px;
@@ -537,7 +551,6 @@
       color: var(--text-primary);
     }
 
-    /* لوحة التحكم */
     .admin-panel {
       display: none;
       margin-top: 2rem;
@@ -696,7 +709,7 @@
       <h1><i class="fas fa-graduation-cap"></i> منصة الامتحانات · 3 ثانوي</h1>
       <div class="sub-head">
         <i class="fas fa-chevron-left" style="margin-left: 8px;"></i> 
-        تسجيل دخول · حجز مواد · تأكيد الدفع والحجز
+        تسجيل دخول · حجز مواد · دفع كاش · تأكيد الحجز
       </div>
 
       <div class="progress-steps">
@@ -801,35 +814,39 @@
         </div>
       </div>
 
-      <!-- الصفحة 4: تأكيد الدفع بالتحويل -->
+      <!-- الصفحة 4: تأكيد الدفع كاش -->
       <div class="page" id="page4">
-        <div class="page-title"><i class="fas fa-credit-card"></i> تأكيد الدفع بالتحويل</div>
+        <div class="page-title"><i class="fas fa-money-bill-wave"></i> تأكيد الدفع كاش</div>
         
-        <div style="background:rgba(245,158,11,0.06); border-radius:24px; padding:1.2rem 1.5rem; border:2px solid rgba(245,158,11,0.2); margin-bottom:1.2rem;">
-          <p style="font-weight:600; color:var(--text-primary);"><i class="fas fa-university" style="color:var(--gold);"></i> بيانات التحويل البنكي</p>
-          <p style="font-size:0.9rem; color:var(--text-secondary);">📌 البنك: البنك الأهلي المصري</p>
-          <p style="font-size:0.9rem; color:var(--text-secondary);">📌 رقم الحساب: 1234567890123</p>
-          <p style="font-size:0.9rem; color:var(--text-secondary);">📌 المستفيد: منصة الامتحانات</p>
+        <div class="cash-box">
+          <i class="fas fa-hand-holding-usd"></i>
+          <div class="msg">
+            <strong>طريقة الدفع: نقداً (كاش)</strong>
+            <br>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">
+              سيتم دفع المبلغ المطلوب <strong id="cashTotalDisplay">0 ج.م</strong> نقداً لدى مندوب المنصة
+            </span>
+          </div>
         </div>
 
-        <div class="input-group">
-          <label><i class="fas fa-exchange-alt" style="margin-left:8px;"></i> رقم التحويل</label>
-          <input type="text" id="transferNumber" placeholder="أدخل رقم التحويل البنكي" />
-          <i class="fas fa-exchange-alt"></i>
+        <div style="background:rgba(245,158,11,0.08); border-radius:20px; padding:1.2rem 1.5rem; margin:1.2rem 0; border:2px solid rgba(245,158,11,0.15);">
+          <p style="display:flex; align-items:center; gap:10px; font-weight:600; color:var(--text-primary);">
+            <i class="fas fa-info-circle" style="color:var(--gold);"></i>
+            إرشادات الدفع النقدي
+          </p>
+          <ul style="list-style:none; padding:0; margin:0.5rem 0 0; font-size:0.9rem; color:var(--text-secondary);">
+            <li style="padding:4px 0;">✅ المبلغ المطلوب: <strong id="cashTotalDisplay2">0 ج.م</strong></li>
+            <li style="padding:4px 0;">📍 سيتم تحصيل المبلغ نقداً عند تسليم المستندات</li>
+            <li style="padding:4px 0;">📞 لمزيد من الاستفسارات، تواصل مع خدمة العملاء</li>
+          </ul>
         </div>
 
-        <div class="input-group">
-          <label><i class="fas fa-coins" style="margin-left:8px;"></i> المبلغ المحول</label>
-          <input type="number" id="transferAmount" placeholder="أدخل المبلغ المحول" />
-          <i class="fas fa-coins"></i>
-        </div>
-
-        <button class="btn btn-gold btn-block" id="confirmTransferBtn">
-          <i class="fas fa-paper-plane"></i> تأكيد التحويل
+        <button class="btn btn-gold btn-block" id="confirmCashBtn">
+          <i class="fas fa-check-circle"></i> تأكيد الدفع كاش
         </button>
 
         <div class="btn-group">
-          <button class="btn btn-outline" id="backToStep3"><i class="fas fa-arrow-right"></i> رجوع</button>
+          <button class="btn btn-outline" id="backToStep3Cash"><i class="fas fa-arrow-right"></i> رجوع</button>
         </div>
       </div>
 
@@ -849,7 +866,12 @@
           <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.3rem;">
             <i class="fas fa-clock"></i> سيتم مراجعة طلبك من قبل الإدارة خلال 24 ساعة.
           </p>
-          <div id="transferInfo" style="margin-top:0.8rem; background:var(--input-bg); padding:12px 18px; border-radius:16px; font-size:0.9rem; color:var(--text-secondary);"></div>
+          <div id="cashInfo" style="margin-top:0.8rem; background:var(--input-bg); padding:12px 18px; border-radius:16px; font-size:0.9rem; color:var(--text-secondary);">
+            <i class="fas fa-hand-holding-usd" style="color:var(--gold);"></i> 
+            طريقة الدفع: <strong>نقداً (كاش)</strong>
+            <br>
+            <span style="font-size:0.8rem; color:var(--orange);">⏳ في انتظار مراجعة الإدارة</span>
+          </div>
         </div>
         <button class="btn btn-gold btn-block" id="resetAllBtn">
           <i class="fas fa-redo"></i> حجز جديد
@@ -858,7 +880,7 @@
 
       <div class="footer-note">
         <i class="fas fa-shield-alt" style="margin-left:6px;"></i> 
-        نظام حجز متكامل · تأكيد الدفع والحجز للعميل
+        نظام حجز متكامل · دفع كاش · تأكيد الحجز للعميل
       </div>
     </div>
   </div>
@@ -904,7 +926,6 @@
     measurementId: "G-9P1KMD5CSJ"
   };
 
-  // تهيئة Firebase مع التحقق من الأخطاء
   try {
     firebase.initializeApp(firebaseConfig);
     console.log('✅ Firebase initialized successfully');
@@ -941,14 +962,12 @@
       4: document.getElementById('line4')
     };
 
-    // عناصر تسجيل الدخول
     const loginName = document.getElementById('loginName');
     const loginPhone = document.getElementById('loginPhone');
     const loginSeat = document.getElementById('loginSeat');
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    // عناصر معلومات العميل
     const displayName = document.getElementById('displayName');
     const displayPhone = document.getElementById('displayPhone');
     const displaySeat = document.getElementById('displaySeat');
@@ -958,27 +977,20 @@
     const statusBadge = document.getElementById('statusBadge');
     const statusText = document.getElementById('statusText');
 
-    // عناصر الحجز
     const subjectItems = document.querySelectorAll('.subject-item');
     const totalPriceDisplay = document.getElementById('totalPriceDisplay');
     const confirmSubscriptionBtn = document.getElementById('confirmSubscriptionBtn');
-    const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
     const finalConfirmMsg = document.getElementById('finalConfirmMsg');
-    const summarySubjects = document.getElementById('summarySubjects');
-    const summaryTotal = document.getElementById('summaryTotal');
-    const transferNumber = document.getElementById('transferNumber');
-    const transferAmount = document.getElementById('transferAmount');
-    const confirmTransferBtn = document.getElementById('confirmTransferBtn');
-    const transferInfo = document.getElementById('transferInfo');
+    const confirmCashBtn = document.getElementById('confirmCashBtn');
+    const cashTotalDisplay = document.getElementById('cashTotalDisplay');
+    const cashTotalDisplay2 = document.getElementById('cashTotalDisplay2');
 
-    // أزرار التنقل
     const gotoStep3 = document.getElementById('gotoStep3');
     const gotoStep4 = document.getElementById('gotoStep4');
     const backToStep2 = document.getElementById('backToStep2');
-    const backToStep3 = document.getElementById('backToStep3');
+    const backToStep3Cash = document.getElementById('backToStep3Cash');
     const resetAllBtn = document.getElementById('resetAllBtn');
 
-    // لوحة التحكم
     const adminToggle = document.getElementById('adminToggle');
     const adminPanel = document.getElementById('adminPanel');
     const clientWrapper = document.getElementById('clientWrapper');
@@ -1005,7 +1017,6 @@
     let subscriptionConfirmed = false;
     let paymentConfirmed = false;
     let bookingFinalized = false;
-    let transferData = null;
 
     function showToast(msg, type = 'info', icon = 'fa-info-circle') {
       const container = document.getElementById('toastContainer');
@@ -1088,6 +1099,8 @@
     function updateTotalPrice() {
       totalPrice = selectedSubjects.reduce((sum, s) => sum + s.price, 0);
       totalPriceDisplay.textContent = totalPrice + ' ج.م';
+      if (cashTotalDisplay) cashTotalDisplay.textContent = totalPrice + ' ج.م';
+      if (cashTotalDisplay2) cashTotalDisplay2.textContent = totalPrice + ' ج.م';
     }
 
     function updateSubjectSelection() {
@@ -1099,37 +1112,19 @@
       });
     }
 
-    function updateSummary() {
-      if (selectedSubjects.length === 0) {
-        summarySubjects.innerHTML = '<span style="color:var(--text-secondary);">لم يتم اختيار مواد بعد</span>';
-        summaryTotal.textContent = '0 ج.م';
-        return;
-      }
-      let html = '';
-      selectedSubjects.forEach(s => {
-        html += `<span class="summary-chip">${s.name} (${s.price} ج.م)</span>`;
-      });
-      summarySubjects.innerHTML = html;
-      summaryTotal.textContent = totalPrice + ' ج.م';
-    }
-
     function resetBookingState() {
       selectedSubjects = [];
       totalPrice = 0;
       subscriptionConfirmed = false;
       paymentConfirmed = false;
       bookingFinalized = false;
-      transferData = null;
       updateTotalPrice();
       updateSubjectSelection();
-      updateSummary();
     }
 
     // ========================================
-    // دوال Firebase المحسنة
+    // دوال Firebase
     // ========================================
-    
-    // حفظ بيانات العميل
     function saveClientToFirebase(userId, data) {
       return database.ref('students/' + userId).set({
         name: data.name,
@@ -1140,8 +1135,7 @@
       });
     }
 
-    // حفظ الحجز
-    function saveBookingToFirebase(userId, subjects, total, confirmed, transferInfoData) {
+    function saveBookingToFirebase(userId, subjects, total, confirmed, paymentMethod) {
       const bookingData = {
         subjects: subjects || [],
         total: total || 0,
@@ -1150,8 +1144,7 @@
         bookingFinalized: confirmed || false,
         bookingDate: firebase.database.ServerValue.TIMESTAMP,
         status: confirmed ? 'pending' : 'pending',
-        transferNumber: transferInfoData ? transferInfoData.number : '',
-        transferAmount: transferInfoData ? transferInfoData.amount : '',
+        paymentMethod: paymentMethod || 'cash',
         clientName: clientData.name || '',
         clientPhone: clientData.phone || '',
         clientSeat: clientData.seat || ''
@@ -1160,7 +1153,6 @@
       return database.ref('bookings/' + userId).set(bookingData);
     }
 
-    // جلب بيانات الحجز
     function loadBookingFromFirebase(userId) {
       return database.ref('bookings/' + userId).once('value')
         .then((snapshot) => {
@@ -1172,7 +1164,6 @@
         });
     }
 
-    // جلب جميع الطلبات للوحة التحكم
     function loadAllBookings() {
       return database.ref('bookings').once('value')
         .then((snapshot) => {
@@ -1184,7 +1175,6 @@
         });
     }
 
-    // تحديث حالة الطلب
     function updateBookingStatus(userId, status) {
       return database.ref('bookings/' + userId).update({
         status: status,
@@ -1217,35 +1207,26 @@
       clientData.seat = seat;
       clientData.grade = 'الصف الثالث الثانوي';
 
-      // حفظ بيانات العميل أولاً
       saveClientToFirebase(userId, clientData)
         .then(() => {
           showToast('✅ تم حفظ بياناتك في Firebase', 'firebase', 'fa-database');
-          // ثم جلب بيانات الحجز
           return loadBookingFromFirebase(userId);
         })
         .then((bookingData) => {
           if (bookingData) {
-            // استعادة بيانات الحجز إذا وجدت
             if (bookingData.subjects && bookingData.subjects.length > 0) {
               selectedSubjects = bookingData.subjects;
               subscriptionConfirmed = bookingData.subscriptionConfirmed || false;
               paymentConfirmed = bookingData.paymentConfirmed || false;
               bookingFinalized = bookingData.bookingFinalized || false;
-              transferData = {
-                number: bookingData.transferNumber || '',
-                amount: bookingData.transferAmount || ''
-              };
               updateSubjectSelection();
               updateTotalPrice();
-              updateSummary();
               showToast('📚 تم استعادة بيانات الحجز السابقة', 'info', 'fa-history');
             }
           }
           return true;
         })
         .then(() => {
-          // تحديث الواجهة
           displayName.textContent = clientData.name;
           displayPhone.textContent = clientData.phone;
           displaySeat.textContent = clientData.seat;
@@ -1270,9 +1251,6 @@
         });
     }
 
-    // ========================================
-    // تسجيل الخروج
-    // ========================================
     function performLogout() {
       isLoggedIn = false;
       currentUserId = null;
@@ -1286,60 +1264,30 @@
     }
 
     // ========================================
-    // تأكيد الحجز النهائي
+    // تأكيد الدفع كاش
     // ========================================
-    function finalizeBooking() {
+    function confirmCashPayment() {
       if (!currentUserId) {
         showToast('⚠️ حدث خطأ، يرجى تسجيل الدخول مرة أخرى', 'error', 'fa-exclamation-circle');
         return;
       }
 
+      paymentConfirmed = true;
       bookingFinalized = true;
       
-      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true, transferData)
+      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true, 'cash')
         .then(() => {
           showToast('✅ تم حفظ الحجز في Firebase', 'firebase', 'fa-database');
           const names = selectedSubjects.map(s => s.name).join('، ');
-          finalConfirmMsg.innerHTML = `✅ تم تأكيد الحجز النهائي · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م`;
+          finalConfirmMsg.innerHTML = `✅ تم تأكيد الحجز النهائي · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م (كاش)`;
           
-          if (transferData) {
-            transferInfo.innerHTML = `
-              <i class="fas fa-exchange-alt" style="color:var(--gold);"></i> 
-              رقم التحويل: <strong>${transferData.number}</strong> · المبلغ المحول: <strong>${transferData.amount} ج.م</strong>
-              <br><span style="font-size:0.8rem; color:var(--orange);">⏳ في انتظار مراجعة الإدارة</span>
-            `;
-          }
-          
-          showToast(`🎉 تم إرسال طلب الحجز للمراجعة`, 'success', 'fa-clipboard-check');
+          showToast(`🎉 تم إرسال طلب الحجز للمراجعة (دفع كاش)`, 'success', 'fa-clipboard-check');
           goToPage(5);
         })
         .catch((error) => {
           console.error('Error saving booking:', error);
           showToast('⚠️ حدث خطأ في حفظ الحجز', 'error', 'fa-exclamation-circle');
         });
-    }
-
-    // ========================================
-    // تأكيد التحويل
-    // ========================================
-    function confirmTransfer() {
-      const number = transferNumber.value.trim();
-      const amount = transferAmount.value.trim();
-      
-      if (!number || !amount) {
-        showToast('⚠️ يرجى إدخال رقم التحويل والمبلغ', 'warning', 'fa-exclamation-triangle');
-        return;
-      }
-
-      if (parseFloat(amount) < totalPrice) {
-        showToast(`⚠️ المبلغ المحول (${amount} ج.م) أقل من المطلوب (${totalPrice} ج.م)`, 'warning', 'fa-exclamation-triangle');
-        return;
-      }
-
-      transferData = { number, amount };
-      paymentConfirmed = true;
-      showToast(`✅ تم تأكيد التحويل برقم ${number}`, 'success', 'fa-check-circle');
-      finalizeBooking();
     }
 
     // ========================================
@@ -1358,13 +1306,11 @@
           let html = '';
           let count = 0;
           
-          // تحويل البيانات إلى مصفوفة
           const bookingsArray = Object.keys(data).map(key => ({
             userId: key,
             ...data[key]
           }));
 
-          // ترتيب حسب التاريخ (الأحدث أولاً)
           bookingsArray.sort((a, b) => (b.bookingDate || 0) - (a.bookingDate || 0));
 
           bookingsArray.forEach((booking) => {
@@ -1381,6 +1327,7 @@
             
             const subjectsList = booking.subjects && booking.subjects.length > 0 ? 
                               booking.subjects.map(s => s.name).join('، ') : 'لا يوجد';
+            const paymentMethod = booking.paymentMethod === 'cash' ? '💵 كاش' : 'غير محدد';
             
             html += `
               <div class="booking-item ${statusClass}">
@@ -1393,8 +1340,7 @@
                   <span><i class="fas fa-id-card"></i> جلوس: ${booking.clientSeat || 'لا يوجد'}</span>
                   <span><i class="fas fa-book"></i> المواد: ${subjectsList}</span>
                   <span><i class="fas fa-coins"></i> المبلغ: ${booking.total || 0} ج.م</span>
-                  ${booking.transferNumber ? `<span><i class="fas fa-exchange-alt"></i> تحويل: ${booking.transferNumber}</span>` : ''}
-                  ${booking.transferAmount ? `<span><i class="fas fa-money-bill"></i> محول: ${booking.transferAmount} ج.م</span>` : ''}
+                  <span><i class="fas fa-money-bill-wave"></i> طريقة الدفع: ${paymentMethod}</span>
                 </div>
                 ${status === 'pending' ? `
                   <div class="actions">
@@ -1423,9 +1369,6 @@
         });
     }
 
-    // ========================================
-    // دوال القبول والرفض
-    // ========================================
     window.approveBooking = function(userId) {
       updateBookingStatus(userId, 'approved')
         .then(() => {
@@ -1475,7 +1418,6 @@
         }
         updateSubjectSelection();
         updateTotalPrice();
-        updateSummary();
         subscriptionConfirmed = false;
         paymentConfirmed = false;
         bookingFinalized = false;
@@ -1499,10 +1441,9 @@
         return;
       }
       subscriptionConfirmed = true;
-      updateSummary();
       
       if (currentUserId) {
-        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false, null)
+        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false, 'cash')
           .then(() => {
             showToast('✅ تم حفظ الاشتراك في Firebase', 'firebase', 'fa-database');
           })
@@ -1516,9 +1457,9 @@
     });
 
     // ========================================
-    // تأكيد التحويل
+    // تأكيد الدفع كاش
     // ========================================
-    confirmTransferBtn.addEventListener('click', confirmTransfer);
+    confirmCashBtn.addEventListener('click', confirmCashPayment);
 
     // ========================================
     // أزرار التنقل
@@ -1526,7 +1467,7 @@
     gotoStep3.addEventListener('click', () => goToPage(3));
     gotoStep4.addEventListener('click', () => goToPage(4));
     backToStep2.addEventListener('click', () => goToPage(2));
-    backToStep3.addEventListener('click', () => goToPage(3));
+    backToStep3Cash.addEventListener('click', () => goToPage(3));
 
     logoutBtn.addEventListener('click', performLogout);
     loginBtn.addEventListener('click', performLogin);
@@ -1539,8 +1480,6 @@
       loginBtn.style.background = '';
       statusBadge.classList.remove('show');
       statusText.textContent = 'غير متصل';
-      transferNumber.value = '';
-      transferAmount.value = '';
       showToast('🔄 تم إعادة تعيين الحجز', 'info', 'fa-redo');
       goToPage(1);
     });
