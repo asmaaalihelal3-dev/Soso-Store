@@ -904,11 +904,18 @@
     measurementId: "G-9P1KMD5CSJ"
   };
 
-  firebase.initializeApp(firebaseConfig);
+  // تهيئة Firebase مع التحقق من الأخطاء
+  try {
+    firebase.initializeApp(firebaseConfig);
+    console.log('✅ Firebase initialized successfully');
+  } catch (error) {
+    console.error('❌ Firebase initialization error:', error);
+  }
+  
   const database = firebase.database();
 
   // ========================================
-  // الكود الرئيسي مع إصلاحات الأخطاء
+  // الكود الرئيسي
   // ========================================
   (function() {
     "use strict";
@@ -1118,7 +1125,9 @@
       updateSummary();
     }
 
-    // ===== دوال Firebase المحسّنة =====
+    // ========================================
+    // دوال Firebase المحسنة
+    // ========================================
     
     // حفظ بيانات العميل
     function saveClientToFirebase(userId, data) {
@@ -1183,7 +1192,9 @@
       });
     }
 
-    // ===== تسجيل الدخول =====
+    // ========================================
+    // تسجيل الدخول
+    // ========================================
     function performLogin() {
       const name = loginName.value.trim();
       const phone = loginPhone.value.trim();
@@ -1259,7 +1270,9 @@
         });
     }
 
-    // ===== تسجيل الخروج =====
+    // ========================================
+    // تسجيل الخروج
+    // ========================================
     function performLogout() {
       isLoggedIn = false;
       currentUserId = null;
@@ -1272,7 +1285,9 @@
       goToPage(1);
     }
 
-    // ===== تأكيد الحجز النهائي مع حفظ في Firebase =====
+    // ========================================
+    // تأكيد الحجز النهائي
+    // ========================================
     function finalizeBooking() {
       if (!currentUserId) {
         showToast('⚠️ حدث خطأ، يرجى تسجيل الدخول مرة أخرى', 'error', 'fa-exclamation-circle');
@@ -1304,7 +1319,9 @@
         });
     }
 
-    // ===== تأكيد التحويل =====
+    // ========================================
+    // تأكيد التحويل
+    // ========================================
     function confirmTransfer() {
       const number = transferNumber.value.trim();
       const amount = transferAmount.value.trim();
@@ -1325,7 +1342,9 @@
       finalizeBooking();
     }
 
-    // ===== عرض لوحة التحكم (محسّنة) =====
+    // ========================================
+    // لوحة التحكم
+    // ========================================
     function renderAdminPanel(filter = 'all') {
       bookingsList.innerHTML = '<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">جاري تحميل الطلبات...</p>';
       
@@ -1339,7 +1358,7 @@
           let html = '';
           let count = 0;
           
-          // تحويل البيانات إلى مصفوفة للتعامل معها
+          // تحويل البيانات إلى مصفوفة
           const bookingsArray = Object.keys(data).map(key => ({
             userId: key,
             ...data[key]
@@ -1404,7 +1423,9 @@
         });
     }
 
-    // ===== دوال القبول والرفض =====
+    // ========================================
+    // دوال القبول والرفض
+    // ========================================
     window.approveBooking = function(userId) {
       updateBookingStatus(userId, 'approved')
         .then(() => {
@@ -1429,7 +1450,9 @@
         });
     };
 
-    // ===== أحداث المواد =====
+    // ========================================
+    // أحداث المواد
+    // ========================================
     subjectItems.forEach(item => {
       item.addEventListener('click', function() {
         if (!isLoggedIn) {
@@ -1459,7 +1482,9 @@
       });
     });
 
-    // ===== تأكيد الاشتراك =====
+    // ========================================
+    // تأكيد الاشتراك
+    // ========================================
     confirmSubscriptionBtn.addEventListener('click', function() {
       if (!isLoggedIn) {
         showToast('⛔ يجب تسجيل الدخول أولاً', 'warning', 'fa-exclamation-triangle');
@@ -1490,10 +1515,14 @@
       goToPage(4);
     });
 
-    // ===== تأكيد التحويل =====
+    // ========================================
+    // تأكيد التحويل
+    // ========================================
     confirmTransferBtn.addEventListener('click', confirmTransfer);
 
-    // ===== أزرار التنقل =====
+    // ========================================
+    // أزرار التنقل
+    // ========================================
     gotoStep3.addEventListener('click', () => goToPage(3));
     gotoStep4.addEventListener('click', () => goToPage(4));
     backToStep2.addEventListener('click', () => goToPage(2));
@@ -1516,7 +1545,9 @@
       goToPage(1);
     });
 
-    // ===== لوحة التحكم =====
+    // ========================================
+    // لوحة التحكم
+    // ========================================
     adminToggle.addEventListener('click', function() {
       adminPanel.classList.toggle('show');
       if (adminPanel.classList.contains('show')) {
@@ -1554,7 +1585,9 @@
       showToast('🔄 تم التحديث', 'info', 'fa-sync');
     });
 
-    // ===== الوضع الليلي =====
+    // ========================================
+    // الوضع الليلي
+    // ========================================
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const themeLabel = document.getElementById('themeLabel');
@@ -1571,7 +1604,9 @@
       }
     });
 
-    // ===== بداية الصفحة =====
+    // ========================================
+    // بداية الصفحة
+    // ========================================
     window.addEventListener('load', function() {
       loginName.value = 'أحمد محمد';
       loginPhone.value = '01012345678';
