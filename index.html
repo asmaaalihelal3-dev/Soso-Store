@@ -12,6 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   
   <style>
+    /* جميع الأنماط كما هي - تم حفظها */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -710,7 +711,7 @@
         <div class="step" id="step5"><div class="circle">5</div><span class="label">تأكيد</span></div>
       </div>
 
-      <!-- ===== الصفحة 1: تسجيل الدخول ===== -->
+      <!-- الصفحة 1: تسجيل الدخول -->
       <div class="page active" id="page1">
         <div class="page-title"><i class="fas fa-user-lock"></i> تسجيل الدخول</div>
         
@@ -739,7 +740,7 @@
         </div>
       </div>
 
-      <!-- ===== الصفحة 2: معلومات العميل ===== -->
+      <!-- الصفحة 2: معلومات العميل -->
       <div class="page" id="page2">
         <div class="page-title"><i class="fas fa-id-card"></i> معلومات العميل</div>
         <div class="welcome-msg" id="welcomeMsg">
@@ -763,7 +764,7 @@
         </div>
       </div>
 
-      <!-- ===== الصفحة 3: حجز المواد ===== -->
+      <!-- الصفحة 3: حجز المواد -->
       <div class="page" id="page3">
         <div class="page-title"><i class="fas fa-book-open"></i> حجز المواد</div>
         <div id="subjectList">
@@ -800,7 +801,7 @@
         </div>
       </div>
 
-      <!-- ===== الصفحة 4: تأكيد الدفع بالتحويل ===== -->
+      <!-- الصفحة 4: تأكيد الدفع بالتحويل -->
       <div class="page" id="page4">
         <div class="page-title"><i class="fas fa-credit-card"></i> تأكيد الدفع بالتحويل</div>
         
@@ -832,7 +833,7 @@
         </div>
       </div>
 
-      <!-- ===== الصفحة 5: تأكيد الحجز النهائي ===== -->
+      <!-- الصفحة 5: تأكيد الحجز النهائي -->
       <div class="page" id="page5">
         <div class="page-title" style="color:var(--green);"><i class="fas fa-clipboard-check"></i> تأكيد الحجز النهائي</div>
         <div class="confirm-box" style="display:flex;">
@@ -862,7 +863,7 @@
     </div>
   </div>
 
-  <!-- ===== لوحة التحكم ===== -->
+  <!-- لوحة التحكم -->
   <div class="admin-panel" id="adminPanel">
     <div class="admin-card">
       <h2><i class="fas fa-user-cog"></i> لوحة التحكم · إدارة الطلبات</h2>
@@ -907,7 +908,7 @@
   const database = firebase.database();
 
   // ========================================
-  // الكود الرئيسي
+  // الكود الرئيسي مع إصلاحات الأخطاء
   // ========================================
   (function() {
     "use strict";
@@ -1117,7 +1118,9 @@
       updateSummary();
     }
 
-    // ===== حفظ بيانات العميل في Firebase =====
+    // ===== دوال Firebase المحسّنة =====
+    
+    // حفظ بيانات العميل
     function saveClientToFirebase(userId, data) {
       return database.ref('students/' + userId).set({
         name: data.name,
@@ -1128,40 +1131,51 @@
       });
     }
 
-    // ===== حفظ الحجز في Firebase =====
+    // حفظ الحجز
     function saveBookingToFirebase(userId, subjects, total, confirmed, transferInfoData) {
-      return database.ref('bookings/' + userId).set({
-        subjects: subjects,
-        total: total,
+      const bookingData = {
+        subjects: subjects || [],
+        total: total || 0,
         subscriptionConfirmed: true,
-        paymentConfirmed: confirmed,
-        bookingFinalized: confirmed,
+        paymentConfirmed: confirmed || false,
+        bookingFinalized: confirmed || false,
         bookingDate: firebase.database.ServerValue.TIMESTAMP,
         status: confirmed ? 'pending' : 'pending',
         transferNumber: transferInfoData ? transferInfoData.number : '',
         transferAmount: transferInfoData ? transferInfoData.amount : '',
-        clientName: clientData.name,
-        clientPhone: clientData.phone,
-        clientSeat: clientData.seat
-      });
+        clientName: clientData.name || '',
+        clientPhone: clientData.phone || '',
+        clientSeat: clientData.seat || ''
+      };
+      
+      return database.ref('bookings/' + userId).set(bookingData);
     }
 
-    // ===== جلب بيانات العميل من Firebase =====
-    function loadClientFromFirebase(userId) {
-      return database.ref('students/' + userId).once('value');
-    }
-
-    // ===== جلب بيانات الحجز من Firebase =====
+    // جلب بيانات الحجز
     function loadBookingFromFirebase(userId) {
-      return database.ref('bookings/' + userId).once('value');
+      return database.ref('bookings/' + userId).once('value')
+        .then((snapshot) => {
+          return snapshot.val();
+        })
+        .catch((error) => {
+          console.error('Error loading booking:', error);
+          return null;
+        });
     }
 
-    // ===== جلب جميع الطلبات للوحة التحكم =====
+    // جلب جميع الطلبات للوحة التحكم
     function loadAllBookings() {
-      return database.ref('bookings').once('value');
+      return database.ref('bookings').once('value')
+        .then((snapshot) => {
+          return snapshot.val();
+        })
+        .catch((error) => {
+          console.error('Error loading all bookings:', error);
+          return null;
+        });
     }
 
-    // ===== تحديث حالة الطلب =====
+    // تحديث حالة الطلب
     function updateBookingStatus(userId, status) {
       return database.ref('bookings/' + userId).update({
         status: status,
@@ -1192,14 +1206,16 @@
       clientData.seat = seat;
       clientData.grade = 'الصف الثالث الثانوي';
 
+      // حفظ بيانات العميل أولاً
       saveClientToFirebase(userId, clientData)
         .then(() => {
           showToast('✅ تم حفظ بياناتك في Firebase', 'firebase', 'fa-database');
+          // ثم جلب بيانات الحجز
           return loadBookingFromFirebase(userId);
         })
-        .then((snapshot) => {
-          const bookingData = snapshot.val();
+        .then((bookingData) => {
           if (bookingData) {
+            // استعادة بيانات الحجز إذا وجدت
             if (bookingData.subjects && bookingData.subjects.length > 0) {
               selectedSubjects = bookingData.subjects;
               subscriptionConfirmed = bookingData.subscriptionConfirmed || false;
@@ -1218,6 +1234,7 @@
           return true;
         })
         .then(() => {
+          // تحديث الواجهة
           displayName.textContent = clientData.name;
           displayPhone.textContent = clientData.phone;
           displaySeat.textContent = clientData.seat;
@@ -1308,13 +1325,12 @@
       finalizeBooking();
     }
 
-    // ===== عرض لوحة التحكم =====
+    // ===== عرض لوحة التحكم (محسّنة) =====
     function renderAdminPanel(filter = 'all') {
       bookingsList.innerHTML = '<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">جاري تحميل الطلبات...</p>';
       
       loadAllBookings()
-        .then((snapshot) => {
-          const data = snapshot.val();
+        .then((data) => {
           if (!data) {
             bookingsList.innerHTML = '<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">لا توجد طلبات حالياً</p>';
             return;
@@ -1322,8 +1338,17 @@
 
           let html = '';
           let count = 0;
-          Object.keys(data).forEach((userId) => {
-            const booking = data[userId];
+          
+          // تحويل البيانات إلى مصفوفة للتعامل معها
+          const bookingsArray = Object.keys(data).map(key => ({
+            userId: key,
+            ...data[key]
+          }));
+
+          // ترتيب حسب التاريخ (الأحدث أولاً)
+          bookingsArray.sort((a, b) => (b.bookingDate || 0) - (a.bookingDate || 0));
+
+          bookingsArray.forEach((booking) => {
             let status = booking.status || 'pending';
             
             if (filter !== 'all' && status !== filter) return;
@@ -1335,7 +1360,8 @@
                                status === 'rejected' ? '<span class="badge-rejected">❌ مرفوض</span>' :
                                '<span class="badge-pending">⏳ قيد الانتظار</span>';
             
-            const subjectsList = booking.subjects ? booking.subjects.map(s => s.name).join('، ') : 'لا يوجد';
+            const subjectsList = booking.subjects && booking.subjects.length > 0 ? 
+                              booking.subjects.map(s => s.name).join('، ') : 'لا يوجد';
             
             html += `
               <div class="booking-item ${statusClass}">
@@ -1353,10 +1379,10 @@
                 </div>
                 ${status === 'pending' ? `
                   <div class="actions">
-                    <button class="btn btn-success" onclick="window.approveBooking('${userId}')">
+                    <button class="btn btn-success" onclick="window.approveBooking('${booking.userId}')">
                       <i class="fas fa-check"></i> قبول
                     </button>
-                    <button class="btn btn-danger" onclick="window.rejectBooking('${userId}')">
+                    <button class="btn btn-danger" onclick="window.rejectBooking('${booking.userId}')">
                       <i class="fas fa-times"></i> رفض
                     </button>
                   </div>
@@ -1366,7 +1392,8 @@
           });
 
           if (count === 0) {
-            bookingsList.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">لا توجد طلبات ${filter === 'all' ? '' : filter === 'pending' ? 'قيد الانتظار' : filter === 'approved' ? 'مقبولة' : 'مرفوضة'}</p>`;
+            const filterText = filter === 'all' ? '' : filter === 'pending' ? 'قيد الانتظار' : filter === 'approved' ? 'مقبولة' : 'مرفوضة';
+            bookingsList.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding:2rem 0;">لا توجد طلبات ${filterText}</p>`;
           } else {
             bookingsList.innerHTML = html;
           }
@@ -1377,7 +1404,7 @@
         });
     }
 
-    // ===== دوال القبول والرفض (تُستدعى من onclick) =====
+    // ===== دوال القبول والرفض =====
     window.approveBooking = function(userId) {
       updateBookingStatus(userId, 'approved')
         .then(() => {
@@ -1385,7 +1412,8 @@
           renderAdminPanel(currentFilter);
         })
         .catch((error) => {
-          showToast('⚠️ حدث خطأ', 'error', 'fa-exclamation-circle');
+          console.error('Error approving booking:', error);
+          showToast('⚠️ حدث خطأ في قبول الطلب', 'error', 'fa-exclamation-circle');
         });
     };
 
@@ -1396,7 +1424,8 @@
           renderAdminPanel(currentFilter);
         })
         .catch((error) => {
-          showToast('⚠️ حدث خطأ', 'error', 'fa-exclamation-circle');
+          console.error('Error rejecting booking:', error);
+          showToast('⚠️ حدث خطأ في رفض الطلب', 'error', 'fa-exclamation-circle');
         });
     };
 
