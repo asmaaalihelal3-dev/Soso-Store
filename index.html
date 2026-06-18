@@ -511,6 +511,7 @@
     }
     .confirm-box i { font-size: 2.5rem; color: var(--green); }
     .confirm-box .msg { font-weight: 600; color: var(--text-primary); flex: 1; font-size: 1.05rem; }
+    
     .badge-success {
       background: var(--green);
       color: #fff;
@@ -531,6 +532,15 @@
     }
     .badge-rejected {
       background: var(--red);
+      color: #fff;
+      border-radius: 30px;
+      padding: 0.3rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+    .badge-queue {
+      background: var(--blue);
       color: #fff;
       border-radius: 30px;
       padding: 0.3rem 1.4rem;
@@ -621,6 +631,7 @@
     .status-approved { border-right: 4px solid var(--green); }
     .status-pending { border-right: 4px solid var(--orange); }
     .status-rejected { border-right: 4px solid var(--red); }
+    .status-queue { border-right: 4px solid var(--blue); }
 
     .footer-note {
       text-align: center;
@@ -709,7 +720,7 @@
       <h1><i class="fas fa-graduation-cap"></i> منصة الامتحانات · 3 ثانوي</h1>
       <div class="sub-head">
         <i class="fas fa-chevron-left" style="margin-left: 8px;"></i> 
-        تسجيل دخول · حجز مواد · دفع كاش · تأكيد الحجز
+        تسجيل دخول · حجز مواد · دفع كاش · انتظار الموافقة
       </div>
 
       <div class="progress-steps">
@@ -721,7 +732,7 @@
         <div class="step-line" id="line3"></div>
         <div class="step" id="step4"><div class="circle">4</div><span class="label">دفع</span></div>
         <div class="step-line" id="line4"></div>
-        <div class="step" id="step5"><div class="circle">5</div><span class="label">تأكيد</span></div>
+        <div class="step" id="step5"><div class="circle">5</div><span class="label">انتظار</span></div>
       </div>
 
       <!-- الصفحة 1: تسجيل الدخول -->
@@ -767,7 +778,15 @@
           <p><i class="fas fa-calendar-alt"></i> <span id="displayGrade">الصف الثالث الثانوي</span></p>
           <p><i class="fas fa-database" style="color:var(--gold);"></i> <span id="displayFirebase" style="font-size:0.8rem; color:var(--gold);">✅ محفوظ في Firebase</span></p>
         </div>
-        <div style="background:rgba(42,125,225,0.05); padding:14px 20px; border-radius:30px; border-right:4px solid var(--blue);">
+        
+        <!-- حالة الطلب الحالية -->
+        <div id="bookingStatusBox" style="background:rgba(42,125,225,0.05); padding:14px 20px; border-radius:30px; border-right:4px solid var(--blue); display:none;">
+          <i class="fas fa-info-circle" style="color:var(--blue);"></i> 
+          <span style="font-weight:600; color:var(--text-primary);" id="bookingStatusText">حالة الطلب: </span>
+          <span id="bookingStatusBadge"></span>
+        </div>
+
+        <div style="background:rgba(42,125,225,0.05); padding:14px 20px; border-radius:30px; border-right:4px solid var(--blue); margin-top:10px;">
           <i class="fas fa-check-circle" style="color:var(--blue);"></i> 
           <span style="font-weight:600; color:var(--text-primary);">تم تسجيل الدخول بنجاح – تابع لحجز المواد</span>
         </div>
@@ -850,18 +869,18 @@
         </div>
       </div>
 
-      <!-- الصفحة 5: تأكيد الحجز النهائي -->
+      <!-- الصفحة 5: انتظار الموافقة -->
       <div class="page" id="page5">
-        <div class="page-title" style="color:var(--green);"><i class="fas fa-clipboard-check"></i> تأكيد الحجز النهائي</div>
-        <div class="confirm-box" style="display:flex;">
-          <i class="fas fa-check-circle"></i>
-          <div class="msg" id="finalConfirmMsg">✅ تم تأكيد حجزك بنجاح!</div>
-          <span class="badge-success"><i class="fas fa-check"></i> مؤكد</span>
+        <div class="page-title" style="color:var(--orange);"><i class="fas fa-clock"></i> قيد الانتظار</div>
+        <div class="confirm-box" style="border-right-color: var(--orange); background: rgba(249,115,22,0.06);">
+          <i class="fas fa-hourglass-half" style="color:var(--orange);"></i>
+          <div class="msg" id="finalConfirmMsg">⏳ طلبك قيد الانتظار ...</div>
+          <span class="badge-pending"><i class="fas fa-clock"></i> قيد الانتظار</span>
         </div>
-        <div style="background:rgba(30,139,94,0.04); border-radius:20px; padding:1.2rem; margin-top:1rem; border:1px solid rgba(30,139,94,0.12);">
+        <div style="background:rgba(249,115,22,0.04); border-radius:20px; padding:1.2rem; margin-top:1rem; border:1px solid rgba(249,115,22,0.12);">
           <p style="font-weight:600; color:var(--text-primary);">
             <i class="fas fa-database" style="color:var(--gold);"></i> 
-            تم حفظ بيانات الحجز في Firebase بنجاح
+            تم حفظ طلبك في Firebase · في انتظار موافقة المدير
           </p>
           <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.3rem;">
             <i class="fas fa-clock"></i> سيتم مراجعة طلبك من قبل الإدارة خلال 24 ساعة.
@@ -872,6 +891,8 @@
             <br>
             <span style="font-size:0.8rem; color:var(--orange);">⏳ في انتظار مراجعة الإدارة</span>
           </div>
+          <div id="approvalStatus" style="margin-top:0.8rem; padding:12px 18px; border-radius:16px; font-weight:600; display:none;">
+          </div>
         </div>
         <button class="btn btn-gold btn-block" id="resetAllBtn">
           <i class="fas fa-redo"></i> حجز جديد
@@ -880,7 +901,7 @@
 
       <div class="footer-note">
         <i class="fas fa-shield-alt" style="margin-left:6px;"></i> 
-        نظام حجز متكامل · دفع كاش · تأكيد الحجز للعميل
+        نظام حجز متكامل · دفع كاش · انتظار موافقة المدير
       </div>
     </div>
   </div>
@@ -976,6 +997,10 @@
     const welcomeText = document.getElementById('welcomeText');
     const statusBadge = document.getElementById('statusBadge');
     const statusText = document.getElementById('statusText');
+    const bookingStatusBox = document.getElementById('bookingStatusBox');
+    const bookingStatusText = document.getElementById('bookingStatusText');
+    const bookingStatusBadge = document.getElementById('bookingStatusBadge');
+    const approvalStatus = document.getElementById('approvalStatus');
 
     const subjectItems = document.querySelectorAll('.subject-item');
     const totalPriceDisplay = document.getElementById('totalPriceDisplay');
@@ -1017,6 +1042,8 @@
     let subscriptionConfirmed = false;
     let paymentConfirmed = false;
     let bookingFinalized = false;
+    let bookingStatus = 'none'; // none, pending, approved, rejected
+    let statusListener = null;
 
     function showToast(msg, type = 'info', icon = 'fa-info-circle') {
       const container = document.getElementById('toastContainer');
@@ -1118,8 +1145,98 @@
       subscriptionConfirmed = false;
       paymentConfirmed = false;
       bookingFinalized = false;
+      bookingStatus = 'none';
       updateTotalPrice();
       updateSubjectSelection();
+      if (bookingStatusBox) bookingStatusBox.style.display = 'none';
+      if (approvalStatus) approvalStatus.style.display = 'none';
+    }
+
+    function updateBookingStatusUI(status) {
+      bookingStatus = status;
+      if (bookingStatusBox) {
+        bookingStatusBox.style.display = 'block';
+        let badgeHtml = '';
+        let statusTextLocal = '';
+        if (status === 'pending') {
+          badgeHtml = '<span class="badge-pending">⏳ قيد الانتظار</span>';
+          statusTextLocal = 'طلبك قيد الانتظار';
+        } else if (status === 'approved') {
+          badgeHtml = '<span class="badge-success">✅ مقبول</span>';
+          statusTextLocal = '✅ تم قبول طلبك!';
+        } else if (status === 'rejected') {
+          badgeHtml = '<span class="badge-rejected">❌ مرفوض</span>';
+          statusTextLocal = '❌ تم رفض طلبك';
+        } else {
+          bookingStatusBox.style.display = 'none';
+          return;
+        }
+        bookingStatusText.textContent = statusTextLocal;
+        bookingStatusBadge.innerHTML = badgeHtml;
+      }
+
+      // تحديث صفحة الانتظار إذا كانت مفتوحة
+      if (currentPage === 5) {
+        updateWaitingPage(status);
+      }
+    }
+
+    function updateWaitingPage(status) {
+      const msg = document.getElementById('finalConfirmMsg');
+      const approvalDiv = document.getElementById('approvalStatus');
+      
+      if (status === 'pending') {
+        msg.innerHTML = '⏳ طلبك قيد الانتظار ...';
+        if (approvalDiv) {
+          approvalDiv.style.display = 'block';
+          approvalDiv.innerHTML = '<span class="badge-pending" style="font-size:1rem;">⏳ في انتظار موافقة المدير</span>';
+          approvalDiv.style.background = 'rgba(249,115,22,0.08)';
+          approvalDiv.style.border = '2px solid var(--orange)';
+        }
+      } else if (status === 'approved') {
+        msg.innerHTML = '✅ تم قبول طلبك! تم تسجيلك بنجاح';
+        if (approvalDiv) {
+          approvalDiv.style.display = 'block';
+          approvalDiv.innerHTML = '<span class="badge-success" style="font-size:1rem;">✅ تم قبول الطلب وتسجيلك بنجاح</span>';
+          approvalDiv.style.background = 'rgba(30,139,94,0.08)';
+          approvalDiv.style.border = '2px solid var(--green)';
+        }
+        showToast('✅ تم قبول طلبك! تم تسجيلك بنجاح', 'success', 'fa-check-circle');
+      } else if (status === 'rejected') {
+        msg.innerHTML = '❌ تم رفض طلبك، يرجى التواصل مع الإدارة';
+        if (approvalDiv) {
+          approvalDiv.style.display = 'block';
+          approvalDiv.innerHTML = '<span class="badge-rejected" style="font-size:1rem;">❌ تم رفض الطلب</span>';
+          approvalDiv.style.background = 'rgba(220,38,38,0.08)';
+          approvalDiv.style.border = '2px solid var(--red)';
+        }
+        showToast('❌ تم رفض طلبك', 'error', 'fa-times-circle');
+      }
+    }
+
+    // ========================================
+    // الاستماع لتغييرات حالة الطلب
+    // ========================================
+    function listenToBookingStatus(userId) {
+      if (statusListener) {
+        statusListener.off();
+        statusListener = null;
+      }
+      
+      statusListener = database.ref('bookings/' + userId);
+      statusListener.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const status = data.status || 'pending';
+          updateBookingStatusUI(status);
+          // إذا تمت الموافقة، تأكيد الحجز نهائياً
+          if (status === 'approved' && !bookingFinalized) {
+            bookingFinalized = true;
+            paymentConfirmed = true;
+            showToast('✅ تم قبول طلبك! تم تسجيلك بنجاح', 'success', 'fa-check-circle');
+          }
+        }
+      });
     }
 
     // ========================================
@@ -1135,7 +1252,7 @@
       });
     }
 
-    function saveBookingToFirebase(userId, subjects, total, confirmed, paymentMethod) {
+    function saveBookingToFirebase(userId, subjects, total, confirmed, paymentMethod, status) {
       const bookingData = {
         subjects: subjects || [],
         total: total || 0,
@@ -1143,7 +1260,7 @@
         paymentConfirmed: confirmed || false,
         bookingFinalized: confirmed || false,
         bookingDate: firebase.database.ServerValue.TIMESTAMP,
-        status: confirmed ? 'pending' : 'pending',
+        status: status || 'pending',
         paymentMethod: paymentMethod || 'cash',
         clientName: clientData.name || '',
         clientPhone: clientData.phone || '',
@@ -1223,6 +1340,16 @@
               updateTotalPrice();
               showToast('📚 تم استعادة بيانات الحجز السابقة', 'info', 'fa-history');
             }
+            
+            // استعادة حالة الطلب
+            const status = bookingData.status || 'none';
+            if (status !== 'none') {
+              updateBookingStatusUI(status);
+              // إذا كان الطلب pending أو approved
+              if (status === 'pending' || status === 'approved') {
+                listenToBookingStatus(userId);
+              }
+            }
           }
           return true;
         })
@@ -1243,7 +1370,15 @@
           statusText.style.color = 'var(--green)';
           
           showToast(`👋 مرحباً ${clientData.name}، تم تسجيل الدخول`, 'success', 'fa-check-circle');
-          goToPage(2);
+          
+          // إذا كان هناك طلب pending أو approved، نذهب للصفحة المناسبة
+          if (bookingStatus === 'pending') {
+            goToPage(5);
+          } else if (bookingStatus === 'approved') {
+            goToPage(5);
+          } else {
+            goToPage(2);
+          }
         })
         .catch((error) => {
           console.error('Firebase error:', error);
@@ -1252,6 +1387,10 @@
     }
 
     function performLogout() {
+      if (statusListener) {
+        statusListener.off();
+        statusListener = null;
+      }
       isLoggedIn = false;
       currentUserId = null;
       loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
@@ -1273,15 +1412,19 @@
       }
 
       paymentConfirmed = true;
-      bookingFinalized = true;
+      bookingFinalized = false; // لم يتم الموافقة بعد
       
-      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true, 'cash')
+      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true, 'cash', 'pending')
         .then(() => {
-          showToast('✅ تم حفظ الحجز في Firebase', 'firebase', 'fa-database');
+          showToast('✅ تم حفظ الحجز في Firebase - في انتظار الموافقة', 'firebase', 'fa-database');
           const names = selectedSubjects.map(s => s.name).join('، ');
-          finalConfirmMsg.innerHTML = `✅ تم تأكيد الحجز النهائي · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م (كاش)`;
+          finalConfirmMsg.innerHTML = `⏳ طلبك قيد الانتظار · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م (كاش)`;
           
-          showToast(`🎉 تم إرسال طلب الحجز للمراجعة (دفع كاش)`, 'success', 'fa-clipboard-check');
+          // بدء الاستماع لتغييرات الحالة
+          listenToBookingStatus(currentUserId);
+          updateBookingStatusUI('pending');
+          
+          showToast(`⏳ تم إرسال طلب الحجز للمراجعة (دفع كاش)`, 'info', 'fa-clock');
           goToPage(5);
         })
         .catch((error) => {
@@ -1406,6 +1549,10 @@
           showToast('✅ تم تأكيد الحجز نهائياً، لا يمكن التعديل', 'info', 'fa-info-circle');
           return;
         }
+        if (bookingStatus === 'pending' || bookingStatus === 'approved') {
+          showToast('⛔ لا يمكن التعديل بعد إرسال الطلب', 'warning', 'fa-exclamation-triangle');
+          return;
+        }
         const name = this.dataset.subject;
         const price = parseInt(this.dataset.price, 10);
         const idx = selectedSubjects.findIndex(s => s.name === name && s.price === price);
@@ -1440,10 +1587,14 @@
         showToast('✅ الحجز مؤكد مسبقاً', 'info', 'fa-info-circle');
         return;
       }
+      if (bookingStatus === 'pending' || bookingStatus === 'approved') {
+        showToast('⛔ لا يمكن التعديل بعد إرسال الطلب', 'warning', 'fa-exclamation-triangle');
+        return;
+      }
       subscriptionConfirmed = true;
       
       if (currentUserId) {
-        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false, 'cash')
+        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false, 'cash', 'pending')
           .then(() => {
             showToast('✅ تم حفظ الاشتراك في Firebase', 'firebase', 'fa-database');
           })
@@ -1464,7 +1615,13 @@
     // ========================================
     // أزرار التنقل
     // ========================================
-    gotoStep3.addEventListener('click', () => goToPage(3));
+    gotoStep3.addEventListener('click', () => {
+      if (bookingStatus === 'pending' || bookingStatus === 'approved') {
+        showToast('⛔ لديك طلب قيد الانتظار أو تم قبوله بالفعل', 'warning', 'fa-exclamation-triangle');
+        return;
+      }
+      goToPage(3);
+    });
     gotoStep4.addEventListener('click', () => goToPage(4));
     backToStep2.addEventListener('click', () => goToPage(2));
     backToStep3Cash.addEventListener('click', () => goToPage(3));
@@ -1473,6 +1630,10 @@
     loginBtn.addEventListener('click', performLogin);
 
     resetAllBtn.addEventListener('click', function() {
+      if (statusListener) {
+        statusListener.off();
+        statusListener = null;
+      }
       resetBookingState();
       isLoggedIn = false;
       currentUserId = null;
