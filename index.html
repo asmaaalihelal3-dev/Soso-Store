@@ -6,6 +6,11 @@
   <title>منصة حجز امتحانات · 3 ثانوي</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -134,6 +139,22 @@
     }
     .status-badge.show { opacity: 1; }
     .status-badge i { color: var(--green); }
+
+    .firebase-badge {
+      position: absolute;
+      bottom: 20px; right: 26px;
+      background: rgba(255, 193, 7, 0.1);
+      border: 1px solid rgba(255, 193, 7, 0.2);
+      border-radius: 30px;
+      padding: 4px 14px;
+      font-size: 0.6rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.5;
+    }
+    .firebase-badge i { color: #FFA000; }
 
     h1 {
       font-size: 2.1rem;
@@ -338,6 +359,7 @@
     .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 1.4rem; }
     .btn-group .btn { flex: 1; min-width: 120px; }
     .btn:active { transform: scale(0.95); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .info-box {
       background: rgba(42,125,225,0.04);
@@ -497,7 +519,7 @@
       align-items: center;
       gap: 14px;
       backdrop-filter: blur(12px);
-      animation: slideIn 0.4s ease, fadeOut 0.4s 4s ease forwards;
+      animation: slideIn 0.4s ease, fadeOut 0.4s 4.5s ease forwards;
       border: 1px solid rgba(255,255,255,0.1);
     }
     .toast i { font-size: 1.4rem; }
@@ -505,6 +527,7 @@
     .toast-error { background: rgba(200,50,50,0.92); }
     .toast-info { background: rgba(26,95,176,0.92); }
     .toast-warning { background: rgba(200,150,30,0.92); }
+    .toast-firebase { background: rgba(255,193,7,0.92); color: #1a1a1a; }
     @keyframes slideIn { 0% { opacity:0; transform: translateX(80px); } 100% { opacity:1; transform: translateX(0); } }
     @keyframes fadeOut { 0% { opacity:1; transform: translateX(0); } 100% { opacity:0; transform: translateX(50px); } }
 
@@ -512,6 +535,7 @@
       .main-card { padding: 1.5rem; }
       .theme-toggle { top: 14px; left: 14px; padding: 5px 14px; font-size: 0.7rem; }
       .status-badge { top: 14px; right: 14px; padding: 4px 12px; font-size: 0.65rem; }
+      .firebase-badge { display: none; }
       h1 { font-size: 1.4rem; }
       .btn { padding: 12px 16px; font-size: 0.85rem; min-width: 80px; }
       .btn-group .btn { flex: 1; min-width: 70px; }
@@ -534,6 +558,10 @@
     <div class="status-badge" id="statusBadge">
       <i class="fas fa-circle" style="font-size:0.5rem;"></i>
       <span id="statusText">غير متصل</span>
+    </div>
+
+    <div class="firebase-badge">
+      <i class="fas fa-fire"></i> Firebase
     </div>
 
     <h1><i class="fas fa-graduation-cap"></i> منصة الامتحانات · 3 ثانوي</h1>
@@ -559,6 +587,12 @@
       <div class="page-title"><i class="fas fa-user-lock"></i> تسجيل الدخول</div>
       
       <div class="input-group">
+        <label><i class="fas fa-user" style="margin-left:8px;"></i> الاسم الكامل</label>
+        <input type="text" id="loginName" placeholder="أدخل اسمك الكامل" value="أحمد محمد" />
+        <i class="fas fa-user"></i>
+      </div>
+      
+      <div class="input-group">
         <label><i class="fas fa-phone" style="margin-left:8px;"></i> رقم الهاتف</label>
         <input type="tel" id="loginPhone" placeholder="مثال: 01012345678" value="01012345678" />
         <i class="fas fa-phone"></i>
@@ -573,7 +607,7 @@
       <button class="btn btn-primary btn-block" id="loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
       
       <div style="margin-top: 1rem; font-size:0.85rem; color:var(--text-secondary); text-align:center; opacity:0.7;">
-        <i class="fas fa-info-circle"></i> تجريبي: هاتف 01012345678 · جلوس 20241234
+        <i class="fas fa-info-circle"></i> تجريبي: اسم: أحمد محمد · هاتف: 01012345678 · جلوس: 20241234
       </div>
     </div>
 
@@ -589,6 +623,7 @@
         <p><i class="fas fa-phone"></i> <span id="displayPhone">01012345678</span></p>
         <p><i class="fas fa-id-card"></i> <span id="displaySeat">20241234</span></p>
         <p><i class="fas fa-calendar-alt"></i> <span id="displayGrade">الصف الثالث الثانوي</span></p>
+        <p><i class="fas fa-database" style="color:var(--gold);"></i> <span id="displayFirebase" style="font-size:0.8rem; color:var(--gold);">✅ محفوظ في Firebase</span></p>
       </div>
       <div style="background:rgba(42,125,225,0.05); padding:14px 20px; border-radius:30px; border-right:4px solid var(--blue);">
         <i class="fas fa-check-circle" style="color:var(--blue);"></i> 
@@ -668,8 +703,8 @@
       </div>
       <div style="background:rgba(30,139,94,0.04); border-radius:20px; padding:1.2rem; margin-top:1rem; border:1px solid rgba(30,139,94,0.12);">
         <p style="font-weight:600; color:var(--text-primary);">
-          <i class="fas fa-gift" style="color:var(--gold);"></i> 
-          شكراً لتسجيلك، تم إرسال تفاصيل الحجز إلى رقم هاتفك.
+          <i class="fas fa-database" style="color:var(--gold);"></i> 
+          تم حفظ بيانات الحجز في Firebase بنجاح
         </p>
         <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.3rem;">
           <i class="fas fa-clock"></i> يمكنك مراجعة التفاصيل في أي وقت من خلال حسابك.
@@ -690,6 +725,26 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
+  // ========================================
+  // تهيئة Firebase
+  // ========================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyC_V-GXnzvoabdOdPppDYp4WCRjsDgzgkI",
+    authDomain: "platform-46177.firebaseapp.com",
+    databaseURL: "https://platform-46177-default-rtdb.firebaseio.com",
+    projectId: "platform-46177",
+    storageBucket: "platform-46177.firebasestorage.app",
+    messagingSenderId: "933736879105",
+    appId: "1:933736879105:web:13fa2d985214be44881c00",
+    measurementId: "G-9P1KMD5CSJ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // ========================================
+  // الكود الرئيسي
+  // ========================================
   (function() {
     "use strict";
 
@@ -714,7 +769,8 @@
       4: document.getElementById('line4')
     };
 
-    // عناصر تسجيل الدخول الجديدة
+    // عناصر تسجيل الدخول
+    const loginName = document.getElementById('loginName');
     const loginPhone = document.getElementById('loginPhone');
     const loginSeat = document.getElementById('loginSeat');
     const loginBtn = document.getElementById('loginBtn');
@@ -725,6 +781,7 @@
     const displayPhone = document.getElementById('displayPhone');
     const displaySeat = document.getElementById('displaySeat');
     const displayGrade = document.getElementById('displayGrade');
+    const displayFirebase = document.getElementById('displayFirebase');
     const welcomeText = document.getElementById('welcomeText');
     const statusBadge = document.getElementById('statusBadge');
     const statusText = document.getElementById('statusText');
@@ -747,10 +804,11 @@
 
     let currentPage = 1;
     let isLoggedIn = false;
+    let currentUserId = null;
     let clientData = {
-      name: 'أحمد محمد',
-      phone: '01012345678',
-      seat: '20241234',
+      name: '',
+      phone: '',
+      seat: '',
       grade: 'الصف الثالث الثانوي'
     };
     let selectedSubjects = [];
@@ -876,39 +934,116 @@
       updateSummary();
     }
 
+    // ===== حفظ بيانات العميل في Firebase =====
+    function saveClientToFirebase(userId, data) {
+      return database.ref('students/' + userId).set({
+        name: data.name,
+        phone: data.phone,
+        seat: data.seat,
+        grade: data.grade,
+        lastLogin: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
+
+    // ===== حفظ الحجز في Firebase =====
+    function saveBookingToFirebase(userId, subjects, total, confirmed) {
+      return database.ref('bookings/' + userId).set({
+        subjects: subjects,
+        total: total,
+        subscriptionConfirmed: true,
+        paymentConfirmed: confirmed,
+        bookingFinalized: confirmed,
+        bookingDate: firebase.database.ServerValue.TIMESTAMP
+      });
+    }
+
+    // ===== جلب بيانات العميل من Firebase =====
+    function loadClientFromFirebase(userId) {
+      return database.ref('students/' + userId).once('value');
+    }
+
+    // ===== جلب بيانات الحجز من Firebase =====
+    function loadBookingFromFirebase(userId) {
+      return database.ref('bookings/' + userId).once('value');
+    }
+
     // ===== تسجيل الدخول =====
     function performLogin() {
+      const name = loginName.value.trim();
       const phone = loginPhone.value.trim();
       const seat = loginSeat.value.trim();
       
-      if (!phone || !seat) {
-        showToast('⚠️ يرجى إدخال رقم الهاتف ورقم الجلوس', 'warning', 'fa-exclamation-triangle');
+      if (!name || !phone || !seat) {
+        showToast('⚠️ يرجى إدخال جميع البيانات', 'warning', 'fa-exclamation-triangle');
         return;
       }
       
+      // استخدام رقم الهاتف كـ userId فريد
+      const userId = phone.replace(/[^0-9]/g, '');
+      if (!userId) {
+        showToast('⚠️ رقم الهاتف غير صحيح', 'error', 'fa-exclamation-circle');
+        return;
+      }
+
+      currentUserId = userId;
+      clientData.name = name;
       clientData.phone = phone;
       clientData.seat = seat;
-      
-      displayName.textContent = clientData.name;
-      displayPhone.textContent = clientData.phone;
-      displaySeat.textContent = clientData.seat;
-      displayGrade.textContent = clientData.grade;
-      welcomeText.textContent = `مرحباً ${clientData.name} 👋، أهلاً بك في منصة الامتحانات`;
+      clientData.grade = 'الصف الثالث الثانوي';
 
-      isLoggedIn = true;
-      loginBtn.innerHTML = '<i class="fas fa-check-circle"></i> تم الدخول';
-      loginBtn.style.background = '#1e8b5e';
-      statusBadge.classList.add('show');
-      statusText.textContent = 'متصل';
-      statusText.style.color = 'var(--green)';
-      
-      showToast(`👋 مرحباً ${clientData.name}، تم تسجيل الدخول`, 'success', 'fa-check-circle');
-      goToPage(2);
+      // حفظ في Firebase
+      saveClientToFirebase(userId, clientData)
+        .then(() => {
+          showToast('✅ تم حفظ بياناتك في Firebase', 'firebase', 'fa-database');
+          return loadBookingFromFirebase(userId);
+        })
+        .then((snapshot) => {
+          const bookingData = snapshot.val();
+          if (bookingData) {
+            // استعادة البيانات السابقة إذا وجدت
+            if (bookingData.subjects && bookingData.subjects.length > 0) {
+              selectedSubjects = bookingData.subjects;
+              subscriptionConfirmed = bookingData.subscriptionConfirmed || false;
+              paymentConfirmed = bookingData.paymentConfirmed || false;
+              bookingFinalized = bookingData.bookingFinalized || false;
+              updateSubjectSelection();
+              updateTotalPrice();
+              updateSummary();
+              showToast('📚 تم استعادة بيانات الحجز السابقة', 'info', 'fa-history');
+            }
+          }
+          return true;
+        })
+        .then(() => {
+          // تحديث الواجهة
+          displayName.textContent = clientData.name;
+          displayPhone.textContent = clientData.phone;
+          displaySeat.textContent = clientData.seat;
+          displayGrade.textContent = clientData.grade;
+          displayFirebase.textContent = '✅ محفوظ في Firebase';
+          displayFirebase.style.color = 'var(--green)';
+          welcomeText.textContent = `مرحباً ${clientData.name} 👋، أهلاً بك في منصة الامتحانات`;
+
+          isLoggedIn = true;
+          loginBtn.innerHTML = '<i class="fas fa-check-circle"></i> تم الدخول';
+          loginBtn.style.background = '#1e8b5e';
+          statusBadge.classList.add('show');
+          statusText.textContent = 'متصل';
+          statusText.style.color = 'var(--green)';
+          
+          showToast(`👋 مرحباً ${clientData.name}، تم تسجيل الدخول`, 'success', 'fa-check-circle');
+          goToPage(2);
+        })
+        .catch((error) => {
+          console.error('Firebase error:', error);
+          showToast('⚠️ خطأ في الاتصال بقاعدة البيانات', 'error', 'fa-exclamation-circle');
+        });
     }
 
     // ===== تسجيل الخروج =====
     function performLogout() {
       isLoggedIn = false;
+      currentUserId = null;
       loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
       loginBtn.style.background = '';
       statusBadge.classList.remove('show');
@@ -918,13 +1053,29 @@
       goToPage(1);
     }
 
-    // ===== تأكيد الحجز النهائي =====
+    // ===== تأكيد الحجز النهائي مع حفظ في Firebase =====
     function finalizeBooking() {
+      if (!currentUserId) {
+        showToast('⚠️ حدث خطأ، يرجى تسجيل الدخول مرة أخرى', 'error', 'fa-exclamation-circle');
+        return;
+      }
+
       bookingFinalized = true;
-      const names = selectedSubjects.map(s => s.name).join('، ');
-      finalConfirmMsg.innerHTML = `✅ تم تأكيد الحجز النهائي · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م`;
-      showToast(`🎉 تهانينا! تم تأكيد حجزك النهائي`, 'success', 'fa-clipboard-check');
-      goToPage(5);
+      const subjectNames = selectedSubjects.map(s => s.name);
+      
+      // حفظ الحجز في Firebase
+      saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, true)
+        .then(() => {
+          showToast('✅ تم حفظ الحجز في Firebase', 'firebase', 'fa-database');
+          const names = selectedSubjects.map(s => s.name).join('، ');
+          finalConfirmMsg.innerHTML = `✅ تم تأكيد الحجز النهائي · المواد: <strong>${names}</strong> · المبلغ: ${totalPrice} ج.م`;
+          showToast(`🎉 تهانينا! تم تأكيد حجزك النهائي`, 'success', 'fa-clipboard-check');
+          goToPage(5);
+        })
+        .catch((error) => {
+          console.error('Error saving booking:', error);
+          showToast('⚠️ حدث خطأ في حفظ الحجز', 'error', 'fa-exclamation-circle');
+        });
     }
 
     // ===== أحداث المواد =====
@@ -973,6 +1124,18 @@
       }
       subscriptionConfirmed = true;
       updateSummary();
+      
+      // حفظ الاشتراك في Firebase
+      if (currentUserId) {
+        saveBookingToFirebase(currentUserId, selectedSubjects, totalPrice, false)
+          .then(() => {
+            showToast('✅ تم حفظ الاشتراك في Firebase', 'firebase', 'fa-database');
+          })
+          .catch((error) => {
+            console.error('Error saving subscription:', error);
+          });
+      }
+      
       showToast(`✅ تم تأكيد الاشتراك (${totalPrice} ج.م)`, 'success', 'fa-check-circle');
       goToPage(4);
     });
@@ -1012,6 +1175,7 @@
     resetAllBtn.addEventListener('click', function() {
       resetBookingState();
       isLoggedIn = false;
+      currentUserId = null;
       loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
       loginBtn.style.background = '';
       statusBadge.classList.remove('show');
@@ -1039,6 +1203,7 @@
 
     // ===== بداية الصفحة =====
     window.addEventListener('load', function() {
+      loginName.value = 'أحمد محمد';
       loginPhone.value = '01012345678';
       loginSeat.value = '20241234';
       goToPage(1);
