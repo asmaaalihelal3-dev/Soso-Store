@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل امتحانات الثالثة ثانوي</title>
+  <title>تسجيل امتحانات الثالثة ثانوي - نظام متكامل</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Font -->
@@ -25,9 +25,8 @@
       padding: 1.5rem;
     }
 
-    /* ========== MAIN CONTAINER ========== */
     .main-container {
-      max-width: 1000px;
+      max-width: 1100px;
       width: 100%;
       min-height: 85vh;
       background: rgba(255, 255, 255, 0.3);
@@ -140,10 +139,6 @@
       margin-bottom: 1.5rem;
     }
 
-    .welcome-badge i {
-      font-size: 0.9rem;
-    }
-
     .welcome-title {
       font-size: 3.2rem;
       font-weight: 900;
@@ -189,7 +184,6 @@
       font-weight: 500;
     }
 
-    /* Subjects grid in welcome */
     .subjects-showcase {
       display: flex;
       flex-wrap: wrap;
@@ -220,11 +214,6 @@
       background: white;
       border-color: #1a4b74;
       box-shadow: 0 8px 20px rgba(26, 75, 116, 0.12);
-    }
-
-    .subject-pill i {
-      color: #1a4b74;
-      font-size: 0.8rem;
     }
 
     .subject-pill .emoji {
@@ -276,17 +265,226 @@
       transform: scale(0.96);
     }
 
-    .btn-hero i {
-      font-size: 1.4rem;
-    }
-
     .btn-hero .pulse {
       animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; transform: scale(0.95); }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    /* ============================================================ */
+    /* ==================== SUBSCRIPTION PAGE ====================== */
+    /* ============================================================ */
+
+    .subscription-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .subscription-header h1 {
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: #0a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .subscription-header h1 i {
+      background: linear-gradient(135deg, #1a334b, #2a4a6a);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 18px -8px rgba(0, 20, 50, 0.3);
+    }
+
+    /* Subscriptions Grid */
+    .subscriptions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .subscription-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      padding: 2rem 1.8rem;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .subscription-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #1a4b74;
+      box-shadow: 0 20px 40px -12px rgba(26, 75, 116, 0.2);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .subscription-card.popular {
+      border-color: #f7c948;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(247, 201, 72, 0.08));
+    }
+
+    .subscription-card.popular::before {
+      content: 'الأكثر طلباً';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(135deg, #f7c948, #f5a623);
+      color: #1a334b;
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .sub-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      background: linear-gradient(135deg, #1a334b, #2a4a6a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub-icon.gold {
+      background: linear-gradient(135deg, #f7c948, #f5a623);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub-icon.premium {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0a1a2e;
+      margin-bottom: 0.3rem;
+    }
+
+    .sub-price {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #1a334b;
+      margin: 0.5rem 0;
+    }
+
+    .sub-price small {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #4a6a8a;
+    }
+
+    .sub-features {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem;
+      text-align: right;
+    }
+
+    .sub-features li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: #1a3b5a;
+      font-size: 0.9rem;
+    }
+
+    .sub-features li:last-child {
+      border-bottom: none;
+    }
+
+    .sub-features li i {
+      color: #1a4b74;
+      font-size: 0.8rem;
+      width: 20px;
+    }
+
+    .sub-features li .fa-times {
+      color: #e74c3c;
+    }
+
+    .sub-features li .fa-check {
+      color: #27ae60;
+    }
+
+    .btn-subscribe {
+      background: linear-gradient(135deg, #1a334b, #2a4a6a);
+      border: none;
+      color: white;
+      width: 100%;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-subscribe:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -10px rgba(26, 51, 75, 0.4);
+      background: linear-gradient(135deg, #0f2338, #1a3b5a);
+    }
+
+    .btn-subscribe.gold {
+      background: linear-gradient(135deg, #f7c948, #f5a623);
+      color: #1a334b;
+    }
+
+    .btn-subscribe.gold:hover {
+      background: linear-gradient(135deg, #f5a623, #e6951a);
+      box-shadow: 0 12px 28px -10px rgba(247, 201, 72, 0.5);
+    }
+
+    .btn-subscribe.premium {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    .btn-subscribe.premium:hover {
+      background: linear-gradient(135deg, #c0392b, #a93226);
+      box-shadow: 0 12px 28px -10px rgba(231, 76, 60, 0.5);
+    }
+
+    .sub-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #4a6a8a;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .sub-note i {
+      color: #f7c948;
+      margin-left: 6px;
     }
 
     /* ============================================================ */
@@ -411,10 +609,6 @@
       margin-bottom: 0;
     }
 
-    .card-panel:hover {
-      transform: translateY(-2px);
-    }
-
     .card-panel h2 {
       font-size: 1.25rem;
       font-weight: 700;
@@ -524,7 +718,6 @@
       font-size: 1.1rem;
     }
 
-    /* subject checkboxes */
     .subject-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -565,36 +758,6 @@
       cursor: pointer;
       flex: 1;
       font-size: 0.9rem;
-    }
-
-    /* booking list */
-    .list-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 2px solid rgba(180, 200, 220, 0.2);
-      padding-bottom: 0.9rem;
-      margin-bottom: 1.3rem;
-    }
-
-    .list-header h2 {
-      border-bottom: none;
-      padding-bottom: 0;
-      margin-bottom: 0;
-    }
-
-    .count-badge {
-      background: linear-gradient(135deg, #1a334b, #2a4a6a);
-      color: white;
-      padding: 6px 18px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 12px -4px rgba(26, 51, 75, 0.25);
     }
 
     .booking-scroll {
@@ -776,7 +939,6 @@
       .main-container {
         padding: 1.8rem 1.5rem;
         border-radius: 40px;
-        min-height: 92vh;
       }
 
       .welcome-title {
@@ -790,18 +952,19 @@
       }
       .welcome-desc {
         font-size: 0.95rem;
-        padding: 0 0.5rem;
       }
       .btn-hero {
         padding: 16px 40px;
         font-size: 1.05rem;
       }
-      .subjects-showcase {
-        gap: 8px;
-      }
       .subject-pill {
         padding: 8px 16px;
         font-size: 0.8rem;
+      }
+
+      .subscriptions-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
 
       .reg-header h1 {
@@ -819,10 +982,6 @@
       }
       .card-panel {
         padding: 1.2rem 1.2rem 1.5rem;
-      }
-      .booking-meta {
-        gap: 8px;
-        font-size: 0.75rem;
       }
       .badge-gold {
         font-size: 0.75rem;
@@ -849,12 +1008,15 @@
         font-size: 0.9rem;
         gap: 12px;
       }
-      .btn-hero i {
-        font-size: 1rem;
-      }
       .subject-pill {
         padding: 6px 12px;
         font-size: 0.7rem;
+      }
+      .subscription-card {
+        padding: 1.5rem 1.2rem;
+      }
+      .sub-price {
+        font-size: 1.8rem;
       }
       .reg-header h1 {
         font-size: 1rem;
@@ -866,10 +1028,6 @@
       .btn-back {
         padding: 6px 14px;
         font-size: 0.7rem;
-      }
-      .welcome-badge {
-        font-size: 0.7rem;
-        padding: 5px 14px;
       }
     }
   </style>
@@ -907,7 +1065,6 @@
           <br>وانتظر موافقة المدير على طلبك
         </p>
 
-        <!-- Subjects Showcase -->
         <div class="subjects-showcase">
           <span class="subject-pill"><span class="emoji">🧬</span> أحياء</span>
           <span class="subject-pill"><span class="emoji">⚗️</span> كيمياء</span>
@@ -919,15 +1076,92 @@
           <span class="subject-pill"><span class="emoji">🇫🇷</span> فرنساوي</span>
         </div>
 
-        <button class="btn-hero" id="goToRegisterBtn">
+        <button class="btn-hero" id="goToSubscriptionBtn">
           <i class="fas fa-arrow-left"></i>
-          ابدأ حجز الآن
-          <i class="fas fa-pen-fancy pulse"></i>
+          اشترك الآن
+          <i class="fas fa-crown pulse"></i>
         </button>
       </div>
     </div>
 
-    <!-- ==================== PAGE 2: REGISTRATION ==================== -->
+    <!-- ==================== PAGE 2: SUBSCRIPTIONS ==================== -->
+    <div class="page" id="subscriptionPage">
+      <div class="subscription-header">
+        <h1><i class="fas fa-crown"></i> باقات الاشتراك</h1>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <span class="badge-gold"><i class="fas fa-star"></i> 2025-2026</span>
+          <button class="btn-back" id="backToWelcomeFromSubBtn">
+            <i class="fas fa-arrow-right"></i> العودة
+          </button>
+        </div>
+      </div>
+
+      <div class="subscriptions-grid">
+        <!-- Basic Plan -->
+        <div class="subscription-card">
+          <div class="sub-icon"><i class="fas fa-gem"></i></div>
+          <div class="sub-name">الباقة الأساسية</div>
+          <div class="sub-price">مجاني <small>/ شهرياً</small></div>
+          <ul class="sub-features">
+            <li><i class="fas fa-check"></i> تسجيل 3 مواد</li>
+            <li><i class="fas fa-check"></i> متابعة الطلبات</li>
+            <li><i class="fas fa-times"></i> أولوية الموافقة</li>
+            <li><i class="fas fa-times"></i> دعم فني مميز</li>
+          </ul>
+          <button class="btn-subscribe" onclick="alert('✅ تم الاشتراك في الباقة الأساسية مجاناً!')">
+            <i class="fas fa-check"></i> اشترك مجاناً
+          </button>
+        </div>
+
+        <!-- Gold Plan -->
+        <div class="subscription-card popular">
+          <div class="sub-icon gold"><i class="fas fa-crown"></i></div>
+          <div class="sub-name">الباقة الذهبية</div>
+          <div class="sub-price">99 ر.س <small>/ شهرياً</small></div>
+          <ul class="sub-features">
+            <li><i class="fas fa-check"></i> تسجيل 8 مواد</li>
+            <li><i class="fas fa-check"></i> متابعة الطلبات</li>
+            <li><i class="fas fa-check"></i> أولوية الموافقة</li>
+            <li><i class="fas fa-check"></i> دعم فني 24/7</li>
+          </ul>
+          <button class="btn-subscribe gold" onclick="alert('⭐ تم الاشتراك في الباقة الذهبية! تم خصم 99 ر.س')">
+            <i class="fas fa-crown"></i> اشترك الآن
+          </button>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="subscription-card">
+          <div class="sub-icon premium"><i class="fas fa-rocket"></i></div>
+          <div class="sub-name">الباقة البريميوم</div>
+          <div class="sub-price">199 ر.س <small>/ شهرياً</small></div>
+          <ul class="sub-features">
+            <li><i class="fas fa-check"></i> تسجيل غير محدود</li>
+            <li><i class="fas fa-check"></i> متابعة الطلبات</li>
+            <li><i class="fas fa-check"></i> أولوية الموافقة</li>
+            <li><i class="fas fa-check"></i> دعم فني VIP</li>
+          </ul>
+          <button class="btn-subscribe premium" onclick="alert('🚀 تم الاشتراك في الباقة البريميوم! تم خصم 199 ر.س')">
+            <i class="fas fa-rocket"></i> اشترك الآن
+          </button>
+        </div>
+      </div>
+
+      <div class="sub-note">
+        <i class="fas fa-shield-alt"></i>
+        جميع الباقات آمنة · يمكنك تغيير أو إلغاء الاشتراك في أي وقت
+        <i class="fas fa-shield-alt" style="margin-right:6px;"></i>
+      </div>
+
+      <div style="text-align:center; margin-top: 2rem;">
+        <button class="btn-hero" id="goToRegisterFromSubBtn" style="padding:14px 40px; font-size:1rem;">
+          <i class="fas fa-arrow-left"></i>
+          ابدأ حجز الآن
+          <i class="fas fa-pen-fancy"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE 3: REGISTRATION ==================== -->
     <div class="page" id="registerPage">
 
       <!-- header -->
@@ -935,8 +1169,8 @@
         <h1><i class="fas fa-user-graduate"></i> تسجيل الامتحانات</h1>
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
           <span class="badge-gold"><i class="fas fa-star"></i> 2025-2026</span>
-          <button class="btn-back" id="backToWelcomeBtn">
-            <i class="fas fa-arrow-right"></i> العودة
+          <button class="btn-back" id="backToSubscriptionBtn">
+            <i class="fas fa-arrow-right"></i> العودة للاشتراكات
           </button>
         </div>
       </div>
@@ -991,9 +1225,14 @@
 
       <!-- requests list panel -->
       <div class="card-panel">
-        <div class="list-header">
-          <h2><i class="fas fa-clipboard-list"></i> الطلبات المسجلة</h2>
-          <span class="count-badge"><i class="fas fa-file-signature"></i> <span id="bookingCounter">0</span></span>
+        <div class="list-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-bottom:2px solid rgba(180,200,220,0.2); padding-bottom:0.9rem; margin-bottom:1.3rem;">
+          <h2 style="border-bottom:none; padding-bottom:0; margin-bottom:0; font-size:1.25rem; font-weight:700; color:#0a1a2e; display:flex; align-items:center; gap:12px;">
+            <i class="fas fa-clipboard-list" style="background:linear-gradient(135deg, #1a334b, #2a4a6a); color:white; padding:8px 12px; border-radius:50px; font-size:1rem;"></i>
+            الطلبات المسجلة
+          </h2>
+          <span class="count-badge" style="background:linear-gradient(135deg, #1a334b, #2a4a6a); color:white; padding:6px 18px; border-radius:50px; font-size:0.85rem; font-weight:600; display:flex; align-items:center; gap:10px; box-shadow:0 4px 12px -4px rgba(26,51,75,0.25);">
+            <i class="fas fa-file-signature"></i> <span id="bookingCounter">0</span>
+          </span>
         </div>
 
         <div class="booking-scroll" id="bookingListContainer">
@@ -1019,26 +1258,27 @@
 
       // ===== PAGE NAVIGATION =====
       const welcomePage = document.getElementById('welcomePage');
+      const subscriptionPage = document.getElementById('subscriptionPage');
       const registerPage = document.getElementById('registerPage');
-      const goToRegisterBtn = document.getElementById('goToRegisterBtn');
-      const backToWelcomeBtn = document.getElementById('backToWelcomeBtn');
+
+      const goToSubscriptionBtn = document.getElementById('goToSubscriptionBtn');
+      const backToWelcomeFromSubBtn = document.getElementById('backToWelcomeFromSubBtn');
+      const goToRegisterFromSubBtn = document.getElementById('goToRegisterFromSubBtn');
+      const backToSubscriptionBtn = document.getElementById('backToSubscriptionBtn');
 
       function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        // Scroll to top
-        document.querySelector('.main-container').scrollTop = 0;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      goToRegisterBtn.addEventListener('click', () => {
+      goToSubscriptionBtn.addEventListener('click', () => showPage('subscriptionPage'));
+      backToWelcomeFromSubBtn.addEventListener('click', () => showPage('welcomePage'));
+      goToRegisterFromSubBtn.addEventListener('click', () => {
         showPage('registerPage');
         setTimeout(() => document.getElementById('studentName').focus(), 300);
       });
-
-      backToWelcomeBtn.addEventListener('click', () => {
-        showPage('welcomePage');
-      });
+      backToSubscriptionBtn.addEventListener('click', () => showPage('subscriptionPage'));
 
       // ===== REGISTRATION LOGIC =====
       let requests = [];
