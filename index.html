@@ -3,40 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل امتحانات الثالثة ثانوي – نظام متكامل</title>
+  <title>تسجيل امتحانات الثالثة ثانوي</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Font (Cairo) for a more professional Arabic typography -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Cairo', 'Segoe UI', Roboto, system-ui, sans-serif;
+      font-family: 'Cairo', 'Segoe UI', sans-serif;
     }
 
     body {
       background: linear-gradient(135deg, #e8edf5 0%, #c8d6e8 100%);
       min-height: 100vh;
-      padding: 2rem 1.2rem;
+      padding: 1.5rem;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     .main-wrapper {
-      max-width: 1200px;
+      max-width: 800px;
       width: 100%;
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border-radius: 60px;
-      padding: 2.5rem 3rem;
-      box-shadow: 0 40px 80px -25px rgba(8, 20, 50, 0.4),
-                  inset 0 1px 3px rgba(255,255,255,0.7);
-      border: 1px solid rgba(255,255,255,0.6);
-      transition: all 0.3s ease;
+      border-radius: 40px;
+      padding: 2rem 2.2rem;
+      box-shadow: 0 30px 60px -20px rgba(8, 20, 50, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.6);
     }
 
     /* header */
@@ -45,167 +43,153 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2.2rem;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
     }
 
     .hero-header h1 {
       font-weight: 800;
-      font-size: 2.4rem;
+      font-size: 1.8rem;
       color: #0a1a2e;
       display: flex;
       align-items: center;
-      gap: 16px;
-      letter-spacing: -0.5px;
+      gap: 12px;
     }
 
     .hero-header h1 i {
       background: linear-gradient(135deg, #1a334b, #2a4a6a);
       color: white;
-      padding: 16px 20px;
-      border-radius: 60px;
-      font-size: 1.8rem;
-      box-shadow: 0 12px 24px -10px rgba(0,20,50,0.3);
+      padding: 12px 16px;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      box-shadow: 0 8px 18px -8px rgba(0, 20, 50, 0.3);
     }
 
     .badge-gold {
       background: linear-gradient(135deg, #1f3349, #2a405a);
       color: #f5e7c8;
-      padding: 12px 30px;
-      border-radius: 60px;
+      padding: 8px 22px;
+      border-radius: 50px;
       font-weight: 600;
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: 0 10px 20px -8px rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,215,120,0.15);
-    }
-
-    .badge-gold i { color: #f7c948; font-size: 1.3rem; }
-
-    /* steps indicator - enhanced */
-    .steps {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 2.2rem;
-      flex-wrap: wrap;
-      background: rgba(255,255,255,0.3);
-      padding: 10px 16px;
-      border-radius: 60px;
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.4);
-    }
-
-    .step {
-      padding: 8px 24px;
-      border-radius: 60px;
-      font-weight: 600;
-      color: #4a6a8a;
-      border: 1px solid transparent;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.95rem;
+      border: 1px solid rgba(255, 215, 120, 0.15);
+      box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.15);
+    }
+
+    .badge-gold i {
+      color: #f7c948;
+    }
+
+    /* steps - simple */
+    .steps {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 8px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .step {
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-weight: 600;
+      color: #4a6a8a;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       transition: all 0.3s ease;
     }
 
     .step.active {
       background: linear-gradient(135deg, #1a334b, #2a4a6a);
       color: white;
-      border-color: #1a334b;
-      box-shadow: 0 8px 20px -8px rgba(26,51,75,0.4);
+      box-shadow: 0 6px 16px -6px rgba(26, 51, 75, 0.35);
     }
 
-    .step i { font-size: 1rem; }
-
-    /* grid */
-    .grid-2col {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 2.5rem;
-      margin-top: 0.6rem;
+    .step i {
+      font-size: 0.85rem;
     }
 
-    @media (max-width: 860px) {
-      .grid-2col { grid-template-columns: 1fr; gap: 2.5rem; }
-      .main-wrapper { padding: 1.8rem 1.5rem; }
-      .hero-header h1 { font-size: 1.8rem; }
-      .steps { padding: 8px 12px; }
-      .step { padding: 6px 14px; font-size: 0.8rem; }
-    }
-
+    /* card panels - stacked */
     .card-panel {
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 40px;
-      padding: 2rem 2.2rem 2.5rem;
-      box-shadow: 0 16px 40px -16px rgba(0,20,50,0.15);
-      border: 1px solid rgba(255,255,255,0.8);
-      transition: transform 0.2s ease;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 30px;
+      padding: 1.8rem 2rem 2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 8px 24px -12px rgba(0, 20, 50, 0.1);
     }
 
-    .card-panel:hover {
-      transform: translateY(-2px);
+    .card-panel:last-child {
+      margin-bottom: 0;
     }
 
     .card-panel h2 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #0a1a2e;
       display: flex;
       align-items: center;
-      gap: 14px;
-      border-bottom: 2px solid rgba(180, 200, 220, 0.4);
-      padding-bottom: 1.1rem;
-      margin-bottom: 2rem;
+      gap: 12px;
+      border-bottom: 2px solid rgba(180, 200, 220, 0.3);
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.5rem;
     }
 
     .card-panel h2 i {
       background: linear-gradient(135deg, #1a334b, #2a4a6a);
       color: white;
-      padding: 10px 14px;
-      border-radius: 60px;
-      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: 50px;
+      font-size: 1rem;
     }
 
     /* form */
     .input-group {
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.3rem;
     }
 
     .input-group label {
       display: block;
       font-weight: 600;
       color: #0a1a2e;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
     }
 
     .input-group label i {
-      margin-left: 12px;
+      margin-left: 10px;
       color: #2a5a7a;
-      width: 24px;
-      font-size: 1.1rem;
+      width: 20px;
     }
 
-    .input-group input, .input-group select {
+    .input-group input,
+    .input-group select {
       width: 100%;
-      padding: 16px 22px;
+      padding: 14px 20px;
       border: 2px solid #dce6f0;
-      border-radius: 40px;
-      background: rgba(255,255,255,0.9);
-      font-size: 1rem;
-      transition: all 0.25s ease;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
       outline: none;
       font-weight: 500;
       color: #0a1a2e;
     }
 
-    .input-group input:focus, .input-group select:focus {
+    .input-group input:focus,
+    .input-group select:focus {
       border-color: #1a4b74;
-      box-shadow: 0 0 0 6px rgba(26,75,116,0.1);
+      box-shadow: 0 0 0 5px rgba(26, 75, 116, 0.08);
       background: white;
     }
 
@@ -216,11 +200,11 @@
 
     .input-group select {
       appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%231a4b74" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%231a4b74" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>');
       background-repeat: no-repeat;
-      background-position: left 22px center;
-      background-size: 18px;
-      padding-left: 55px;
+      background-position: left 18px center;
+      background-size: 16px;
+      padding-left: 48px;
       cursor: pointer;
     }
 
@@ -229,49 +213,51 @@
       border: none;
       color: white;
       width: 100%;
-      padding: 18px;
-      border-radius: 60px;
+      padding: 16px;
+      border-radius: 50px;
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 10px;
-      box-shadow: 0 16px 30px -12px rgba(26,51,75,0.4);
-      border: 1px solid rgba(255,255,255,0.1);
+      margin-top: 8px;
+      box-shadow: 0 12px 24px -10px rgba(26, 51, 75, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 22px 40px -14px #0a1a2e;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 32px -12px #0a1a2e;
       background: linear-gradient(135deg, #0f2338, #1a3b5a);
     }
 
     .btn-primary:active {
-      transform: scale(0.96);
+      transform: scale(0.97);
     }
 
-    .btn-primary i { font-size: 1.3rem; }
+    .btn-primary i {
+      font-size: 1.1rem;
+    }
 
-    /* subject checkboxes - enhanced */
+    /* subject checkboxes */
     .subject-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 14px 0 10px;
+      gap: 10px;
+      margin: 12px 0 8px;
     }
 
     .subject-check {
-      background: rgba(255,255,255,0.9);
-      padding: 12px 18px;
-      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 10px 16px;
+      border-radius: 30px;
       border: 2px solid #dce6f0;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       transition: all 0.2s ease;
       cursor: pointer;
     }
@@ -279,13 +265,11 @@
     .subject-check:hover {
       border-color: #1a4b74;
       background: #f5faff;
-      transform: translateX(-4px);
-      box-shadow: 0 4px 12px rgba(26,75,116,0.08);
     }
 
     .subject-check input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       accent-color: #1a4b74;
       cursor: pointer;
       flex-shrink: 0;
@@ -296,7 +280,7 @@
       color: #0a1a2e;
       cursor: pointer;
       flex: 1;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     /* booking list */
@@ -305,81 +289,97 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      border-bottom: 2px solid rgba(180,200,220,0.4);
-      padding-bottom: 1rem;
-      margin-bottom: 1.6rem;
+      border-bottom: 2px solid rgba(180, 200, 220, 0.3);
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.3rem;
     }
 
-    .list-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .list-header h2 {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
 
     .count-badge {
       background: linear-gradient(135deg, #1a334b, #2a4a6a);
       color: white;
-      padding: 8px 22px;
-      border-radius: 60px;
-      font-size: 0.95rem;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 6px 16px -6px rgba(26,51,75,0.3);
+      gap: 10px;
+      box-shadow: 0 4px 12px -4px rgba(26, 51, 75, 0.25);
     }
 
     .booking-scroll {
-      max-height: 440px;
+      max-height: 360px;
       overflow-y: auto;
-      padding-left: 4px;
+      padding-left: 2px;
     }
 
-    .booking-scroll::-webkit-scrollbar { width: 6px; }
-    .booking-scroll::-webkit-scrollbar-track { background: #d3dfed; border-radius: 20px; }
-    .booking-scroll::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #2a5a7e, #1a3b5a); border-radius: 20px; }
+    .booking-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .booking-scroll::-webkit-scrollbar-track {
+      background: #d3dfed;
+      border-radius: 20px;
+    }
+    .booking-scroll::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #2a5a7e, #1a3b5a);
+      border-radius: 20px;
+    }
 
     .booking-item {
-      background: rgba(255,255,255,0.85);
-      padding: 18px 22px;
-      border-radius: 32px;
-      margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 16px 20px;
+      border-radius: 28px;
+      margin-bottom: 12px;
       border: 1px solid #e7eef8;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-      backdrop-filter: blur(4px);
     }
 
     .booking-item:hover {
       border-color: #b0c8dd;
       background: white;
-      transform: translateX(-4px);
-      box-shadow: 0 8px 24px rgba(0,20,40,0.08);
     }
 
-    .booking-info { display: flex; flex-direction: column; gap: 6px; }
+    .booking-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
 
     .booking-title {
       font-weight: 700;
       color: #0a1a2e;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     .booking-meta {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 14px;
       flex-wrap: wrap;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #3a5a77;
     }
 
-    .booking-meta i { margin-left: 8px; color: #2a5a7a; width: 20px; }
+    .booking-meta i {
+      margin-left: 6px;
+      color: #2a5a7a;
+      width: 16px;
+    }
 
     .status-tag {
-      padding: 5px 18px;
-      border-radius: 60px;
-      font-size: 0.75rem;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.7rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .status-pending {
@@ -396,8 +396,8 @@
 
     .booking-actions {
       display: flex;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 8px;
       flex-wrap: wrap;
     }
 
@@ -405,147 +405,159 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      font-size: 0.9rem;
-      padding: 8px 18px;
-      border-radius: 60px;
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border-radius: 50px;
       transition: all 0.2s ease;
       color: #3f6483;
       border: 2px solid #dce6f0;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .booking-actions .approve-btn {
       color: #1f6d4a;
       border-color: #9fc7b2;
-      background: rgba(31,109,74,0.05);
+      background: rgba(31, 109, 74, 0.04);
     }
     .booking-actions .approve-btn:hover {
       background: #e1f3e9;
       border-color: #5a9a7a;
-      transform: scale(1.02);
     }
 
     .booking-actions .delete-btn {
       color: #b1424a;
       border-color: #f0cfd2;
-      background: rgba(177,66,74,0.05);
+      background: rgba(177, 66, 74, 0.04);
     }
     .booking-actions .delete-btn:hover {
       background: #fde7ea;
       border-color: #d48a92;
-      transform: scale(1.02);
     }
 
     .empty-state {
       text-align: center;
-      padding: 3rem 0.5rem;
+      padding: 2rem 0.5rem;
       color: #4e6f8c;
     }
     .empty-state i {
-      font-size: 4rem;
-      opacity: 0.25;
+      font-size: 3rem;
+      opacity: 0.2;
       display: block;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       color: #1a334b;
     }
-    .empty-state p { font-weight: 500; font-size: 1.05rem; }
+    .empty-state p {
+      font-weight: 500;
+      font-size: 1rem;
+    }
 
     .admin-note {
-      margin-top: 20px;
-      padding: 16px 22px;
+      margin-top: 18px;
+      padding: 14px 20px;
       background: linear-gradient(135deg, #e8eef7, #dce6f2);
-      border-radius: 40px;
-      font-size: 0.9rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
       color: #0a2a4a;
       display: flex;
       align-items: center;
-      gap: 16px;
-      border-right: 5px solid #1a4b74;
+      gap: 14px;
+      border-right: 4px solid #1a4b74;
       font-weight: 500;
     }
 
-    .admin-note i { font-size: 1.5rem; color: #1a4b74; }
+    .admin-note i {
+      font-size: 1.3rem;
+      color: #1a4b74;
+    }
 
-    @media (max-width: 520px) {
-      .subject-grid { grid-template-columns: 1fr; }
-      .booking-meta { gap: 10px; font-size: 0.8rem; }
-      .booking-item { padding: 14px 16px; }
+    @media (max-width: 600px) {
+      .main-wrapper {
+        padding: 1.2rem 1.2rem;
+      }
+      .hero-header h1 {
+        font-size: 1.4rem;
+      }
+      .subject-grid {
+        grid-template-columns: 1fr;
+      }
+      .steps {
+        padding: 6px 10px;
+      }
+      .step {
+        padding: 4px 12px;
+        font-size: 0.75rem;
+      }
+      .card-panel {
+        padding: 1.2rem 1.2rem 1.5rem;
+      }
+      .booking-meta {
+        gap: 8px;
+        font-size: 0.75rem;
+      }
     }
   </style>
 </head>
 <body>
-<div class="main-wrapper">
+  <div class="main-wrapper">
 
-  <!-- header -->
-  <div class="hero-header">
-    <h1><i class="fas fa-user-graduate"></i> تسجيل امتحانات الثالثة ثانوي</h1>
-    <div class="badge-gold"><i class="fas fa-star"></i> 2025-2026</div>
-  </div>
+    <!-- header -->
+    <div class="hero-header">
+      <h1><i class="fas fa-user-graduate"></i> تسجيل امتحانات الثالثة ثانوي</h1>
+      <div class="badge-gold"><i class="fas fa-star"></i> 2025-2026</div>
+    </div>
 
-  <!-- steps -->
-  <div class="steps">
-    <span class="step active"><i class="fas fa-user"></i> بيانات الطالب</span>
-    <span class="step"><i class="fas fa-layer-group"></i> اختيار القسم</span>
-    <span class="step"><i class="fas fa-book"></i> تسجيل المواد</span>
-    <span class="step"><i class="fas fa-check-circle"></i> انتظار الموافقة</span>
-  </div>
+    <!-- steps -->
+    <div class="steps">
+      <span class="step active"><i class="fas fa-user"></i> بيانات</span>
+      <span class="step"><i class="fas fa-layer-group"></i> القسم</span>
+      <span class="step"><i class="fas fa-book"></i> المواد</span>
+      <span class="step"><i class="fas fa-check-circle"></i> الموافقة</span>
+    </div>
 
-  <!-- grid -->
-  <div class="grid-2col">
-    <!-- form -->
+    <!-- form panel -->
     <div class="card-panel">
       <h2><i class="fas fa-pen-fancy"></i> نموذج التسجيل</h2>
       <form id="registrationForm">
-        <!-- step 1: personal -->
-        <div id="stepPersonal">
-          <div class="input-group">
-            <label for="studentName"><i class="fas fa-user"></i> اسم الطالب (ثلاثي)</label>
-            <input type="text" id="studentName" placeholder="مثال: أحمد محمد علي" required>
-          </div>
-          <div class="input-group">
-            <label for="studentPhone"><i class="fas fa-phone-alt"></i> رقم الهاتف</label>
-            <input type="tel" id="studentPhone" placeholder="05xxxxxxxx" required>
-          </div>
+        <div class="input-group">
+          <label for="studentName"><i class="fas fa-user"></i> اسم الطالب (ثلاثي)</label>
+          <input type="text" id="studentName" placeholder="مثال: أحمد محمد علي" required>
+        </div>
+        <div class="input-group">
+          <label for="studentPhone"><i class="fas fa-phone-alt"></i> رقم الهاتف</label>
+          <input type="tel" id="studentPhone" placeholder="05xxxxxxxx" required>
+        </div>
+        <div class="input-group">
+          <label for="majorSelect"><i class="fas fa-layer-group"></i> القسم</label>
+          <select id="majorSelect" required>
+            <option value="" disabled selected>-- اختر القسم --</option>
+            <option value="علمي">علمي (علوم + رياضيات)</option>
+            <option value="ادبي">أدبي (فلسفة + تاريخ + جغرافيا)</option>
+          </select>
         </div>
 
-        <!-- step 2: major -->
-        <div id="stepMajor">
-          <div class="input-group">
-            <label for="majorSelect"><i class="fas fa-layer-group"></i> القسم</label>
-            <select id="majorSelect" required>
-              <option value="" disabled selected>-- اختر القسم --</option>
-              <option value="علمي">علمي (علوم + رياضيات)</option>
-              <option value="ادبي">أدبي (فلسفة + تاريخ + جغرافيا)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- step 3: subjects (dynamic) -->
-        <div id="stepSubjects">
-          <label style="font-weight:700; color:#0a1a2e; display:block; margin-bottom:8px; font-size:0.95rem;">
-            <i class="fas fa-book" style="margin-left:12px; color:#2a5a7a;"></i> المواد الأساسية (اختر ما ترغب بتسجيله)
+        <div>
+          <label style="font-weight:700; color:#0a1a2e; display:block; margin-bottom:6px; font-size:0.9rem;">
+            <i class="fas fa-book" style="margin-left:10px; color:#2a5a7a;"></i> المواد الأساسية
           </label>
-          <div id="subjectCheckboxes" class="subject-grid">
-            <!-- يتم ملؤها بواسطة JS -->
-          </div>
-          <small style="color:#4a6a8a; display:block; margin-top:10px; font-weight:500;">* يمكنك اختيار مادة أو أكثر</small>
+          <div id="subjectCheckboxes" class="subject-grid"></div>
+          <small style="color:#4a6a8a; display:block; margin-top:8px; font-weight:500;">* اختر مادة أو أكثر</small>
         </div>
 
-        <button type="submit" class="btn-primary" id="submitBtn">
+        <button type="submit" class="btn-primary">
           <i class="fas fa-paper-plane"></i> إرسال الطلب
         </button>
       </form>
 
       <div class="admin-note">
         <i class="fas fa-shield-alt"></i>
-        <span><strong>ملاحظة:</strong> الطلب لا يُقبل إلا بعد موافقة المدير الأول. سيظهر حالة "قيد المراجعة" حتى الموافقة.</span>
+        <span><strong>ملاحظة:</strong> الطلب ينتظر موافقة المدير الأول.</span>
       </div>
     </div>
 
-    <!-- list -->
+    <!-- requests list panel -->
     <div class="card-panel">
       <div class="list-header">
         <h2><i class="fas fa-clipboard-list"></i> الطلبات المسجلة</h2>
@@ -555,234 +567,212 @@
       <div class="booking-scroll" id="bookingListContainer">
         <div class="empty-state" id="emptyState">
           <i class="fas fa-calendar-times"></i>
-          <p>لا توجد طلبات حتى الآن</p>
-          <p style="font-size:0.9rem; font-weight:400;">قم بتسجيل طلبك الأول</p>
+          <p>لا توجد طلبات</p>
         </div>
         <div id="bookingList"></div>
       </div>
     </div>
+
   </div>
-</div>
 
-<script>
-  (function() {
-    "use strict";
+  <script>
+    (function() {
+      "use strict";
 
-    // ---------- البيانات ----------
-    let requests = [];
+      let requests = [];
 
-    // المواد حسب القسم
-    const subjectMap = {
-      'علمي': ['الرياضيات', 'الفيزياء', 'الكيمياء', 'الأحياء'],
-      'ادبي': ['اللغة العربية', 'التاريخ', 'الجغرافيا', 'الفلسفة']
-    };
+      const subjectMap = {
+        'علمي': ['الرياضيات', 'الفيزياء', 'الكيمياء', 'الأحياء'],
+        'ادبي': ['اللغة العربية', 'التاريخ', 'الجغرافيا', 'الفلسفة']
+      };
 
-    // ---------- DOM ----------
-    const form = document.getElementById('registrationForm');
-    const studentName = document.getElementById('studentName');
-    const studentPhone = document.getElementById('studentPhone');
-    const majorSelect = document.getElementById('majorSelect');
-    const subjectContainer = document.getElementById('subjectCheckboxes');
-    const bookingListEl = document.getElementById('bookingList');
-    const emptyState = document.getElementById('emptyState');
-    const bookingCounter = document.getElementById('bookingCounter');
+      const form = document.getElementById('registrationForm');
+      const studentName = document.getElementById('studentName');
+      const studentPhone = document.getElementById('studentPhone');
+      const majorSelect = document.getElementById('majorSelect');
+      const subjectContainer = document.getElementById('subjectCheckboxes');
+      const bookingListEl = document.getElementById('bookingList');
+      const emptyState = document.getElementById('emptyState');
+      const bookingCounter = document.getElementById('bookingCounter');
 
-    // ---------- دالة عرض المواد حسب القسم ----------
-    function renderSubjects(major) {
-      subjectContainer.innerHTML = '';
-      const subjects = subjectMap[major] || [];
-      if (subjects.length === 0) {
-        subjectContainer.innerHTML = '<p style="color:#4a6a8a; font-weight:500; padding:8px 0;">يرجى اختيار القسم أولاً</p>';
-        return;
+      function renderSubjects(major) {
+        subjectContainer.innerHTML = '';
+        const subjects = subjectMap[major] || [];
+        if (subjects.length === 0) {
+          subjectContainer.innerHTML = '<p style="color:#4a6a8a; font-weight:500; padding:8px 0;">اختر القسم أولاً</p>';
+          return;
+        }
+        subjects.forEach(sub => {
+          const div = document.createElement('div');
+          div.className = 'subject-check';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.value = sub;
+          checkbox.id = 'sub_' + sub;
+          const label = document.createElement('label');
+          label.htmlFor = 'sub_' + sub;
+          label.textContent = sub;
+          div.appendChild(checkbox);
+          div.appendChild(label);
+          subjectContainer.appendChild(div);
+        });
       }
-      subjects.forEach(sub => {
-        const div = document.createElement('div');
-        div.className = 'subject-check';
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.value = sub;
-        checkbox.id = 'sub_' + sub;
-        const label = document.createElement('label');
-        label.htmlFor = 'sub_' + sub;
-        label.textContent = sub;
-        div.appendChild(checkbox);
-        div.appendChild(label);
-        subjectContainer.appendChild(div);
+
+      majorSelect.addEventListener('change', function() {
+        renderSubjects(this.value);
       });
-    }
 
-    // تحديث المواد عند تغيير القسم
-    majorSelect.addEventListener('change', function() {
-      renderSubjects(this.value);
-    });
+      renderSubjects('');
 
-    // تحميل المواد الافتراضية (عند التحميل)
-    renderSubjects('');
+      function renderRequests() {
+        bookingListEl.innerHTML = '';
 
-    // ---------- دالة عرض الطلبات ----------
-    function renderRequests() {
-      bookingListEl.innerHTML = '';
+        if (requests.length === 0) {
+          emptyState.style.display = 'block';
+          bookingCounter.textContent = '0';
+          return;
+        }
 
-      if (requests.length === 0) {
-        emptyState.style.display = 'block';
-        bookingCounter.textContent = '0';
-        return;
-      }
+        emptyState.style.display = 'none';
+        bookingCounter.textContent = requests.length;
 
-      emptyState.style.display = 'none';
-      bookingCounter.textContent = requests.length;
+        const sorted = [...requests].reverse();
 
-      // عرض الأحدث أولاً
-      const sorted = [...requests].reverse();
+        sorted.forEach((req, idx) => {
+          const originalIndex = requests.length - 1 - idx;
 
-      sorted.forEach((req, idx) => {
-        const originalIndex = requests.length - 1 - idx;
+          const item = document.createElement('div');
+          item.className = 'booking-item';
 
-        const item = document.createElement('div');
-        item.className = 'booking-item';
+          const infoDiv = document.createElement('div');
+          infoDiv.className = 'booking-info';
 
-        const infoDiv = document.createElement('div');
-        infoDiv.className = 'booking-info';
+          const titleSpan = document.createElement('span');
+          titleSpan.className = 'booking-title';
+          titleSpan.textContent = req.student;
 
-        const titleSpan = document.createElement('span');
-        titleSpan.className = 'booking-title';
-        titleSpan.textContent = req.student;
+          const metaDiv = document.createElement('div');
+          metaDiv.className = 'booking-meta';
+          const statusClass = req.approved ? 'status-approved' : 'status-pending';
+          const statusText = req.approved ? 'موافق عليه' : 'قيد المراجعة';
+          const statusIcon = req.approved ? 'fa-check-circle' : 'fa-clock';
+          metaDiv.innerHTML = `
+            <span><i class="fas fa-phone"></i> ${req.phone}</span>
+            <span><i class="fas fa-layer-group"></i> ${req.major}</span>
+            <span><i class="fas fa-book"></i> ${req.subjects.join('، ')}</span>
+            <span class="status-tag ${statusClass}"><i class="fas ${statusIcon}"></i> ${statusText}</span>
+          `;
 
-        const metaDiv = document.createElement('div');
-        metaDiv.className = 'booking-meta';
-        const statusClass = req.approved ? 'status-approved' : 'status-pending';
-        const statusText = req.approved ? 'موافق عليه' : 'قيد المراجعة';
-        const statusIcon = req.approved ? 'fa-check-circle' : 'fa-clock';
-        metaDiv.innerHTML = `
-          <span><i class="fas fa-phone"></i> ${req.phone}</span>
-          <span><i class="fas fa-layer-group"></i> ${req.major}</span>
-          <span><i class="fas fa-book"></i> ${req.subjects.join('، ')}</span>
-          <span class="status-tag ${statusClass}"><i class="fas ${statusIcon}"></i> ${statusText}</span>
-        `;
+          infoDiv.appendChild(titleSpan);
+          infoDiv.appendChild(metaDiv);
 
-        infoDiv.appendChild(titleSpan);
-        infoDiv.appendChild(metaDiv);
+          const actionsDiv = document.createElement('div');
+          actionsDiv.className = 'booking-actions';
 
-        // actions
-        const actionsDiv = document.createElement('div');
-        actionsDiv.className = 'booking-actions';
+          if (!req.approved) {
+            const approveBtn = document.createElement('button');
+            approveBtn.className = 'approve-btn';
+            approveBtn.innerHTML = '<i class="fas fa-check"></i> قبول (مدير)';
+            approveBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              if (confirm(`هل توافق على طلب "${req.student}"؟`)) {
+                requests[originalIndex].approved = true;
+                renderRequests();
+              }
+            });
+            actionsDiv.appendChild(approveBtn);
+          }
 
-        // زر الموافقة (مدير)
-        if (!req.approved) {
-          const approveBtn = document.createElement('button');
-          approveBtn.className = 'approve-btn';
-          approveBtn.innerHTML = '<i class="fas fa-check"></i> قبول (مدير)';
-          approveBtn.addEventListener('click', function(e) {
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> حذف';
+          deleteBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            if (confirm(`هل توافق على طلب "${req.student}"؟`)) {
-              requests[originalIndex].approved = true;
+            if (confirm(`حذف طلب "${req.student}"؟`)) {
+              requests.splice(originalIndex, 1);
               renderRequests();
             }
           });
-          actionsDiv.appendChild(approveBtn);
+          actionsDiv.appendChild(deleteBtn);
+
+          if (req.approved) {
+            const revokeBtn = document.createElement('button');
+            revokeBtn.className = 'delete-btn';
+            revokeBtn.style.borderColor = '#f0cfd2';
+            revokeBtn.innerHTML = '<i class="fas fa-undo-alt"></i> إلغاء الموافقة';
+            revokeBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              if (confirm(`إلغاء الموافقة عن طلب "${req.student}"؟`)) {
+                requests[originalIndex].approved = false;
+                renderRequests();
+              }
+            });
+            actionsDiv.appendChild(revokeBtn);
+          }
+
+          item.appendChild(infoDiv);
+          item.appendChild(actionsDiv);
+          bookingListEl.appendChild(item);
+        });
+      }
+
+      function addRequest(event) {
+        event.preventDefault();
+
+        const name = studentName.value.trim();
+        const phone = studentPhone.value.trim();
+        const major = majorSelect.value;
+        const checkboxes = subjectContainer.querySelectorAll('input[type="checkbox"]:checked');
+        const selectedSubjects = Array.from(checkboxes).map(cb => cb.value);
+
+        if (!name || !phone || !major) {
+          alert('يرجى ملء جميع الحقول: الاسم، الهاتف، القسم.');
+          return;
+        }
+        if (selectedSubjects.length === 0) {
+          alert('يرجى اختيار مادة واحدة على الأقل.');
+          return;
         }
 
-        // زر حذف
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> حذف';
-        deleteBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (confirm(`هل تريد حذف طلب "${req.student}"؟`)) {
-            requests.splice(originalIndex, 1);
-            renderRequests();
-          }
+        const duplicate = requests.some(r => r.student === name && r.phone === phone);
+        if (duplicate) {
+          alert('يوجد طلب مسجل بنفس الاسم ورقم الهاتف.');
+          return;
+        }
+
+        requests.push({
+          student: name,
+          phone: phone,
+          major: major,
+          subjects: selectedSubjects,
+          approved: false
         });
 
-        actionsDiv.appendChild(deleteBtn);
-
-        // إذا كان الطلب مقبولاً، نضيف زر إلغاء الموافقة (اختياري)
-        if (req.approved) {
-          const revokeBtn = document.createElement('button');
-          revokeBtn.className = 'delete-btn';
-          revokeBtn.style.borderColor = '#f0cfd2';
-          revokeBtn.innerHTML = '<i class="fas fa-undo-alt"></i> إلغاء الموافقة';
-          revokeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (confirm(`إلغاء الموافقة عن طلب "${req.student}"؟`)) {
-              requests[originalIndex].approved = false;
-              renderRequests();
-            }
-          });
-          actionsDiv.appendChild(revokeBtn);
-        }
-
-        item.appendChild(infoDiv);
-        item.appendChild(actionsDiv);
-        bookingListEl.appendChild(item);
-      });
-    }
-
-    // ---------- إضافة طلب جديد ----------
-    function addRequest(event) {
-      event.preventDefault();
-
-      const name = studentName.value.trim();
-      const phone = studentPhone.value.trim();
-      const major = majorSelect.value;
-      // جلب المواد المختارة
-      const checkboxes = subjectContainer.querySelectorAll('input[type="checkbox"]:checked');
-      const selectedSubjects = Array.from(checkboxes).map(cb => cb.value);
-
-      // التحقق
-      if (!name || !phone || !major) {
-        alert('يرجى ملء جميع الحقول: الاسم، الهاتف، القسم.');
-        return;
-      }
-      if (selectedSubjects.length === 0) {
-        alert('يرجى اختيار مادة واحدة على الأقل.');
-        return;
-      }
-
-      // منع التكرار (نفس الاسم + الهاتف)
-      const duplicate = requests.some(r => r.student === name && r.phone === phone);
-      if (duplicate) {
-        alert('يوجد طلب مسجل بنفس الاسم ورقم الهاتف. يرجى التحقق.');
-        return;
-      }
-
-      // إضافة الطلب
-      requests.push({
-        student: name,
-        phone: phone,
-        major: major,
-        subjects: selectedSubjects,
-        approved: false   // غير موافق عليه حتى يقوم المدير بالموافقة
-      });
-
-      renderRequests();
-
-      // إعادة تعيين النموذج
-      form.reset();
-      // إعادة تعيين القسم والمواد
-      majorSelect.value = '';
-      renderSubjects('');
-      studentName.focus();
-
-      alert('تم تسجيل طلبك بنجاح! ينتظر موافقة المدير الأول.');
-    }
-
-    // ربط الحدث
-    form.addEventListener('submit', addRequest);
-
-    // ---------- بيانات نموذجية ----------
-    (function loadSample() {
-      if (requests.length === 0) {
-        requests = [
-          { student: 'أحمد محمد علي', phone: '0555123456', major: 'علمي', subjects: ['الرياضيات', 'الفيزياء'], approved: false },
-          { student: 'سارة خالد حسن', phone: '0555987654', major: 'ادبي', subjects: ['اللغة العربية', 'التاريخ'], approved: true },
-          { student: 'محمد يوسف رضا', phone: '0555234567', major: 'علمي', subjects: ['الكيمياء', 'الأحياء'], approved: false },
-        ];
         renderRequests();
-      }
-    })();
 
-  })();
-</script>
+        form.reset();
+        majorSelect.value = '';
+        renderSubjects('');
+        studentName.focus();
+
+        alert('تم تسجيل الطلب بنجاح! ينتظر الموافقة.');
+      }
+
+      form.addEventListener('submit', addRequest);
+
+      // بيانات نموذجية
+      (function loadSample() {
+        if (requests.length === 0) {
+          requests = [
+            { student: 'أحمد محمد علي', phone: '0555123456', major: 'علمي', subjects: ['الرياضيات', 'الفيزياء'], approved: false },
+            { student: 'سارة خالد حسن', phone: '0555987654', major: 'ادبي', subjects: ['اللغة العربية', 'التاريخ'], approved: true },
+            { student: 'محمد يوسف رضا', phone: '0555234567', major: 'علمي', subjects: ['الكيمياء', 'الأحياء'], approved: false },
+          ];
+          renderRequests();
+        }
+      })();
+
+    })();
+  </script>
 </body>
   </html>
