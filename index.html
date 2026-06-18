@@ -17,7 +17,7 @@
     }
 
     body {
-      background: linear-gradient(145deg, #e8edf5 0%, #b8cae0 100%);
+      background: linear-gradient(145deg, #e8edf5 0%, #b0c4db 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -25,53 +25,74 @@
       padding: 1.5rem;
     }
 
-    /* ========== PAGE CONTAINER ========== */
-    .page-container {
-      max-width: 900px;
+    /* ========== MAIN CONTAINER ========== */
+    .main-container {
+      max-width: 1000px;
       width: 100%;
       min-height: 85vh;
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       border-radius: 60px;
       padding: 2.5rem 3rem;
       box-shadow: 0 50px 100px -30px rgba(8, 20, 50, 0.4),
                   inset 0 1px 3px rgba(255,255,255,0.7);
-      border: 1px solid rgba(255,255,255,0.5);
-      transition: all 0.4s ease;
+      border: 1px solid rgba(255,255,255,0.4);
       position: relative;
       overflow: hidden;
+      transition: all 0.4s ease;
     }
 
-    /* Decorative background circles */
-    .page-container::before {
-      content: '';
+    /* Decorative elements */
+    .main-container::before {
+      content: '✦';
       position: absolute;
-      top: -120px;
-      right: -120px;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(26, 75, 116, 0.05), transparent 70%);
-      border-radius: 50%;
+      top: 30px;
+      right: 50px;
+      font-size: 8rem;
+      color: rgba(26, 75, 116, 0.03);
       pointer-events: none;
+      transform: rotate(15deg);
     }
 
-    .page-container::after {
-      content: '';
+    .main-container::after {
+      content: '★';
       position: absolute;
-      bottom: -80px;
-      left: -80px;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(247, 201, 72, 0.06), transparent 70%);
+      bottom: 30px;
+      left: 50px;
+      font-size: 10rem;
+      color: rgba(247, 201, 72, 0.04);
+      pointer-events: none;
+      transform: rotate(-10deg);
+    }
+
+    .bg-circle {
+      position: absolute;
       border-radius: 50%;
       pointer-events: none;
+      opacity: 0.04;
+    }
+
+    .bg-circle.c1 {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      left: -100px;
+      background: #1a4b74;
+    }
+
+    .bg-circle.c2 {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      right: -150px;
+      background: #f7c948;
     }
 
     /* ========== PAGES ========== */
     .page {
       display: none;
-      animation: fadeSlide 0.5s ease forwards;
+      animation: fadeSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       position: relative;
       z-index: 1;
     }
@@ -83,104 +104,171 @@
     @keyframes fadeSlide {
       from {
         opacity: 0;
-        transform: translateY(25px);
+        transform: translateY(30px) scale(0.98);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
       }
     }
 
-    /* ========== WELCOME PAGE ========== */
+    /* ============================================================ */
+    /* ==================== WELCOME PAGE =========================== */
+    /* ============================================================ */
+
     .welcome-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 60vh;
+      min-height: 65vh;
       text-align: center;
       padding: 1rem 0;
     }
 
-    .welcome-greeting {
-      font-size: 4.5rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, #0a1a2e, #2a4a6a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -2px;
-      line-height: 1.2;
+    .welcome-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(26, 75, 116, 0.08);
+      padding: 8px 24px;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a4b74;
+      border: 1px solid rgba(26, 75, 116, 0.1);
+      margin-bottom: 1.5rem;
     }
 
-    .welcome-greeting .hello {
-      font-size: 5.5rem;
+    .welcome-badge i {
+      font-size: 0.9rem;
+    }
+
+    .welcome-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.3;
+      color: #0a1a2e;
+      max-width: 700px;
+    }
+
+    .welcome-title .highlight {
       background: linear-gradient(135deg, #1a4b74, #f7c948);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      display: inline-block;
+    }
+
+    .welcome-title .big {
+      font-size: 3.8rem;
       display: block;
-      margin-bottom: 0.3rem;
+      background: linear-gradient(135deg, #0a1a2e, #2a4a6a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .welcome-sub {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      font-weight: 700;
       color: #1a3b5a;
-      font-weight: 600;
-      margin-top: 0.5rem;
-      opacity: 0.85;
+      margin-top: 0.8rem;
+      background: linear-gradient(135deg, #1a4b74, #2a6a8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .welcome-desc {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: #3a5a77;
-      max-width: 480px;
-      margin: 1.2rem auto 2.2rem;
-      line-height: 1.8;
+      max-width: 550px;
+      margin: 0.8rem auto 1.8rem;
+      line-height: 1.9;
       font-weight: 500;
     }
 
-    .welcome-icon {
-      font-size: 5rem;
-      color: #2a4a6a;
-      opacity: 0.12;
-      margin-bottom: 0.5rem;
-      pointer-events: none;
+    /* Subjects grid in welcome */
+    .subjects-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 1rem 0 2rem;
+      max-width: 650px;
+    }
+
+    .subject-pill {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #0a1a2e;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .subject-pill:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: white;
+      border-color: #1a4b74;
+      box-shadow: 0 8px 20px rgba(26, 75, 116, 0.12);
+    }
+
+    .subject-pill i {
+      color: #1a4b74;
+      font-size: 0.8rem;
+    }
+
+    .subject-pill .emoji {
+      font-size: 1.1rem;
     }
 
     .btn-hero {
       background: linear-gradient(135deg, #1a334b, #2a4a6a);
       border: none;
       color: white;
-      padding: 18px 60px;
+      padding: 20px 65px;
       border-radius: 60px;
-      font-weight: 700;
-      font-size: 1.2rem;
+      font-weight: 800;
+      font-size: 1.25rem;
       display: inline-flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 16px 40px -14px rgba(26, 51, 75, 0.5);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 50px -16px rgba(26, 51, 75, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.15);
       position: relative;
       overflow: hidden;
     }
 
-    .btn-hero::after {
+    .btn-hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 60%);
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 60%);
       pointer-events: none;
+      transition: 0.6s;
+    }
+
+    .btn-hero:hover::before {
+      transform: scale(1.2);
     }
 
     .btn-hero:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 24px 50px -18px #0a1a2e;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 30px 60px -18px #0a1a2e;
       background: linear-gradient(135deg, #0f2338, #1a3b5a);
     }
 
@@ -189,10 +277,22 @@
     }
 
     .btn-hero i {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
     }
 
-    /* ========== REGISTRATION PAGE ========== */
+    .btn-hero .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; transform: scale(0.95); }
+    }
+
+    /* ============================================================ */
+    /* ==================== REGISTER PAGE ========================== */
+    /* ============================================================ */
+
     .reg-header {
       display: flex;
       justify-content: space-between;
@@ -222,7 +322,7 @@
 
     .btn-back {
       background: rgba(255, 255, 255, 0.5);
-      border: 2px solid rgba(26, 51, 75, 0.15);
+      border: 2px solid rgba(26, 51, 75, 0.12);
       color: #1a334b;
       padding: 10px 24px;
       border-radius: 50px;
@@ -233,6 +333,7 @@
       gap: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
     }
 
     .btn-back:hover {
@@ -265,10 +366,10 @@
       gap: 6px;
       margin-bottom: 1.8rem;
       flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.25);
       padding: 8px 14px;
       border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .step {
@@ -295,15 +396,15 @@
 
     /* card panels */
     .card-panel {
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-radius: 30px;
       padding: 1.8rem 2rem 2rem;
       margin-bottom: 1.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 8px 24px -12px rgba(0, 20, 50, 0.08);
-      transition: transform 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 24px -12px rgba(0, 20, 50, 0.06);
+      transition: transform 0.3s ease;
     }
 
     .card-panel:last-child {
@@ -321,7 +422,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      border-bottom: 2px solid rgba(180, 200, 220, 0.25);
+      border-bottom: 2px solid rgba(180, 200, 220, 0.2);
       padding-bottom: 0.9rem;
       margin-bottom: 1.5rem;
     }
@@ -359,7 +460,7 @@
       padding: 14px 20px;
       border: 2px solid #dce6f0;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.75);
       font-size: 0.95rem;
       transition: all 0.25s ease;
       outline: none;
@@ -432,14 +533,14 @@
     }
 
     .subject-check {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.75);
       padding: 10px 16px;
       border-radius: 30px;
       border: 2px solid #dce6f0;
       display: flex;
       align-items: center;
       gap: 10px;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       cursor: pointer;
     }
 
@@ -447,6 +548,7 @@
       border-color: #1a4b74;
       background: #f5faff;
       transform: translateX(-3px);
+      box-shadow: 0 4px 12px rgba(26, 75, 116, 0.06);
     }
 
     .subject-check input[type="checkbox"] {
@@ -471,7 +573,7 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      border-bottom: 2px solid rgba(180, 200, 220, 0.25);
+      border-bottom: 2px solid rgba(180, 200, 220, 0.2);
       padding-bottom: 0.9rem;
       margin-bottom: 1.3rem;
     }
@@ -514,7 +616,7 @@
     }
 
     .booking-item {
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.7);
       padding: 16px 20px;
       border-radius: 28px;
       margin-bottom: 12px;
@@ -525,7 +627,7 @@
 
     .booking-item:hover {
       border-color: #b0c8dd;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.85);
       transform: translateX(-4px);
       box-shadow: 0 4px 16px rgba(0, 20, 40, 0.06);
     }
@@ -666,33 +768,40 @@
       font-size: 0.8rem;
       color: #5a7a97;
       font-weight: 500;
-      opacity: 0.7;
+      opacity: 0.6;
     }
 
     /* ========== RESPONSIVE ========== */
-    @media (max-width: 700px) {
-      .page-container {
-        padding: 1.5rem 1.2rem;
+    @media (max-width: 750px) {
+      .main-container {
+        padding: 1.8rem 1.5rem;
         border-radius: 40px;
-        min-height: 90vh;
+        min-height: 92vh;
       }
 
-      .welcome-greeting {
-        font-size: 2.8rem;
+      .welcome-title {
+        font-size: 2.2rem;
       }
-      .welcome-greeting .hello {
-        font-size: 3.8rem;
+      .welcome-title .big {
+        font-size: 2.6rem;
       }
       .welcome-sub {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
       }
       .welcome-desc {
         font-size: 0.95rem;
         padding: 0 0.5rem;
       }
       .btn-hero {
-        padding: 14px 40px;
-        font-size: 1rem;
+        padding: 16px 40px;
+        font-size: 1.05rem;
+      }
+      .subjects-showcase {
+        gap: 8px;
+      }
+      .subject-pill {
+        padding: 8px 16px;
+        font-size: 0.8rem;
       }
 
       .reg-header h1 {
@@ -721,67 +830,99 @@
       }
     }
 
-    @media (max-width: 450px) {
-      .page-container {
+    @media (max-width: 480px) {
+      .main-container {
         padding: 1rem 0.8rem;
         border-radius: 30px;
       }
-      .welcome-greeting {
+      .welcome-title {
+        font-size: 1.6rem;
+      }
+      .welcome-title .big {
         font-size: 2rem;
       }
-      .welcome-greeting .hello {
-        font-size: 2.8rem;
-      }
-      .welcome-icon {
-        font-size: 3rem;
+      .welcome-sub {
+        font-size: 1rem;
       }
       .btn-hero {
-        padding: 12px 28px;
+        padding: 14px 28px;
         font-size: 0.9rem;
-        gap: 10px;
+        gap: 12px;
+      }
+      .btn-hero i {
+        font-size: 1rem;
+      }
+      .subject-pill {
+        padding: 6px 12px;
+        font-size: 0.7rem;
       }
       .reg-header h1 {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
       .reg-header h1 i {
         padding: 8px 12px;
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
       .btn-back {
         padding: 6px 14px;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+      }
+      .welcome-badge {
+        font-size: 0.7rem;
+        padding: 5px 14px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="page-container">
+  <div class="main-container">
+    <!-- Background decorations -->
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
 
     <!-- ==================== PAGE 1: WELCOME ==================== -->
     <div class="page active" id="welcomePage">
       <div class="welcome-content">
-        <div class="welcome-icon">
-          <i class="fas fa-graduation-cap"></i>
+        <div class="welcome-badge">
+          <i class="fas fa-star"></i>
+          نظام التسجيل الإلكتروني 2026
+          <i class="fas fa-star"></i>
         </div>
-        <div class="welcome-greeting">
-          <span class="hello">Hello</span>
-          <span>مرحباً بك في نظام</span>
-          <span style="display:block; font-size:0.7em; background: linear-gradient(135deg, #1a4b74, #2a5a7e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">تسجيل امتحانات الثالثة ثانوي</span>
-        </div>
-        <p class="welcome-sub">منصة متكاملة لتسجيل المواد وإدارة الطلبات</p>
-        <p class="welcome-desc">
-          <i class="fas fa-check-circle" style="color:#1a4b74; margin-left:8px;"></i>
-          سجل المواد التي ترغب في أداء امتحانها<br>
-          <i class="fas fa-check-circle" style="color:#1a4b74; margin-left:8px;"></i>
-          انتظر موافقة المدير على طلبك<br>
-          <i class="fas fa-check-circle" style="color:#1a4b74; margin-left:8px;"></i>
-          تابع حالة طلباتك بكل سهولة
+
+        <h1 class="welcome-title">
+          <span class="big">مرحباً بك</span>
+          <span>في عالمنا معانا</span>
+          <span class="highlight">هاتضمن الـ Full Mark</span>
+          <span style="font-size:0.6em; display:block; color:#4a6a8a; -webkit-text-fill-color:#4a6a8a;">في أي امتحان</span>
+        </h1>
+
+        <p class="welcome-sub">
+          <i class="fas fa-graduation-cap" style="margin-left:10px;"></i>
+          اختر موادك وابدأ رحلة التفوق
         </p>
+
+        <p class="welcome-desc">
+          سجل في المواد التي ترغب في أداء امتحانها
+          <br>وانتظر موافقة المدير على طلبك
+        </p>
+
+        <!-- Subjects Showcase -->
+        <div class="subjects-showcase">
+          <span class="subject-pill"><span class="emoji">🧬</span> أحياء</span>
+          <span class="subject-pill"><span class="emoji">⚗️</span> كيمياء</span>
+          <span class="subject-pill"><span class="emoji">📖</span> عربي</span>
+          <span class="subject-pill"><span class="emoji">🇬🇧</span> إنجليزي</span>
+          <span class="subject-pill"><span class="emoji">🌍</span> جغرافيا</span>
+          <span class="subject-pill"><span class="emoji">🏛️</span> تاريخ</span>
+          <span class="subject-pill"><span class="emoji">📊</span> إحصاء</span>
+          <span class="subject-pill"><span class="emoji">🇫🇷</span> فرنساوي</span>
+        </div>
+
         <button class="btn-hero" id="goToRegisterBtn">
           <i class="fas fa-arrow-left"></i>
-          حجز امتحانات
-          <i class="fas fa-pen-fancy"></i>
+          ابدأ حجز الآن
+          <i class="fas fa-pen-fancy pulse"></i>
         </button>
       </div>
     </div>
@@ -885,12 +1026,14 @@
       function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
+        // Scroll to top
+        document.querySelector('.main-container').scrollTop = 0;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       goToRegisterBtn.addEventListener('click', () => {
         showPage('registerPage');
-        // focus on first input
-        document.getElementById('studentName').focus();
+        setTimeout(() => document.getElementById('studentName').focus(), 300);
       });
 
       backToWelcomeBtn.addEventListener('click', () => {
